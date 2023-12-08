@@ -1,0 +1,207 @@
+<!doctype html>
+<html title="home">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#991313",
+            bgsecond: "#f1efef",
+            text: "#3a3737",
+            textsub: "#9a9898",
+            border: "#c2bdbd",
+            hemp: "#8a7474",
+            accent1: "#c39494",
+            accent2: "#cdacac",
+            sirocco: "#6c7474",
+          }
+        }
+      }
+    }
+
+    lucide.createIcons();
+
+  </script>
+</head>
+<body>
+    <div class="flex w-full h-screen overflow-y-hidden">
+        <div id="sidebar" class="w-[20%] h-full bg-bgsecond pt-24 hidden md:block">
+            <div class=" absolute top-5 left-5 flex items-center text-white">
+                <div class=""></div>
+                <div class="">
+                    <h2 class=" font-bold text-md text-primary">Custodian</h2>
+                    <p class=" text-textsub text-sm">Knowledge management System</p>
+                </div>
+            </div>
+        </div>
+        <div class=" flex-1 p-8 overflow-y-scroll">
+            <div class=" flex items-center justify-between mb-10">
+                <div class=" w-full md:flex-grow">
+                    <h1 class=" font-bold text-4xl text-text mb-1">Home</h1>
+                    <p class=" capitalize text-gray-500">Welcome to the KMS <span class=" font-bold text-gray-900">Ademola</span> start exploring</p>
+                </div>
+                <div class="hidden md:block">
+                    <button class="" type="">
+                        <i data-lucide="bell"></i>
+                    </button>
+                </div>
+            </div>
+            <div class=" flex flex-col md:flex-row md:items-center justify-between">
+                <div class=" bg-accent1/10 rounded-full w-full md:w-fit mb-3 md:mb-0 px-1 py-1 flex items-center justify-between md:gap-3">
+                  <button data-tag="all" class=" text-sm md:text-md  md:flex px-2 md:px-5 py-1 hover:bg-primary rounded-full hover:text-white">All</button>
+                  <button data-tag="organization" class=" text-sm md:text-md  md:flex px-2 md:px-5 py-1 hover:bg-bg-primary rounded-full hover:text-white">Organization</button>
+                  <button data-tag="department" class=" text-sm md:text-md  md:flex px-2 md:px-5 py-1 hover:bg-bg-primary rounded-full hover:text-white">Department</button>
+                  <button data-tag="role" class=" text-sm md:text-md  md:flex px-2 md:px-5 py-1 hover:bg-bg-primary rounded-full hover:text-white">Role</button>
+                </div>
+                <div class=" bg-slate-100 rounded-full flex items-center px-4 py-2 focus-within:border border-bg-primary  md:w-[300px]">
+                  <!-- <IoSearch class="mr-2 text-xl text-red-800"/> -->
+                  <input type="text" class=" flex-grow bg-slate-100 focus:outline-none " id="searchInput" />
+                </div>
+            </div>
+            <div class=" dashboard-content grid grid-cols-1 md:grid-cols-3 py-10 gap-5">
+            </div>
+        </div>
+    </div>
+    <script src="./common.js"></script>
+
+    <script >
+        $(document).ready(function () {
+
+            loadSidebar();
+            renderContent(contentData.Result);
+
+
+            $('nav a').click(function (e) {
+                e.preventDefault();
+                const route = $(this).attr('href').substring(1);
+                loadContent(route);
+            });
+            $('#sidebar .dropdown-toggle').click(function () {
+                const $dropdownContent = $(this).siblings('.dropdown-content');
+                $dropdownContent.toggleClass('h-0 h-fit');
+            });
+
+            $('button[data-tag]').click(function () {
+                const tag = $(this).data('tag');
+                filterContent(tag);
+                markActiveTag(tag);
+            });
+
+            $('#searchInput').on('input', function () {
+                const searchText = $(this).val().toLowerCase();
+                filterContentBySearch(searchText);
+            });
+
+            filterContent('all');
+            markActiveTag('all');
+
+        })
+        
+        function renderContent(content) {
+            const $dashboardContent = $('.dashboard-content');
+            $dashboardContent.empty();
+            console.log(content)
+            content.forEach(item=>{
+
+                $dashboardContent.append(`
+                    <div class=" w-full border border-border bg-bgsecond/20 overflow-hidden rounded-lg p-2 group">
+                            <div class="flex items-center justify-between gap-3 mb-3">
+                            <div class=" flex items-center">
+                                <div class=" bg-red-200 rounded-md w-8 h-8 flex items-center justify-center mr-2 ">
+                                    <PiFolderThin/>
+                                </div>
+                                <h2 class="capitalize font-semibold text-lg truncate">${item.Title}</h2>
+                            </div>
+                            <button onClick={modal} class=" w-8 h-8 hover:bg-gray-200 rounded-full flex items-center justify-center"><BsThreeDots /></button>
+                            </div>
+                            ${item.ContentBody}
+                            <div class="flex justify-between items-center">
+                            <ul class="flex gap-1 items-center justify-between">
+                                <li class=" text-[10px] text-red-800">50 documents</li>
+                                <li class=" text-[10px] text-red-800">10 articles</li>
+                                <li class=" text-[10px] text-red-800">50 videos</li>
+                            </ul>
+                            <span class=" text-[10px] text-gray-600">edited 2 months ago</span>
+                            </div>
+                    </div>
+                `)
+            })
+        }
+
+        function filterContent(tag) {
+            let filteredContent = contentData.Result;
+            
+            if (tag !== 'all') {
+                filteredContent = contentData.Result.filter(item => {
+                    return item.Classification.toLowerCase() === tag.toLowerCase();
+                });
+            }
+
+            renderContent(filteredContent);
+        }
+
+        function filterContentBySearch(searchText) {
+            const filteredContent = contentData.Result.filter(item => {
+                return item.Title.toLowerCase().includes(searchText) || item.Description.toLowerCase().includes(searchText);
+            });
+
+            renderContent(filteredContent);
+        }
+        function markActiveTag(activeTag) {
+            $('button[data-tag]').removeClass('bg-primary text-white');
+            $(`button[data-tag="${activeTag}"]`).addClass('bg-primary text-white');
+        }
+        function loadContent(route) {
+        // Load content based on the selected route
+            switch (route) {
+                case 'dashboard':
+                    $('#content').html('<h2>This is the Dashboard!</h2><p>Some dashboard content...</p>');
+                    break;
+                case 'settings':
+                    $('#content').html('<h2>Settings Page</h2><p>Configure your settings here...</p>');
+                    break;
+                default:
+                    $('#content').html('<h2>Page Not Found</h2>');
+            }
+        }
+
+        function loadSidebar() {
+    const $nav = $('#sidebar');
+    console.log(menu);
+
+    menu.forEach(item => {
+        if (item.header) {
+            $nav.append(`<h2 class="uppercase mb-5 text-sm font-semibold mx-5 text-gray-500">${item.header}</h2>`);
+        } else {
+            if (item.children) {
+                // Dropdown item
+                $nav.append(`<div class="flex flex-col">
+                                <div class=" dropdown-toggle flex justify-between items-center text-textsub text-md px-5 py-2 hover:bg-red-800 hover:text-white hover:cursor-pointer w-11/12 rounded-e-md mb-3 capitalize font-normal">
+                                    <span>${item.name}</span>  <i data-lucide="x"></i>
+                                </div>
+                                <div class="  dropdown-content px-5 flex flex-col h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                                    ${item.children.map(child => `<a href="${child.url}" class="px-5 py-2 hover:bg-red-800 hover:text-white w-11/12 rounded-e-md mb-3 capitalize font-normal">${child.name}</a>`).join('')}
+                                </div>
+                            </div>`);
+            } else {
+                // Regular item without dropdown
+                $nav.append(`<a href="${item.url}" class="flex items-center text-textsub text-md px-5 py-2 hover:bg-red-800 hover:text-white hover:cursor-pointer w-11/12 rounded-e-md mb-3 capitalize font-normal">
+                                <i data-lucide="${item.icon}"></i><span>${item.name}</span>
+                            </a>`);
+            }
+        }
+    });
+}
+
+    </script>
+</body>
+</html>
