@@ -26,11 +26,14 @@
       }
     }
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
 </head>
 <body>
     <div id="slider" class="w-full relative h-screen flex bg-cover bg-center overflow-hidden " style="background-image: url('./img/bg.png');">
-        <div class=" absolute top-5 left-5 flex items-center text-white">
-            <div class=""></div>
+        <div class=" absolute top-5 left-5 flex gap-2 items-center text-white">
+            <div class="">
+              <img src="./img/logo.png" alt="" class=" w-10 h-10">
+            </div>
             <div class="">
                 <h2 class=" font-bold text-xl">Custodian</h2>
                 <p class=" text-gray-500">Knowledge management System</p>
@@ -55,13 +58,11 @@
             <h3 class="capitalize text-2xl text-gray-300 ">shared content</h3>
             <h1 class="capitalize text-6xl font-semibold text-gray-100">click to unwrap the latest files shared with you</h1>
             <a href="./dashboard.html" class=" bg-white text-primary text-xl rounded-lg px-20 py-5 font-semibold hover:bg-accent2 transition-all ease-in-out duration-400">Check it out</a>
-
         </div>
         <div class="slide flex-shrink-0 w-full h-full flex flex-col gap-8 items-center justify-center px-20 text-center">
             <h3 class="capitalize text-2xl text-gray-300 ">update request </h3>
             <h1 class="capitalize text-6xl font-semibold text-gray-100">good news! your requests got an update  discover the improvements</h1>
             <a href="./dashboard.html" class=" bg-white text-primary text-xl rounded-lg px-20 py-5 font-semibold hover:bg-accent2 transition-all ease-in-out duration-400">Check it out</a>
-
         </div>
     </div>        
     <script src="./index.js"></script>
