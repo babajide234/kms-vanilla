@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tiny.cloud/1/50wdqgqz88fpl68n52tmf8ilkr5udtv1jwcbcymq1f2xe9bo/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+  
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#991313",
+              bgsecond: "#f1efef",
+              text: "#3a3737",
+              textsub: "#9a9898",
+              border: "#c2bdbd",
+              hemp: "#8a7474",
+              accent1: "#c39494",
+              accent2: "#cdacac",
+              sirocco: "#6c7474",
+            }
+          }
+        }
+      }
+  
+      lucide.createIcons();
+  
+    </script>
+</head>
+<body>
+    <div class="flex w-full h-screen overflow-y-hidden">
+        <div id="sidebar" class="w-[20%] h-full bg-bgsecond pt-24 hidden md:block">
+            <div class=" absolute top-5 left-5 flex gap-2 items-center text-white">
+                <div class="">
+                    <img src="./img/logo.png" alt="" class=" w-8  ">
+                </div>
+                <div class="">
+                    <h2 class=" font-bold text-sm text-primary">Custodian</h2>
+                    <p class=" text-textsub text-xs">Knowledge management System</p>
+                </div>
+            </div>
+        </div>
+        <div class=" flex-1 overflow-y-scroll flex flex-col">
+            <div class="article-header p-8 flex items-center justify-between   border-solid border-gray-300">
+                <div class=" flex items-center gap-[30px]">
+                    <a href="/dashboard.html" class=" bg-[#F5F5F5] w-[48px] h-[48px] rounded-full flex justify-center items-center " type="">
+                        <i class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M20 12H4M4 12L10 18M4 12L10 6" stroke="#900000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </i>
+                    </a>
+                    <h2 class=" text-[26px] font-bold">New employee guide</h2>
+                </div>
+                <div class="flex items-center gap-5">
+                    <button class="py-[8px] px-[14px] bg-[#900000] capitalize text-sm rounded-lg text-white font-semibold ">Share</button>
+                    <button class="py-2 px-2  rounded-lg hover:bg-gray-50">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M8 12L12 16M12 16L16 12M12 16V8M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#3F3F3F" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button class="py-2 px-2  rounded-lg hover:bg-gray-50">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M5 7.8C5 6.11984 5 5.27976 5.32698 4.63803C5.6146 4.07354 6.07354 3.6146 6.63803 3.32698C7.27976 3 8.11984 3 9.8 3H14.2C15.8802 3 16.7202 3 17.362 3.32698C17.9265 3.6146 18.3854 4.07354 18.673 4.63803C19 5.27976 19 6.11984 19 7.8V21L12 17L5 21V7.8Z" stroke="#3F3F3F" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button class="py-2 px-2  rounded-lg hover:bg-gray-50">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#3F3F3F" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z" stroke="#3F3F3F" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13Z" stroke="#3F3F3F" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button class="dock-toggle py-2 px-2  rounded-lg hover:bg-gray-50">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="rotate-svg transition-transform ease duration-300">
+                            <path d="M6 17L11 12L6 7M13 17L18 12L13 7" stroke="black" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class=" flex">
+                <div class=" document-content flex-1 min-h-screen p-8 relative ">
+                    <div class=" mb-3">
+                        <h2 class=" mb-3 text-md font-semibold capitalize">Description</h2>
+                        <p class="text-[#808080] text-sm">
+                            The "New Employee Guide" folder is a comprehensive resource designed to orient and support individuals who have recently joined an organization. This folder serves as a one-stop repository for essential information that new employees need to navigate their way through the onboarding process and integrate seamlessly into the company culture. It includes a range of documents such as welcome messages, an organizational chart, policies and procedures, employee benefits information, and details on workplace etiquette.
+                        </p>
+                    </div>
+                    <div class="">
+                        <h2 class="mb-3 text-md font-semibold capitalize">content</h2>
+    
+                        <p class="text-[#808080] text-sm">
+                            Navigating Your Workspace
+    Welcome to your new professional home! Navigating your workspace is a multifaceted journey that goes beyond the confines of a physical desk. In this comprehensive guide, we'll walk you through the intricacies of both your physical and virtual work environments at [Company Name], ensuring that you feel empowered and well-equipped in every aspect of your professional life.
+    
+    Understanding Your Physical Workspace:
+    Your desk is more than just a place to complete tasks; it's a reflection of your identity within our communal space. Take a stroll around the office to familiarize yourself with the layout. Locate key areas such as meeting rooms, break rooms, and the coffee station. Understanding the physical flow of the office not only eases your daily navigation but also enhances your overall work experience.
+    
+    Exploring Virtual Platforms:
+    In an era dominated by digital collaboration, your virtual workspace is just as pivotal as the physical. This section is your gateway to our internal platforms and tools. From project management systems that streamline collaboration to shared document repositories that facilitate knowledge sharing, each tool has been carefully selected to enhance your workflow. We'll guide you through the functionalities, ensuring you harness the full potential of these resources.
+    Building Connections within Your Team:
+    
+    At Custodian, we thrive on teamwork and collaboration. Get to know your team members beyond their roles. This section delves into the dynamics of your immediate work group, introducing you to team leads and colleagues. Discover team rituals, communication preferences, and collaborative practices that make each team within our organization unique.
+    
+    Mastering Tech Essentials:
+    Equip yourself with the technological know-how essential for your role. Learn about the devices, software, and tools integral to your day-to-day tasks. Our dedicated IT support team is here to assist you, ensuring a seamless tech experience from day one. Whether it's troubleshooting or exploring advanced features, we've got you covered.
+    Your workspace is not merely a physical location; it's a dynamic ecosystem where collaboration, creativity, and innovation converge. This article sets the stage for a successful journey, providing you with the knowledge and resources to navigate both physical and virtual realms effectively.
+    Explore, engage, and make your workspace uniquely yours! Welcome to a new era of productivity and collaboration at [Company Name].
+                        </p>
+
+                        <div class=" p-[10px] w-fit fixed bottom-10 z-50 rounded-lg border-[#CDCDCD] border border-solid bg-[#FBFBFB] flex items-center justify-between">
+                            <span class="flex items-center gap-2">
+                                <img src="./img/pdf.png" alt="" class="">
+                                <h2 class=" w-[256px]">Training.pdf</h2>
+                            </span>
+                            <button class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                    <path d="M9.99967 10.8332C10.4599 10.8332 10.833 10.4601 10.833 9.99984C10.833 9.5396 10.4599 9.1665 9.99967 9.1665C9.53944 9.1665 9.16634 9.5396 9.16634 9.99984C9.16634 10.4601 9.53944 10.8332 9.99967 10.8332Z" stroke="#606060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M15.833 10.8332C16.2932 10.8332 16.6663 10.4601 16.6663 9.99984C16.6663 9.5396 16.2932 9.1665 15.833 9.1665C15.3728 9.1665 14.9997 9.5396 14.9997 9.99984C14.9997 10.4601 15.3728 10.8332 15.833 10.8332Z" stroke="#606060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M4.16634 10.8332C4.62658 10.8332 4.99967 10.4601 4.99967 9.99984C4.99967 9.5396 4.62658 9.1665 4.16634 9.1665C3.7061 9.1665 3.33301 9.5396 3.33301 9.99984C3.33301 10.4601 3.7061 10.8332 4.16634 10.8332Z" stroke="#606060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                  </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class=" document-dock hidden  w-[253px] border-l border-gray-300 border-solid min-h-screen ">
+                    <div class=" flex gap-5 px-[10px] py-[15px] items-center border-b border-gray-300 border-solid">
+                        <button class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                                <path d="M14 14.5L11.1 11.6M12.6667 7.83333C12.6667 10.7789 10.2789 13.1667 7.33333 13.1667C4.38781 13.1667 2 10.7789 2 7.83333C2 4.88781 4.38781 2.5 7.33333 2.5C10.2789 2.5 12.6667 4.88781 12.6667 7.83333Z" stroke="#808080" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <button class="tab-btn text-[12px]  text-textsub font-semibold " data-tab="remarks">Remarks</button>
+                        <button class="tab-btn text-[12px]  text-textsub font-semibold " data-tab="requestUpdate">Request update</button>
+                    </div>
+                    <div class="remarks-tab tab-content">
+                        <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
+                            <h3 class=" text-[12px] text-text font-semibold ">Like</h3>
+                            <button class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                                    <path d="M4.66683 15.1668V7.8335M1.3335 9.16683V13.8335C1.3335 14.5699 1.93045 15.1668 2.66683 15.1668H11.6177C12.6048 15.1668 13.4443 14.4466 13.5944 13.4709L14.3124 8.80428C14.4987 7.59276 13.5614 6.50016 12.3356 6.50016H10.0002C9.63197 6.50016 9.3335 6.20169 9.3335 5.8335V3.47739C9.3335 2.56949 8.5975 1.8335 7.6896 1.8335C7.47305 1.8335 7.27682 1.96103 7.18887 2.15891L4.84279 7.43759C4.73579 7.67834 4.49704 7.8335 4.23358 7.8335H2.66683C1.93045 7.8335 1.3335 8.43045 1.3335 9.16683Z" stroke="#808080" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
+                            <h3 class=" text-[12px] text-text font-semibold ">Rate</h3>
+                        </div>
+                        <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
+                            <div class="">
+                                <h3 class=" text-[12px] text-text font-semibold mb-3">Add Comment</h3>
+                                <form action="" class="">
+                                    <textarea name="" class=" w-full rounded-lg border border-[#DBDBDB] border-solid" id="" cols="30" rows="5"></textarea>
+                                    <button class=" text-primary  px-3 py-2 rounded-lg hover:bg-bgsecond float-right">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
+                            <div class="">
+                                <h3 class=" text-[12px] text-text font-semibold mb-3">Previous comments</h3>
+                                <div class="">
+                                    <div class=" flex flex-col gap-2">
+                                        <p class=" text-sm text-[#606060] text-justify text-xs">
+                                            Overall, I appreciate the creativity and effort put into the campaign, especially the eye-catching visuals
+                                        </p>
+                                        <div class=" flex items-center justify-between">
+                                            <span class=" text-primary capitalize text-xs">Author</span>
+                                            <span class=" text-text text-xs ">3 days ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="requestUpdate-tab tab-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./common.js"></script>
+
+    <script >
+        $(document).ready(function () {
+
+            loadSidebar();
+            tinymce.init({
+                selector: '.textarea',
+                maenubar:false,
+                inline: true,
+                plugins:[
+                    'lists',
+                    'powerpaste',
+                    'autolink'
+                ],
+                toolbar: 'undo redo | bold italic underline',
+            });
+        
+            $('.dock-toggle').click(function(){
+                const $dock = $('.document-dock');
+                $dock.toggleClass('hidden');
+
+                $('.rotate-svg').toggleClass(' rotate-180 ');
+                $('.article-header').toggleClass(' border-b');
+
+            })
+            const defaultTab = 'remarks';
+            $(`.tab-btn[data-tab="${defaultTab}"]`).removeClass('text-textsub').addClass('text-text')
+            showTab(defaultTab);
+
+            $('.tab-btn').click(function () {
+                const tabName = $(this).data('tab');
+                showTab(tabName);
+
+                $('.tab-btn').removeClass('text-text').addClass('text-textsub');
+                $(this).removeClass('text-textsub').addClass('text-text');
+            });
+        })
+
+        function showTab(tabName) {
+            $('.tab-content').hide();
+            $(`.${tabName}-tab`).show();
+        }
+
+        function loadSidebar() {
+            const $nav = $('#sidebar');
+            console.log(menu);
+
+            menu.forEach(item => {
+                if (item.header) {
+                    $nav.append(`<h2 class="uppercase mb-5 text-sm font-semibold mx-5 text-gray-500">${item.header}</h2>`);
+                } else {
+                    if (item.children) {
+                        // Dropdown item
+                        $nav.append(`<div class="flex flex-col">
+                                        <div class=" dropdown-toggle flex justify-between items-center text-[#606060] text-md px-5 py-2 hover:bg-red-800 hover:text-white hover:cursor-pointer w-11/12 rounded-e-md mb-3 capitalize font-normal">
+                                            <span class="flex items-center "><i class=" mr-3 text-md">${item.icon}</i><span>${item.name}</span> </span>  <i class=""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg></i>
+                                        </div>
+                                        <div class="  dropdown-content px-5 flex flex-col h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                                            ${item.children.map(child => `<a href="${child.url}" class="px-5 py-2 hover:bg-red-800 hover:text-white w-11/12 rounded-e-md mb-3 capitalize font-normal">${child.name}</a>`).join('')}
+                                        </div>
+                                    </div>`);
+                    } else {
+                        // Regular item without dropdown
+                        $nav.append(`<a href="${item.url}" class="flex items-center group text-[#606060] text-md px-5 py-2 hover:bg-red-800 hover:text-white hover:cursor-pointer w-11/12 rounded-e-md mb-3 capitalize font-normal">
+                                        <i class=" mr-3 text-md">${item.icon}</i><span>${item.name}</span>
+                                    </a>`);
+                    }
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>
