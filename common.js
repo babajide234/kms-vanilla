@@ -108,6 +108,106 @@ const contentData ={
     "ResponseCode": 100
 }
 
+
+const sigledata = {
+    "Result": {
+        "ContentId": 7,
+        "RefNo": "030d389b-64a1-41c2-a1e7-684a73abe634",
+        "Title": "General Insurance Importance",
+        "Description": "Importance of General Insurance claims management",
+        "SubsidiaryId": 2,
+        "Uploadeby": "fruser@nsia.com.ng",
+        "Created": "2023-10-29T16:17:35.037",
+        "Modifiedby": "sharepoint@nsia.com.ng",
+        "Modified": "2023-10-29T16:18:35.147",
+        "Classification": "Private",
+        "Status": "Published",
+        "Archive": false,
+        "ContentBody": "<p>Background:- The document is for management of claims for general business</p><p>Main Information:- claims information </p>",
+        "ContentType": "Document",
+        "DeptId": 1,
+        "DelayPublication": true,
+        "PublicationDate": "2023-10-30T00:00:00"
+    },
+    "Versions": [
+        {
+            "VersionId": 18,
+            "ContentId": "030d389b-64a1-41c2-a1e7-684a73abe634",
+            "CurrentInfo": "Subject:General Insurance Importance\nDescription:Importance of General Insurance claims management\nContent Body:<p>Background:- The document is for management of claims for general business</p><p>Main Information:- claims information </p>\nContent Type:Document\nStatus:Published\nClassification:Private",
+            "Created": "2023-10-29T16:18:35.23",
+            "Createdby": "fruser@nsia.com.ng",
+            "Reviewedby": "sharepoint@nsia.com.ng",
+            "DateReviewed": "2023-10-29T16:18:35.147"
+        }
+    ],
+    "ContentDocuments": [
+        {
+            "FileName": "030d389b-64a1-41c2-a1e7-684a73abe634_Claim2.pdf"
+        },
+        {
+            "FileName": "030d389b-64a1-41c2-a1e7-684a73abe634_Claim3.pdf"
+        }
+    ],
+    "Activities": [
+        {
+            "ID": 88,
+            "Username": "fruser@nsia.com.ng",
+            "IPAddress": "192.12.12.12",
+            "ActionPerformed": "New Content",
+            "DateModified": "2023-10-29T16:17:35.077",
+            "RefNo": "030d389b-64a1-41c2-a1e7-684a73abe634",
+            "Comment": "New Content",
+            "RelatedPage": "New Content",
+            "LogType": "New Content"
+        },
+        {
+            "ID": 89,
+            "Username": "sharepoint@nsia.com.ng",
+            "IPAddress": "12.13.14.12",
+            "ActionPerformed": "Review Content",
+            "DateModified": "2023-10-29T16:18:35.157",
+            "RefNo": "030d389b-64a1-41c2-a1e7-684a73abe634",
+            "Comment": "Approved okay",
+            "RelatedPage": "Review Content",
+            "LogType": "Review Content"
+        },
+        {
+            "ID": 90,
+            "Username": "sharepoint@nsia.com.ng",
+            "IPAddress": "12.12.31.12",
+            "ActionPerformed": "Search",
+            "DateModified": "2023-10-29T16:18:49.323",
+            "RefNo": "030d389b-64a1-41c2-a1e7-684a73abe634",
+            "Comment": "030d389b-64a1-41c2-a1e7-684a73abe634",
+            "RelatedPage": "Search",
+            "LogType": "Search"
+        },
+        {
+            "ID": 92,
+            "Username": "sharepoint@nsia.com.ng",
+            "IPAddress": "12.12.31.12",
+            "ActionPerformed": "Search",
+            "DateModified": "2023-10-29T16:19:27.2",
+            "RefNo": "030d389b-64a1-41c2-a1e7-684a73abe634",
+            "Comment": "030d389b-64a1-41c2-a1e7-684a73abe634",
+            "RelatedPage": "Search",
+            "LogType": "Search"
+        },
+        {
+            "ID": 93,
+            "Username": "sharepoint@nsia.com.ng",
+            "IPAddress": "12.12.31.12",
+            "ActionPerformed": "Search",
+            "DateModified": "2023-10-29T16:51:11.583",
+            "RefNo": "030d389b-64a1-41c2-a1e7-684a73abe634",
+            "Comment": "030d389b-64a1-41c2-a1e7-684a73abe634",
+            "RelatedPage": "Search",
+            "LogType": "Search"
+        }
+    ],
+    "ResponseCode": 100
+}
+
 function formatTimeAgo(timestamp) {
     const now = new Date();
     const date = new Date(timestamp);

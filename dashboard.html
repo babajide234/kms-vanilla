@@ -7,6 +7,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <link rel="stylesheet" href="style.css" type="text/css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
+
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>
 
@@ -71,15 +73,135 @@
                 </div>
             </div>
             <div class=" flex flex-col md:flex-row md:items-center justify-between">
-                <div class=" bg-accent1/10 rounded-full w-full md:w-fit mb-3 md:mb-0 px-1 py-1 flex items-center justify-between md:gap-3">
-                  <button data-tag="all" class=" text-sm md:text-md  md:flex px-2 md:px-5 py-1 hover:bg-primary rounded-full hover:text-white">All</button>
-                  <button data-tag="organization" class=" text-sm md:text-md  md:flex px-2 md:px-5 py-1 hover:bg-bg-primary rounded-full hover:text-white">Organization</button>
-                  <button data-tag="department" class=" text-sm md:text-md  md:flex px-2 md:px-5 py-1 hover:bg-bg-primary rounded-full hover:text-white">Department</button>
-                  <button data-tag="role" class=" text-sm md:text-md  md:flex px-2 md:px-5 py-1 hover:bg-bg-primary rounded-full hover:text-white">Role</button>
+                <div class=" w-full md:w-fit mb-3 md:mb-0 px-1 py-1 flex items-center justify-between md:gap-3">
+                  <div class="dropdown relative">
+                      <button data-tag="all" class=" text-[#606060] group   text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
+                        <span class="text max-w-[150px] truncate">All</span>
+                        <span class="  ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                      </button>
+                      <div data-dropdown class=" hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg ">
+                            <button data-sub="all" class="py-1 hover:bg-gray-50 rounded-sm">All</button>
+                      </div>
+                  </div>
+                  <div class=" border-solid border-l-2 py-5 border-gray-300 "></div>
+                  <div class="dropdown relative">
+                      <button data-tag="organization" class=" text-[#606060] group   text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
+                        <span class="text max-w-[150px] truncate">Organization</span>
+                        <span class="  ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                      </button>
+                      <div data-dropdown class=" hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg ">
+                            <button data-sub="Custodian and Allied Insurance Ltd" class="py-1 hover:bg-gray-50 rounded-sm">Custodian and Allied Insurance Ltd</button>
+                            <button data-sub="Custodian and Allied Insurance Ltd" class="py-1 hover:bg-gray-50 rounded-sm">Custodian and Allied Insurance Ltd</button>
+                            <button data-sub="Custodian and Allied Insurance Ltd" class="py-1 hover:bg-gray-50 rounded-sm">Custodian and Allied Insurance Ltd</button>
+                      </div>
+                  </div>
+                  <div class="dropdown relative">
+                      <button data-tag="organization" class=" text-[#606060] group  text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
+                        <span class="text max-w-[150px] truncate">Department</span>
+                        <span class="  ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                              </svg>
+                        </span>
+                      </button>
+                      <div data-dropdown class=" hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg ">
+                            <button data-sub="Custodian and Allied Insurance Ltd" class="py-1 hover:bg-gray-50 rounded-sm">Custodian and Allied Insurance Ltd</button>
+                            <button data-sub="Custodian and Allied Insurance Ltd" class="py-1 hover:bg-gray-50 rounded-sm">Custodian and Allied Insurance Ltd</button>
+                            <button data-sub="Custodian and Allied Insurance Ltd" class="py-1 hover:bg-gray-50 rounded-sm">Custodian and Allied Insurance Ltd</button>
+                      </div>
+                  </div>
+                  <div class="dropdown relative">
+                      <button data-tag="organization" class=" text-[#606060] border border-solid border-[#606060] group  text-md md:text-md  rounded-full py-[10px] px-[20px] flex gap-3 items-center">
+                        <span class="text max-w-[150px] truncate">Role</span>
+                        <span class="  ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                              </svg>
+                        </span>
+                      </button>
+                      <div data-dropdown class=" hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg ">
+                            <button data-sub="Custodian and Allied Insurance Ltd" class="py-1 hover:bg-gray-50 rounded-sm">Custodian and Allied Insurance Ltd</button>
+                            <button data-sub="Custodian and Allied Insurance Ltd" class="py-1 hover:bg-gray-50 rounded-sm">Custodian and Allied Insurance Ltd</button>
+                            <button data-sub="Custodian and Allied Insurance Ltd" class="py-1 hover:bg-gray-50 rounded-sm">Custodian and Allied Insurance Ltd</button>
+                      </div>
+                  </div>
                 </div>
-                
             </div>
             <div class=" dashboard-content grid grid-cols-1 md:grid-cols-3 py-10 gap-5">
+            </div>
+
+        </div>
+        <div class="more fixed hidden w-full h-screen bg-[#808080BF] flex items-center justify-end ">
+            <div class="more-modal w-[529px] py-[20px] bg-[#F5F5F5] h-screen relative overflow-y-scroll ">
+                <div class="pb-[13px] px-[20px]  border-solid border-b border-[#DBDBDB] flex justify-between items-center">
+                    <h2 class=" text-[22px] font-semibold">Title</h2>
+                    <button onclick="moretoggle()" class=" p-2 rounded-lg hover:bg-gray-50">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M15.0005 5L5.00049 15M5.00049 5L15.0005 15" stroke="#606060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                    </button>
+                </div>
+                <div class=" ">
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex flex-col gap-[15px] ">
+                        <h2 class=" text-[15px] font-semibold">Decription</h2>
+                        <p class=" text-[#808080] text-sm">
+                            The "New Employee Guide" folder is a comprehensive resource designed to orient and support individuals who have recently joined an organization. This folder serves as a one-stop repository for essential information that new employees need to navigate their way through the onboarding process and integrate seamlessly into the company culture. It includes a range of documents such as welcome messages, an organizational chart, policies and procedures, employee benefits information, and details on workplace etiquette.
+                        </p>
+                    </div>
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                        <h2 class=" text-[15px] text-[#606060]">Category</h2>
+                        <p class="">video</p>
+                    </div>
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                        <h2 class=" text-[15px] text-[#606060]">Subsidiary</h2>
+                        <p class="">Custodian Trustees LTD</p>
+                    </div>
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                        <h2 class=" text-[15px] text-[#606060]">Department</h2>
+                        <p class="">Legal and Compliance</p>
+                    </div>
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                        <h2 class=" text-[15px] text-[#606060]">Role</h2>
+                        <p class="">Compliance auditor</p>
+                    </div>
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                        <h2 class=" text-[15px] text-[#606060]">Size</h2>
+                        <p class="">1.3 GB</p>
+                    </div>
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                        <h2 class=" text-[15px] text-[#606060]">Created by</h2>
+                        <p class="">Adetokunbo Adeoluwa</p>
+                    </div>
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                        <h2 class=" text-[15px] text-[#606060]">Date created</h2>
+                        <p class="">10 January 2017</p>
+                    </div>
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                        <h2 class=" text-[15px] text-[#606060]">Most recent update</h2>
+                        <p class="">23 October 2023</p>
+                    </div>
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                        <h2 class=" text-[15px] text-[#606060]">Updated by</h2>
+                        <p class="">Yinka Ogunmepon</p>
+                    </div>
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                        <h2 class=" text-[15px] text-[#606060]">Bookmark</h2>
+                        <p class="">video</p>
+                    </div>
+                </div>
+
+                <div class=" p-5  bg-[#F5F5F5] w-full grid grid-cols-2 gap-5">
+                    <button class=" w-full px-[14px] py-[10px] rounded-md bg-white text-primary font-semibold">Download</button>
+                    <button class=" w-full px-[14px] py-[10px] rounded-md bg-primary text-white font-semibold">Share</button>
+                </div>
             </div>
         </div>
     </div>
@@ -102,19 +224,45 @@
                 $dropdownContent.toggleClass('h-0 h-fit');
             });
 
-            $('button[data-tag]').click(function () {
-                const tag = $(this).data('tag');
-                filterContent(tag);
-                markActiveTag(tag);
-            });
+            // $('button[data-tag]').click(function () {
+            //     const tag = $(this).data('tag');
+            //     filterContent(tag);
+            //     markActiveTag(tag);
+            // });
 
             $('#searchInput').on('input', function () {
                 const searchText = $(this).val().toLowerCase();
                 filterContentBySearch(searchText);
             });
 
+            $('.dropdown').each(function () {
+                const $button = $(this).find('[data-tag]');
+                const $dropdown = $(this).find('[data-dropdown]');
+                $button.click(function (e) {
+                    e.stopPropagation(); 
+                    $dropdown.toggleClass('hidden');
+                });
+
+                $dropdown.find('[data-sub]').click(function () {
+                    const selectedValue = $(this).data('sub');
+                    $button.find('.text').text(selectedValue);
+                    $dropdown.addClass('hidden');
+                    // Check if an option is selected, then apply the class
+                    if (selectedValue.trim() !== "") {
+                        $button.removeClass('text-[#606060] border border-solid border-[#606060]').addClass('bg-primary text-white');
+                    } else {
+                        // If no option is selected, you can add an else statement to handle that case
+                    }
+                });
+
+                $(document).click(function () {
+                    $dropdown.addClass('hidden');
+                });
+            });
+
             filterContent('all');
             markActiveTag('all');
+            
 
         })
         
@@ -141,7 +289,7 @@
                                     </div>
                                     <a href="/article.html" class="capitalize font-semibold text-sm truncate hover:text-primary">${item.Title}</a>
                                 </div>
-                                <button onClick={modal} class=" py-2 px-2 hover:bg-[#F5F5F5] rounded-full flex items-center justify-center">
+                                <button onClick={modal(${item.ContentId})} class=" py-2 px-2 hover:bg-[#F5F5F5] rounded-full flex items-center justify-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=" stroke-textsub">
                                         <circle cx="12" cy="12" r="1"/>
                                         <circle cx="19" cy="12" r="1"/>
@@ -196,7 +344,15 @@
                     $('#content').html('<h2>Page Not Found</h2>');
             }
         }
-
+        function modal(id){
+            console.log(id)
+            moretoggle()
+        }
+        
+        function moretoggle(){
+            $('.more').toggleClass('hidden');
+            animateMore()
+        }
         function loadSidebar() {
             const $nav = $('#sidebar');
             console.log(menu);
@@ -224,7 +380,26 @@
                 }
             });
         }
-
+        
+        function animateMore(index) {
+            gsap.timeline()
+                .from( '.more', {
+                    opacity: 0, 
+                    duration:0.5,
+                }).to(
+                    '.more',{
+                        opacity: 1, 
+                        duration: 0.5
+                    }
+                ).from('.more-modal',{
+                    x:'100%',
+                    duration: 0.3
+                }).to('.more-modal',{
+                    x:0,
+                    duration: 0.3
+                })
+                
+        }
     </script>
 </body>
 </html>

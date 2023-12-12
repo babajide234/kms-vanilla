@@ -99,8 +99,3 @@ function animateSlide(index) {
         
 }
 
-// .to('.slide', { opacity: 0, duration: 0.5, stagger: 0.1 })
-// .from('.slide', { opacity: 0, duration: 0 })  // Initial state before the animation
-// .to('.slide', { opacity: 1, duration: 0.5, delay: 0.5 })
-// .to('.dot', { background: 'rgba(255, 255, 255, 0.4)', duration: 0.3 })
-// .to('.dot:nth-child(' + (index + 1) + ')', { background: '#ffffff', duration: 0.3 });
