@@ -88,9 +88,22 @@
                       </div>
                   </div>
                   <div class=" border-solid border-l-2 py-5 border-gray-300 "></div>
-                  <div class="dropdown relative">
-                      <button data-tag="organization" class=" text-[#606060] group   text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
-                        <span class="text max-w-[150px] truncate">Organization</span>
+                  <div class="dropdown relative" id="type">
+                        <button data-tag="ContentType" class=" text-[#606060] border border-solid border-[#606060] group  text-md md:text-md  rounded-full py-[10px] px-[20px] flex gap-3 items-center">
+                            <span class="text max-w-[150px] truncate">ContentType</span>
+                            <span class="  ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                    <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                            </span>
+                        </button>
+                        <div data-dropdown class=" hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg ">
+                            
+                        </div>
+                    </div>
+                  <div class="dropdown relative" id="organization">
+                      <button data-tag="SubsidiaryId" class=" text-[#606060] group   text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
+                        <span class="text max-w-[150px] truncate">Subsidiary</span>
                         <span class="  ">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                 <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
@@ -98,41 +111,23 @@
                         </span>
                       </button>
                       <div data-dropdown class=" hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg ">
-                            <button data-sub="Custodian and Allied Insurance Ltd" class="py-1 hover:bg-gray-50 rounded-sm">Custodian and Allied Insurance Ltd</button>
-                            <button data-sub="Custodian and Allied Insurance Ltd" class="py-1 hover:bg-gray-50 rounded-sm">Custodian and Allied Insurance Ltd</button>
-                            <button data-sub="Custodian and Allied Insurance Ltd" class="py-1 hover:bg-gray-50 rounded-sm">Custodian and Allied Insurance Ltd</button>
+                            
                       </div>
                   </div>
-                  <div class="dropdown relative">
-                      <button data-tag="organization" class=" text-[#606060] group  text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
+                  <div class="dropdown relative" id="department">
+                      <button data-tag="DeptId" class=" text-[#606060] group  text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
                         <span class="text max-w-[150px] truncate">Department</span>
                         <span class="  ">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                 <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
-                              </svg>
+                            </svg>
                         </span>
                       </button>
                       <div data-dropdown class=" hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg ">
-                            <button data-sub="Custodian and Allied Insurance Ltd" class="py-1 hover:bg-gray-50 rounded-sm">Custodian and Allied Insurance Ltd</button>
-                            <button data-sub="Custodian and Allied Insurance Ltd" class="py-1 hover:bg-gray-50 rounded-sm">Custodian and Allied Insurance Ltd</button>
-                            <button data-sub="Custodian and Allied Insurance Ltd" class="py-1 hover:bg-gray-50 rounded-sm">Custodian and Allied Insurance Ltd</button>
+                            
                       </div>
                   </div>
-                  <div class="dropdown relative">
-                      <button data-tag="organization" class=" text-[#606060] border border-solid border-[#606060] group  text-md md:text-md  rounded-full py-[10px] px-[20px] flex gap-3 items-center">
-                        <span class="text max-w-[150px] truncate">Role</span>
-                        <span class="  ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
-                              </svg>
-                        </span>
-                      </button>
-                      <div data-dropdown class=" hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg ">
-                            <button data-sub="Custodian and Allied Insurance Ltd" class="py-1 hover:bg-gray-50 rounded-sm">Custodian and Allied Insurance Ltd</button>
-                            <button data-sub="Custodian and Allied Insurance Ltd" class="py-1 hover:bg-gray-50 rounded-sm">Custodian and Allied Insurance Ltd</button>
-                            <button data-sub="Custodian and Allied Insurance Ltd" class="py-1 hover:bg-gray-50 rounded-sm">Custodian and Allied Insurance Ltd</button>
-                      </div>
-                  </div>
+
                 </div>
             </div>
             <div class=" dashboard-content grid grid-cols-1 md:grid-cols-3 py-10 gap-5">
@@ -219,6 +214,7 @@
                 const route = $(this).attr('href').substring(1);
                 loadContent(route);
             });
+
             $('#sidebar .dropdown-toggle').click(function () {
                 const $dropdownContent = $(this).siblings('.dropdown-content');
                 $dropdownContent.toggleClass('h-0 h-fit');
@@ -235,9 +231,19 @@
                 filterContentBySearch(searchText);
             });
 
+            populateDropdown(Subsidiaries, 'organization');
+            populateDropdown(ContentTypes, 'type');
+            populateDropdown(Departments, 'department');
+            
+            let filterObject = {};
+
             $('.dropdown').each(function () {
                 const $button = $(this).find('[data-tag]');
                 const $dropdown = $(this).find('[data-dropdown]');
+            
+                let currentSelectedValue = ""; 
+
+
                 $button.click(function (e) {
                     e.stopPropagation(); 
                     $dropdown.toggleClass('hidden');
@@ -245,27 +251,54 @@
 
                 $dropdown.find('[data-sub]').click(function () {
                     const selectedValue = $(this).data('sub');
-                    $button.find('.text').text(selectedValue);
-                    $dropdown.addClass('hidden');
-                    // Check if an option is selected, then apply the class
-                    if (selectedValue.trim() !== "") {
-                        $button.removeClass('text-[#606060] border border-solid border-[#606060]').addClass('bg-primary text-white');
+
+                    // Check if the selected value is already the current selected value
+                    if (filterObject[$button.data('tag')] === selectedValue) {
+                        // If it is the same value, remove the selection
+                        filterObject[$button.data('tag')] = ""; // Clear the selected value from filterObject
+                        $button.find('.text').text($button.data('tag')); // Clear the button text
+                        $(this).removeClass('bg-primary text-white'); // Remove the styling from the selected option
                     } else {
-                        // If no option is selected, you can add an else statement to handle that case
+                        // Update the filter object
+                        filterObject[$button.data('tag')] = selectedValue;
+
+
+                        filterContent(filterObject);
+
+                        currentSelectedValue = selectedValue; // Update the current selected value
+                        $button.find('.text').text(selectedValue);
+                        $dropdown.addClass('hidden');
+
+                        $dropdown.find('[data-sub]').removeClass('bg-primary text-white');
+                        $(this).addClass('bg-primary text-white');
+
+                        if ($(this).attr('data-sub')) {
+                            $button.removeClass('text-[#606060] border border-solid border-[#606060]').addClass('bg-primary text-white');
+                        } else {
+                            // If data-sub attribute is not present, you can add an else statement to handle that case
+                        }
                     }
                 });
+
 
                 $(document).click(function () {
                     $dropdown.addClass('hidden');
                 });
             });
-
+            
             filterContent('all');
             markActiveTag('all');
-            
 
         })
         
+        function populateDropdown(data, dropdownId) {
+            const dropdown = $(`#${dropdownId} [data-dropdown]`);
+            data.forEach(item => {
+                const button = `<button data-sub="${item.name}" class="py-1 hover:bg-gray-50 hover:text-primary text-left px-10 rounded-sm">${item.name}</button>`;
+                dropdown.append(button);
+            });
+        }
+
         function renderContent(content) {
             const $dashboardContent = $('.dashboard-content');
             $dashboardContent.empty();
@@ -308,18 +341,43 @@
             })
         }
 
-        function filterContent(tag) {
+  
+
+        function filterContent(filters) {
             let filteredContent = contentData.Result;
-            
-            if (tag !== 'all') {
-                filteredContent = contentData.Result.filter(item => {
-                    return item.Classification.toLowerCase() === tag.toLowerCase();
+
+
+            // Apply filters based on other criteria (SubsidiaryId, DeptId, ContentType)
+            if (filters.SubsidiaryId && filters.SubsidiaryId !== 'all') {
+                filteredContent = filteredContent.filter(item => {
+                    return item.SubsidiaryId === parseInt(filters.SubsidiaryId);
+                });
+            }
+
+            if (filters.DeptId && filters.DeptId !== 'all') {
+                filteredContent = filteredContent.filter(item => {
+                    return item.DeptId === parseInt(filters.DeptId);
+                });
+            }
+
+            if (filters.ContentType && filters.ContentType !== 'all') {
+                filteredContent = filteredContent.filter(item => {
+                    return item.ContentType.toLowerCase() === filters.ContentType.toLowerCase();
                 });
             }
 
             renderContent(filteredContent);
         }
 
+
+        function isEmptyObject(obj) {
+            for (const key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    return false;
+                }
+            }
+            return true;
+        }
         function filterContentBySearch(searchText) {
             const filteredContent = contentData.Result.filter(item => {
                 return item.Title.toLowerCase().includes(searchText) || item.Description.toLowerCase().includes(searchText);

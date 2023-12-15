@@ -62,51 +62,167 @@
       </svg>`
     },
 ]
-
+{{
+      
+}}
 
 const contentData ={
     "Result": [
-        {
-            "ContentId": 6,
-            "RefNo": "11f61540-c1d2-4681-8f50-105d57848cfc",
-            "Title": "Insurance claims management - General Insurance",
-            "Description": "General Insurance claims management",
-            "SubsidiaryId": 2,
-            "Uploadeby": "fruser@nsia.com.ng",
-            "Created": "2023-10-29T16:03:31.95",
-            "Modifiedby": "sharepoint@nsia.com.ng",
-            "Modified": "2023-10-29T16:03:37.567",
-            "Classification": "Private",
-            "Status": "Published",
-            "Archive": false,
-            "ContentBody": "<p>Background:- The document is for management of claims for general business</p><p>Main Information:- claims information </p>",
-            "ContentType": "Document",
-            "DeptId": 1,
-            "DelayPublication": true,
-            "PublicationDate": "2023-10-30T00:00:00"
-        },
-        {
-            "ContentId": 7,
-            "RefNo": "030d389b-64a1-41c2-a1e7-684a73abe634",
-            "Title": "General Insurance Importance",
-            "Description": "Importance of General Insurance claims management",
-            "SubsidiaryId": 2,
-            "Uploadeby": "fruser@nsia.com.ng",
-            "Created": "2023-10-29T16:17:35.037",
-            "Modifiedby": "sharepoint@nsia.com.ng",
-            "Modified": "2023-10-29T16:18:35.147",
-            "Classification": "Private",
-            "Status": "Published",
-            "Archive": false,
-            "ContentBody": "<p>Background:- The document is for management of claims for general business</p><p>Main Information:- claims information </p>",
-            "ContentType": "Document",
-            "DeptId": 1,
-            "DelayPublication": true,
-            "PublicationDate": "2023-10-30T00:00:00"
-        }
+      {
+        "ContentId": 6,
+        "RefNo": "11f61540-c1d2-4681-8f50-105d57848cfc",
+        "Title": "Insurance claims management - General Insurance",
+        "Description": "General Insurance claims management",
+        "SubsidiaryId": 2,
+        "Uploadeby": "fruser@nsia.com.ng",
+        "Created": "2023-10-29T16:03:31.95",
+        "Modifiedby": "sharepoint@nsia.com.ng",
+        "Modified": "2023-10-29T16:03:37.567",
+        "Classification": "Private",
+        "Status": "Published",
+        "Archive": false,
+        "ContentBody": "<p>Background:- The document is for management of claims for general business</p><p>Main Information:- claims information </p>",
+        "ContentType": "Document",
+        "DeptId": 1,
+        "DelayPublication": true,
+        "PublicationDate": "2023-10-30T00:00:00"
+      },
+      {
+        "ContentId": 7,
+        "RefNo": "030d389b-64a1-41c2-a1e7-684a73abe634",
+        "Title": "General Insurance Importance",
+        "Description": "Importance of General Insurance claims management",
+        "SubsidiaryId": 2,
+        "Uploadeby": "fruser@nsia.com.ng",
+        "Created": "2023-10-29T16:17:35.037",
+        "Modifiedby": "sharepoint@nsia.com.ng",
+        "Modified": "2023-10-29T16:18:35.147",
+        "Classification": "Private",
+        "Status": "Published",
+        "Archive": false,
+        "ContentBody": "<p>Background:- The document is for management of claims for general business</p><p>Main Information:- claims information </p>",
+        "ContentType": "Document",
+        "DeptId": 1,
+        "DelayPublication": true,
+        "PublicationDate": "2023-10-30T00:00:00"
+      },
+      {
+        "ContentId": 8,
+        "RefNo": "21f61540-c1d2-4681-8f50-105d57848cfd",
+        "Title": "Insurance as a business",
+        "Description": "Describe insurance as a business",
+        "SubsidiaryId": 3,
+        "Uploadeby": "fruser@nsia.com.ng",
+        "Created": "2023-10-29T16:03:31.95",
+        "Modifiedby": "sharepoint@nsia.com.ng",
+        "Modified": "2023-10-29T16:03:37.567",
+        "Classification": "Private",
+        "Status": "Published",
+        "Archive": false,
+        "ContentBody": "<p>Background:- The document is for management of claims for general business</p><p>Main Information:- claims information </p>",
+        "ContentType": "Video",
+        "DeptId": 1,
+        "DelayPublication": true,
+        "PublicationDate": "2023-10-30T00:00:00"
+      },
+      {
+        "ContentId": 9,
+        "RefNo": "730d389b-64a1-41c2-a1e7-684a73abe623",
+        "Title": "General Insurance Importance",
+        "Description": "Importance of General Insurance claims management",
+        "SubsidiaryId": 2,
+        "Uploadeby": "fruser@nsia.com.ng",
+        "Created": "2023-10-30T16:17:35.037",
+        "Modifiedby": "sharepoint@nsia.com.ng",
+        "Modified": "2023-10-31T16:18:35.147",
+        "Classification": "Private",
+        "Status": "Published",
+        "Archive": false,
+        "ContentBody": "<p>Background:- The document is for management of claims for general business</p><p>Main Information:- claims information </p>",
+        "ContentType": "Image",
+        "DeptId": 1,
+        "DelayPublication": true,
+        "PublicationDate": "2023-10-30T00:00:00"
+      },
+      {
+        "ContentId": 11,
+        "RefNo": "12f61540-c1d2-4681-8f50-105d57848cfc",
+        "Title": "Property Development Management",
+        "Description": "Property Development Management in Nigeria is a great business.",
+        "SubsidiaryId": 3,
+        "Uploadeby": "fruser@nsia.com.ng",
+        "Created": "2023-10-29T16:03:31.95",
+        "Modifiedby": "sharepoint@nsia.com.ng",
+        "Modified": "2023-10-29T16:03:37.567",
+        "Classification": "Private",
+        "Status": "Published",
+        "Archive": false,
+        "ContentBody": "<p>Background:- The document is for management of claims for general business</p><p>Main Information:- claims information </p>",
+        "ContentType": "Article",
+        "DeptId": 1,
+        "DelayPublication": true,
+        "PublicationDate": "2023-10-30T00:00:00"
+      },
+      {
+        "ContentId": 13,
+        "RefNo": "130d389b-64a1-41c2-a1e7-684a73abe634",
+        "Title": "SOP on how to develop business plan",
+        "Description": "Effective SOP on how to develop business plan",
+        "SubsidiaryId": 2,
+        "Uploadeby": "fruser@nsia.com.ng",
+        "Created": "2023-10-29T16:17:35.037",
+        "Modifiedby": "sharepoint@nsia.com.ng",
+        "Modified": "2023-09-29T16:18:35.147",
+        "Classification": "Private",
+        "Status": "Published",
+        "Archive": false,
+        "ContentBody": "<p>Background:- The document is for management of claims for general business</p><p>Main Information:- claims information </p>",
+        "ContentType": "Document",
+        "DeptId": 1,
+        "DelayPublication": true,
+        "PublicationDate": "2023-10-30T00:00:00"
+      },
+      {
+        "ContentId": 14,
+        "RefNo": "14f61540-c1d2-4681-8f50-105d57848cfd",
+        "Title": "Insurance as a business",
+        "Description": "Describe insurance as a business in Nigeria",
+        "SubsidiaryId": 3,
+        "Uploadeby": "fruser@nsia.com.ng",
+        "Created": "2023-10-29T16:03:31.95",
+        "Modifiedby": "sharepoint@nsia.com.ng",
+        "Modified": "2023-10-29T16:03:37.567",
+        "Classification": "Private",
+        "Status": "Published",
+        "Archive": false,
+        "ContentBody": "<p>Background:- The document is for management of claims for general business</p><p>Main Information:- claims information </p>",
+        "ContentType": "Video",
+        "DeptId": 1,
+        "DelayPublication": true,
+        "PublicationDate": "2023-10-30T00:00:00"
+      },
+      {
+        "ContentId": 15,
+        "RefNo": "150d389b-64a1-41c2-a1e7-684a73abe623",
+        "Title": "General Insurance Importance v2",
+        "Description": "Importance of General Insurance claims management-version 2",
+        "SubsidiaryId": 2,
+        "Uploadeby": "fruser@nsia.com.ng",
+        "Created": "2023-08-30T16:17:35.037",
+        "Modifiedby": "sharepoint@nsia.com.ng",
+        "Modified": "2023-10-31T16:18:35.147",
+        "Classification": "General",
+        "Status": "Published",
+        "Archive": false,
+        "ContentBody": "<p>Background:- The document is for management of claims for general business</p><p>Main Information:- claims information </p>",
+        "ContentType": "Image",
+        "DeptId": 1,
+        "DelayPublication": true,
+        "PublicationDate": "2023-10-30T00:00:00"
+      }
     ],
     "ResponseCode": 100
-}
+  }
 
 
 const sigledata = {
@@ -207,6 +323,36 @@ const sigledata = {
     ],
     "ResponseCode": 100
 }
+const Subsidiaries = [
+    { name: "Tech Innovators Ltd", id: 1 },
+    { name: "Eco Solutions Inc", id: 2 },
+    { name: "Global Logistics Co", id: 3 },
+    { name: "Healthcare Innovations", id: 4 },
+    { name: "Financial Dynamics Ltd", id: 5 },
+    { name: "Infinite Energy Corp", id: 6 },
+    { name: "Smart Manufacturing Inc", id: 7 },
+    { name: "Creative Media Solutions", id: 8 },
+    { name: "Food Harmony Ltd", id: 9 },
+    { name: "Urban Development Corp", id: 10 },
+];
+const Departments = [
+    { name: "Human Resources", id: 1 },
+    { name: "Marketing", id: 2 },
+    { name: "Finance", id: 3 },
+    { name: "Research and Development", id: 4 },
+    { name: "Customer Support", id: 5 },
+    { name: "Information Technology", id: 6 },
+    { name: "Operations", id: 7 },
+    { name: "Sales", id: 8 },
+    { name: "Legal", id: 9 },
+    { name: "Quality Assurance", id: 10 },
+];
+const ContentTypes = [
+    { name: "Document", id: 1 },
+    { name: "Video", id: 2 },
+    { name: "Image", id: 3 },
+    { name: "Article", id: 4 },
+];
 
 function formatTimeAgo(timestamp) {
     const now = new Date();
