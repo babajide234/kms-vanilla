@@ -60,21 +60,21 @@
                         </button>
                         <ul class="">
                             <li class="">
-                                <a href="./newarticle.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Article
+                                <a href="./article.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Article
                                 <span class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                                 </span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="./newimage.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Image
+                                <a href="" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Image
                                 <span class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                                 </span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="./newvideo.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Video
+                                <a href="" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Video
                                 <span class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                                 </span>
@@ -85,92 +85,80 @@
                 </div>
             </div>
         </div>
-        <div class=" flex-1 p-8 overflow-y-scroll">
-            <div class=" flex items-center justify-between mb-10">
-                <div class=" w-full md:flex-grow">
-                    <h1 class=" font-bold text-4xl text-text mb-1">Home</h1>
-                    <p class=" capitalize text-gray-500">Welcome to the KMS <span class=" font-bold text-gray-900">Ademola</span> start exploring</p>
-                </div>
-                <div class="hidden md:flex items-center gap-3">
-                    <div class=" bg-[#F5F5F5] rounded-full flex items-center px-4 py-3 focus-within:border border-bg-primary  md:w-[300px]">
-                        <!-- <IoSearch class="mr-2 text-xl text-red-800"/> -->
-                        <i class="mr-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                              <path d="M17.5 17.5L13.875 13.875M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z" stroke="#900000" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
-                          </svg>
-                        </i>
-                        <input type="text" class=" flex-grow bg-[#F5F5F5] focus:outline-none " id="searchInput" placeholder="Search" />
-                      </div>
-                    <button class=" bg-[#F5F5F5] w-[48px] h-[48px] rounded-full flex justify-center items-center" type="">
+        <div class=" flex-1 overflow-y-scroll flex flex-col">
+            <div class="article-header px-8 pt-8 pb-4 flex items-center justify-between border-b   border-solid border-gray-300">
+                <div class=" flex items-center gap-[30px]">
+                    <a href="/dashboard.html" class=" bg-[#F5F5F5] w-[48px] h-[48px] rounded-full flex justify-center items-center " type="">
                         <i class="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M9.35395 21C10.0591 21.6224 10.9853 22 11.9998 22C13.0142 22 13.9405 21.6224 14.6456 21M17.9998 8C17.9998 6.4087 17.3676 4.88258 16.2424 3.75736C15.1172 2.63214 13.5911 2 11.9998 2C10.4085 2 8.88235 2.63214 7.75713 3.75736C6.63192 4.88258 5.99977 6.4087 5.99977 8C5.99977 11.0902 5.22024 13.206 4.34944 14.6054C3.6149 15.7859 3.24763 16.3761 3.2611 16.5408C3.27601 16.7231 3.31463 16.7926 3.46155 16.9016C3.59423 17 4.19237 17 5.38863 17H18.6109C19.8072 17 20.4053 17 20.538 16.9016C20.6849 16.7926 20.7235 16.7231 20.7384 16.5408C20.7519 16.3761 20.3846 15.7859 19.6501 14.6054C18.7793 13.206 17.9998 11.0902 17.9998 8Z" stroke="#900000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                              </svg>
+                                <path d="M20 12H4M4 12L10 18M4 12L10 6" stroke="#900000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
                         </i>
+                    </a>
+                    <input type="text" class=" text-[26px] font-bold placeholder:text-gray-200 px-4 flex-grow outline-none border-none " placeholder="Untitled">
+                </div>
+                <div class="flex items-center gap-5">
+                    <button class="py-[8px] px-[14px] bg-[#900000] capitalize text-sm rounded-lg text-white font-semibold ">Submit for review</button>
+                    <button class="py-2 px-2  rounded-lg hover:bg-gray-50">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round-plus"><path d="M2 21a8 8 0 0 1 13.292-6"/><circle cx="10" cy="8" r="5"/><path d="M19 16v6"/><path d="M22 19h-6"/></svg>
+                    </button>
+                    <button class="py-2 px-2  rounded-lg hover:bg-gray-50">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                    <button class="py-2 px-2  rounded-lg hover:bg-gray-50">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#3F3F3F" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z" stroke="#3F3F3F" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13Z" stroke="#3F3F3F" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
                     </button>
                 </div>
             </div>
-            <div class=" flex flex-col md:flex-row md:items-center justify-between">
-                <div class=" w-full md:w-fit mb-3 md:mb-0 px-1 py-1 flex items-center justify-between md:gap-3">
-                  <div class="dropdown relative">
-                      <button data-tag="all" class=" text-[#606060] group   text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
-                        <span class="text max-w-[150px] truncate">All</span>
-                        <span class="  ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </span>
-                      </button>
-                      <div data-dropdown class=" hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg ">
-                            <button data-sub="all" class="py-1 hover:bg-gray-50 rounded-sm">All</button>
-                      </div>
-                  </div>
-                  <div class=" border-solid border-l-2 py-5 border-gray-300 "></div>
-                  <div class="dropdown relative" id="type">
-                        <button data-tag="ContentType" class=" text-[#606060] border border-solid border-[#606060] group  text-md md:text-md  rounded-full py-[10px] px-[20px] flex gap-3 items-center">
-                            <span class="text max-w-[150px] truncate">ContentType</span>
-                            <span class="  ">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                    <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                            </span>
-                        </button>
-                        <div data-dropdown class=" hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg ">
-                            
+            <div class=" flex">
+                <div class=" document-content flex-1 min-h-screen p-8 relative ">
+                    <div class=" mb-3">
+                        <h2 class=" mb-3 text-md font-semibold capitalize">Description</h2>
+                        <textarea name="" id="" class="w-full min-h-[50px] outline-none border-none text-[#808080] placeholder:text-[#CDCDCD]" placeholder="Write a description..."></textarea>
+                    </div>
+                    <div class="">
+                        <h2 class="mb-3 text-md font-semibold capitalize">content</h2>
+                        <textarea name="" id="" class="w-full min-h-[50px] outline-none border-none text-[#808080] placeholder:text-[#CDCDCD]" placeholder="Start writing...."></textarea>                        
+                    </div>
+                </div>
+                <div class=" document-dock w-[253px] border-l border-gray-300 border-solid min-h-screen ">
+                    <div class=" flex gap-5 px-[10px] py-[15px] items-center border-b border-gray-300 border-solid">
+                        <h2 class=" font-bold">Meta data</h2>
+                    </div>
+                    <div class="remarks-tab tab-content">
+                        
+                        <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
+                            <div class=" flex flex-col gap-2 w-full align-start">
+                                <label for="" class=" text-sm font-normal">Category</label>
+                                <input type="text" class=" w-full border-none outline-none" placeholder="..." >
+                            </div>
+                        </div>
+                        <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
+                            <div class=" flex flex-col gap-2 w-full align-start">
+                                <label for="" class=" text-sm font-normal">Subsidiary</label>
+                                <input type="text" class=" w-full border-none outline-none" placeholder="Custodian Trusties LTD" >
+                            </div>
+                        </div>
+                        <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
+                            <div class=" flex flex-col gap-2 w-full align-start">
+                                <label for="" class=" text-sm font-normal">Department</label>
+                                <input type="text" class=" w-full border-none outline-none" placeholder="Training and compliance" >
+                            </div>
+                        </div>
+                        <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
+                            <div class=" flex flex-col gap-2 w-full align-start">
+                                <label for="" class=" text-sm font-normal">Role</label>
+                                <input type="text" class=" w-full border-none outline-none" placeholder="Compliance officer" >
+                            </div>
                         </div>
                     </div>
-                  <div class="dropdown relative" id="organization">
-                      <button data-tag="SubsidiaryId" class=" text-[#606060] group   text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
-                        <span class="text max-w-[150px] truncate">Subsidiary</span>
-                        <span class="  ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </span>
-                      </button>
-                      <div data-dropdown class=" hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg ">
-                            
-                      </div>
-                  </div>
-                  <div class="dropdown relative" id="department">
-                      <button data-tag="DeptId" class=" text-[#606060] group  text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
-                        <span class="text max-w-[150px] truncate">Department</span>
-                        <span class="  ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </span>
-                      </button>
-                      <div data-dropdown class=" hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg ">
-                            
-                      </div>
-                  </div>
-
+                    <div class="requestUpdate-tab tab-content"></div>
                 </div>
             </div>
-            <div class=" dashboard-content grid grid-cols-1 md:grid-cols-3 py-10 gap-5">
-            </div>
-
         </div>
         <div class="more fixed hidden w-full h-screen bg-[#808080BF] flex items-center justify-end ">
             <div class="more-modal w-[529px] py-[20px] bg-[#F5F5F5] h-screen relative overflow-y-scroll ">

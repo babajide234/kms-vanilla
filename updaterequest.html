@@ -88,8 +88,7 @@
         <div class=" flex-1 p-8 overflow-y-scroll">
             <div class=" flex items-center justify-between mb-10">
                 <div class=" w-full md:flex-grow">
-                    <h1 class=" font-bold text-4xl text-text mb-1">Home</h1>
-                    <p class=" capitalize text-gray-500">Welcome to the KMS <span class=" font-bold text-gray-900">Ademola</span> start exploring</p>
+                    <h1 class=" font-bold text-2xl text-text mb-1">Update request</h1>
                 </div>
                 <div class="hidden md:flex items-center gap-3">
                     <div class=" bg-[#F5F5F5] rounded-full flex items-center px-4 py-3 focus-within:border border-bg-primary  md:w-[300px]">
@@ -169,6 +168,48 @@
                 </div>
             </div>
             <div class=" dashboard-content grid grid-cols-1 md:grid-cols-3 py-10 gap-5">
+                <table class=" w-full col-span-full rounded-t-lg border bordder-solid border-gray-200  overflow-hidden ">
+                    <thead class="">
+                        <tr class="bg-red-100 py-2 w-full">
+                            <th class=" py-2 font-normal text-[#606060] text-sm capitalize">name</th>
+                            <th class=" py-2 font-normal text-[#606060] text-sm capitalize">category</th>
+                            <th class=" py-2 font-normal text-[#606060] text-sm capitalize">description</th>
+                            <th class=" py-2 font-normal text-[#606060] text-sm capitalize">attachment</th>
+                            <th class=" py-2 font-normal text-[#606060] text-sm capitalize">status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="">
+                        <tr class=" border-b border-solid border-gray-200">
+                            <td class=" py-[16px] px-[24px] text-sm">Policy and Procedures</td>
+                            <td class=" py-[16px] px-[24px] text-sm">
+                                <div class="w-20 h-6 px-5 py-1 bg-neutral-100 rounded-3xl justify-center items-center gap-2.5 flex text-red-950 text-xs font-normal">
+                                    Article
+                                </div>
+                            </td>
+                            <td class=" py-[16px] px-[24px] text-sm">
+                                <p class="">
+                                    Overall, I appreciate the creativity and effort put into the campaign, especially the eye-catching visuals
+                                </p>
+                            </td>
+                            <td class=" py-[16px] px-[24px] text-sm">
+                                <div class="w-full  p-2.5 bg-white rounded border border-solid border-red-800 justify-start items-center gap-2 inline-flex">
+                                        <div class="text-center text-white text-xs font-bold bg-red-500 p-1 rounded">PDF</div>
+                                        <div class=" flex-col justify-start items-start gap-2 flex">
+                                            <div class="self-stretch h-7 flex-col justify-start items-start flex">
+                                                <h2 class="self-stretch text-zinc-600 text-xs font-normal leading-none">Tech design requirements.pdf</h2>
+                                                <p class="self-stretch text-zinc-500 text-xs font-normal leading-none">200 KB</p>
+                                            </div>
+                                        </div>
+                                </div>
+                            </td>
+                            <td class=" py-[16px] px-[24px] text-sm">
+                                <div class="w-20 h-6 px-5 py-1 bg-amber-100 rounded-3xl justify-center items-center gap-2.5 flex text-amber-600 text-xs font-normal  leading-none">
+                                    <div class="">Pending</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
         </div>
@@ -244,8 +285,6 @@
         $(document).ready(function () {
 
             loadSidebar();
-            renderContent(contentData.Result);
-
 
             $('nav a').click(function (e) {
                 e.preventDefault();
@@ -258,11 +297,6 @@
                 $dropdownContent.toggleClass('h-0 h-fit');
             });
 
-            // $('button[data-tag]').click(function () {
-            //     const tag = $(this).data('tag');
-            //     filterContent(tag);
-            //     markActiveTag(tag);
-            // });
 
             $('#searchInput').on('input', function () {
                 const searchText = $(this).val().toLowerCase();
@@ -327,7 +361,7 @@
             filterContent('all');
             markActiveTag('all');
 
-        })
+        });
         
         function populateDropdown(data, dropdownId) {
             const dropdown = $(`#${dropdownId} [data-dropdown]`);
@@ -337,109 +371,7 @@
             });
         }
 
-        function renderContent(content) {
-            const $dashboardContent = $('.dashboard-content');
-            $dashboardContent.empty();
-            console.log(content)
-            content.forEach(item=>{
 
-                $dashboardContent.append(`
-                    <div class=" w-full flex flex-col justify-between gap-2 border border-border border-solid bg-bgsecond/20 overflow-hidden rounded-lg p-2 group">
-                            <div class="flex items-center justify-between gap-3">
-                                <div class=" flex items-center truncate overflow-hidden">
-                                    <div class=" bg-[#F4E6E6] rounded-md p-[10px] flex items-center justify-center mr-2  ">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                            <path d="M11.6663 9.16675H6.66634M8.33301 12.5001H6.66634M13.333 5.83341H6.66634M16.6663 5.66675V14.3334C16.6663 15.7335 16.6663 16.4336 16.3939 16.9684C16.1542 17.4388 15.7717 17.8212 15.3013 18.0609C14.7665 18.3334 14.0665 18.3334 12.6663 18.3334H7.33301C5.93288 18.3334 5.23281 18.3334 4.69803 18.0609C4.22763 17.8212 3.84517 17.4388 3.60549 16.9684C3.33301 16.4336 3.33301 15.7335 3.33301 14.3334V5.66675C3.33301 4.26662 3.33301 3.56655 3.60549 3.03177C3.84517 2.56137 4.22763 2.17892 4.69803 1.93923C5.23281 1.66675 5.93288 1.66675 7.33301 1.66675H12.6663C14.0665 1.66675 14.7665 1.66675 15.3013 1.93923C15.7717 2.17892 16.1542 2.56137 16.3939 3.03177C16.6663 3.56655 16.6663 4.26662 16.6663 5.66675Z" stroke="url(#paint0_linear_592_305)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <defs>
-                                                <linearGradient id="paint0_linear_592_305" x1="9.99967" y1="1.66675" x2="9.99967" y2="18.3334" gradientUnits="userSpaceOnUse">
-                                                <stop stop-color="#BF0000" stop-opacity="0.68"/>
-                                                <stop offset="1" stop-color="#900000"/>
-                                                </linearGradient>
-                                            </defs>
-                                        </svg>
-                                    </div>
-                                    <a href="/article.html" class="capitalize font-semibold text-sm truncate hover:text-primary">${item.Title}</a>
-                                </div>
-                                <button onClick={modal(${item.ContentId})} class=" py-2 px-2 hover:bg-[#F5F5F5] rounded-full flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=" stroke-textsub">
-                                        <circle cx="12" cy="12" r="1"/>
-                                        <circle cx="19" cy="12" r="1"/>
-                                        <circle cx="5" cy="12" r="1"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <p class=" text-textsub text-md">
-                                ${item.Description}
-                            </p>
-                            <div class="flex  items-center">
-                                <div class=" px-[20px] py-[5px] bg-[#F9F5F5] rounded-full text-xs capitalize text-primary">${item.ContentType}</div>
-                            </div>
-                    </div>
-                `)
-            })
-        }
-
-  
-
-        function filterContent(filters) {
-            let filteredContent = contentData.Result;
-
-
-            // Apply filters based on other criteria (SubsidiaryId, DeptId, ContentType)
-            if (filters.SubsidiaryId && filters.SubsidiaryId !== 'all') {
-                filteredContent = filteredContent.filter(item => {
-                    return item.SubsidiaryId === parseInt(filters.SubsidiaryId);
-                });
-            }
-
-            if (filters.DeptId && filters.DeptId !== 'all') {
-                filteredContent = filteredContent.filter(item => {
-                    return item.DeptId === parseInt(filters.DeptId);
-                });
-            }
-
-            if (filters.ContentType && filters.ContentType !== 'all') {
-                filteredContent = filteredContent.filter(item => {
-                    return item.ContentType.toLowerCase() === filters.ContentType.toLowerCase();
-                });
-            }
-
-            renderContent(filteredContent);
-        }
-
-
-        function isEmptyObject(obj) {
-            for (const key in obj) {
-                if (obj.hasOwnProperty(key)) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        function filterContentBySearch(searchText) {
-            const filteredContent = contentData.Result.filter(item => {
-                return item.Title.toLowerCase().includes(searchText) || item.Description.toLowerCase().includes(searchText);
-            });
-
-            renderContent(filteredContent);
-        }
-        function markActiveTag(activeTag) {
-            $('button[data-tag]').removeClass('bg-primary text-white');
-            $(`button[data-tag="${activeTag}"]`).addClass('bg-primary text-white');
-        }
-        function loadContent(route) {
-        // Load content based on the selected route
-            switch (route) {
-                case 'dashboard':
-                    $('#content').html('<h2>This is the Dashboard!</h2><p>Some dashboard content...</p>');
-                    break;
-                case 'settings':
-                    $('#content').html('<h2>Settings Page</h2><p>Configure your settings here...</p>');
-                    break;
-                default:
-                    $('#content').html('<h2>Page Not Found</h2>');
-            }
-        }
         function modal(id){
             console.log(id)
             moretoggle()
