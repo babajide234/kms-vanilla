@@ -187,7 +187,7 @@
                 </div>
 
                 <div class=" p-5  bg-[#F5F5F5] w-full grid grid-cols-2 gap-5">
-                    <button class=" w-full px-[14px] py-[10px] rounded-md bg-white text-primary font-semibold">Download</button>
+                    <!-- <button class=" w-full px-[14px] py-[10px] rounded-md bg-white text-primary font-semibold">Download</button> -->
                     <button onclick="sharetoggle()" class=" w-full px-[14px] py-[10px] rounded-md bg-primary text-white font-semibold">Share</button>
                 </div>
             </div>
@@ -411,6 +411,18 @@
                 $('.tab-btn').removeClass('text-text').addClass('text-textsub');
                 $(this).removeClass('text-textsub').addClass('text-text');
             });
+
+            $(document).on('click', '.toggle-btn', function() {
+                console.log('clicked toggle')
+                const section = $(this).closest('.collapsible-section');
+                const content = section.find('.collapsible-content');
+                const icon = $(this).find('.toggle-icon');
+
+                content.toggleClass('hidden');
+                icon.toggleClass(' rotate-90  '); 
+                
+                
+            });
         })
         
         function showTab(tabName) {
@@ -458,7 +470,7 @@
             content.forEach(item=>{
 
                 $dashboardContent.append(`
-                    <div class=" w-full flex flex-col justify-between gap-2 border border-border border-solid bg-bgsecond/20 overflow-hidden rounded-lg p-2 group">
+                    <div class=" hover:border-primary transition-all ease-in-out duration-300 w-full flex flex-col justify-between gap-2 border border-border border-solid bg-bgsecond/20 overflow-hidden rounded-lg p-2 group">
                             <div class="flex items-center justify-between gap-3">
                                 <div class=" flex items-center truncate overflow-hidden">
                                     <div class=" bg-[#F4E6E6] rounded-md p-[10px] flex items-center justify-center mr-2  ">
@@ -472,7 +484,7 @@
                                             </defs>
                                         </svg>
                                     </div>
-                                    <a href="/article.html" class="capitalize font-semibold text-sm truncate hover:text-primary">${item.Title}</a>
+                                    <a href="article.html" class="capitalize font-semibold text-sm truncate hover:text-primary">${item.Title}</a>
                                 </div>
                                 <button onClick={modal(${item.ContentId})} class=" py-2 px-2 hover:bg-[#F5F5F5] rounded-full flex items-center justify-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=" stroke-textsub">
@@ -516,22 +528,44 @@
                         </div>
                         <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
                             <h2 class=" text-[15px] text-[#606060]">Subsidiary</h2>
-                            <p class="">${getSubsidiary(data.SubsidiaryId)}</p>
+                            
+                            ${getSubsidiary(data.SubsidiaryId)}
                         </div>
                         <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
                             <h2 class=" text-[15px] text-[#606060]">Department</h2>
                             <p class="">${getDepartment(data.DeptId)}</p>
                         </div>
-                        <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
-                            <h2 class=" text-[15px] text-[#606060]">Documents</h2>
-                            <ul class="flex flex-col gap-2">
-                                ${generateDocumentList(sigledata.ContentDocuments)}
-                            </ul>
+                
+                        <div class="border-solid border-b border-[#DBDBDB] flex gap-5 flex-col justify-between items-center collapsible-section">
+                            <div class="w-full py-5 px-5 hover:bg-gray-200 hover:cursor-pointer flex justify-between items-center toggle-btn">
+                                <h2 class="text-[15px] text-[#606060]">Documents</h2>
+                                <span class="text-gray-400 text-xl font-bold p-2 toggle-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                    </svg>
+                                </span>
+                            </div>
+                                
+                            <div class=" collapsible-content p-5 w-full hidden h-fit overflow-hidden">
+                                <ul class="w-full flex flex-col gap-2">
+                                    ${generateDocumentList(sigledata.ContentDocuments)}
+                                </ul>
+                            </div>
                         </div>
-                        <div class="py-5 px-5 border-solid border-b gap-2 border-[#DBDBDB] flex flex-col justify-start  ">
-                            <h2 class=" text-[15px] text-[#606060]">Version History</h2>
-                            <div class=" flex flex-col justify-between  ">
-                                ${renderVariations(versions)}
+                        <div class="border-solid border-b border-[#DBDBDB] flex gap-5 flex-col justify-between items-center collapsible-section">
+                            <div class="w-full py-5 px-5 hover:bg-gray-200 hover:cursor-pointer flex justify-between items-center toggle-btn">
+                                <h2 class="text-[15px] text-[#606060]">Version History</h2>
+                                <span class="text-gray-400 text-xl font-bold p-2 toggle-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                    </svg>
+                                </span>
+                            </div>
+                                
+                            <div class=" collapsible-content p-5 w-full hidden h-fit overflow-hidden">
+                                <ul class="w-full flex flex-col gap-2">
+                                    ${renderVariations(versions)}
+                                </ul>
                             </div>
                         </div>
                     
@@ -559,19 +593,45 @@
             `)
         }
 
-        function getSubsidiary(id) {
-            const subsidiaries = Subsidiaries
+        function getSubsidiary(selectedId) {
+            const subsidiaries = Subsidiaries; // Assuming Subsidiaries is an array of subsidiary objects
+            const selectElement = $('<select name="" id="" class=" p-2 rounded bg-"></select>');
 
-            const subsidiary = subsidiaries.find(sub => sub.id === id);
+            // Create an empty option as the default
 
-            return subsidiary.name || null; 
+            // Populate options with subsidiaries
+            subsidiaries.forEach(subsidiary => {
+                const optionElement = $(`<option value="${subsidiary.id}">${subsidiary.name}</option>`);
+
+                // Check if the subsidiary's ID matches the selectedId
+                if (subsidiary.id === selectedId) {
+                    optionElement.prop('selected', true);
+                }
+
+                selectElement.append(optionElement);
+            });
+
+            return selectElement.prop('outerHTML'); // Return the outerHTML string
         }
-        function getDepartment(id) {
+        function getDepartment(selectedId) {
+            const Department = Departments; // Assuming Subsidiaries is an array of subsidiary objects
+            const selectElement = $('<select name="" id="" class=" p-2 rounded bg-"></select>');
 
-            const Department = Departments.find(sub => sub.id === id);
+            // Create an empty option as the default
 
-            return Department.name || null; 
-        }
+            // Populate options with subsidiaries
+            Department.forEach(Dep => {
+                const optionElement = $(`<option value="${Dep.id}">${Dep.name}</option>`);
+
+                if (Dep.id === selectedId) {
+                    optionElement.prop('selected', true);
+                }
+
+                selectElement.append(optionElement);
+            });
+
+            return selectElement.prop('outerHTML'); // Return the outerHTML string
+        }     
 
         function filterContent(filters) {
             let filteredContent = contentData.Result;
