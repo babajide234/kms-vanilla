@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class=" py-5">
-                <div class="dropdown flex w-[80%] mx-auto rounded-lg flex-col  bg-white relative z-40">
+                <div class="dropdown flex w-[80%] mx-auto rounded-lg flex-col  bg-white relative z-0">
                     <button data-tag class="flex text-primary items-center px-2.5 py-[15px] rounded-lg gap-4 text-sm font-medium">
                         <span class="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
@@ -128,7 +128,7 @@
                   <div class=" border-solid border-l-2 py-5 border-gray-300 "></div>
                   <div class="dropdown relative" id="type">
                         <button data-tag="ContentType" class=" text-[#606060] border border-solid border-[#606060] group  text-md md:text-md  rounded-full py-[10px] px-[20px] flex gap-3 items-center">
-                            <span class="text max-w-[150px] truncate">ContentType</span>
+                            <span class="text max-w-[150px] truncate capitalize">ContentType</span>
                             <span class="  ">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                     <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
@@ -138,10 +138,10 @@
                         <div data-dropdown class=" hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg ">
                             
                         </div>
-                    </div>
-                  <div class="dropdown relative" id="organization">
-                      <button data-tag="SubsidiaryId" class=" text-[#606060] group   text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
-                        <span class="text max-w-[150px] truncate">Subsidiary</span>
+                  </div>
+                  <div class="dropdown relative" id="subsidiary">
+                      <button data-tag="SubsidiaryId" class=" text-[#606060] group text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
+                        <span class="text max-w-[150px] truncate capitalize">Subsidiary</span>
                         <span class="  ">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                 <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
@@ -154,7 +154,7 @@
                   </div>
                   <div class="dropdown relative" id="department">
                       <button data-tag="DeptId" class=" text-[#606060] group  text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
-                        <span class="text max-w-[150px] truncate">Department</span>
+                        <span class="text max-w-[150px] truncate capitalize">Department</span>
                         <span class="  ">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                 <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
@@ -165,70 +165,25 @@
                             
                       </div>
                   </div>
-
                 </div>
             </div>
             <div class=" dashboard-content grid grid-cols-1 md:grid-cols-3 py-10 gap-5">
             </div>
 
         </div>
+
         <div class="more fixed hidden w-full h-screen bg-[#808080BF] flex items-center justify-end ">
             <div class="more-modal w-[529px] py-[20px] bg-[#F5F5F5] h-screen relative overflow-y-scroll ">
                 <div class="pb-[13px] px-[20px]  border-solid border-b border-[#DBDBDB] flex justify-between items-center">
-                    <h2 class=" text-[22px] font-semibold">Title</h2>
+                    <h2 class=" more-title text-[22px] font-semibold"></h2>
                     <button onclick="moretoggle()" class=" p-2 rounded-lg hover:bg-gray-50">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                             <path d="M15.0005 5L5.00049 15M5.00049 5L15.0005 15" stroke="#606060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                           </svg>
                     </button>
                 </div>
-                <div class=" ">
-                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex flex-col gap-[15px] ">
-                        <h2 class=" text-[15px] font-semibold">Decription</h2>
-                        <p class=" text-[#808080] text-sm">
-                            The "New Employee Guide" folder is a comprehensive resource designed to orient and support individuals who have recently joined an organization. This folder serves as a one-stop repository for essential information that new employees need to navigate their way through the onboarding process and integrate seamlessly into the company culture. It includes a range of documents such as welcome messages, an organizational chart, policies and procedures, employee benefits information, and details on workplace etiquette.
-                        </p>
-                    </div>
-                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
-                        <h2 class=" text-[15px] text-[#606060]">Category</h2>
-                        <p class="">video</p>
-                    </div>
-                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
-                        <h2 class=" text-[15px] text-[#606060]">Subsidiary</h2>
-                        <p class="">Custodian Trustees LTD</p>
-                    </div>
-                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
-                        <h2 class=" text-[15px] text-[#606060]">Department</h2>
-                        <p class="">Legal and Compliance</p>
-                    </div>
-                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
-                        <h2 class=" text-[15px] text-[#606060]">Role</h2>
-                        <p class="">Compliance auditor</p>
-                    </div>
-                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
-                        <h2 class=" text-[15px] text-[#606060]">Size</h2>
-                        <p class="">1.3 GB</p>
-                    </div>
-                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
-                        <h2 class=" text-[15px] text-[#606060]">Created by</h2>
-                        <p class="">Adetokunbo Adeoluwa</p>
-                    </div>
-                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
-                        <h2 class=" text-[15px] text-[#606060]">Date created</h2>
-                        <p class="">10 January 2017</p>
-                    </div>
-                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
-                        <h2 class=" text-[15px] text-[#606060]">Most recent update</h2>
-                        <p class="">23 October 2023</p>
-                    </div>
-                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
-                        <h2 class=" text-[15px] text-[#606060]">Updated by</h2>
-                        <p class="">Yinka Ogunmepon</p>
-                    </div>
-                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
-                        <h2 class=" text-[15px] text-[#606060]">Bookmark</h2>
-                        <p class="">video</p>
-                    </div>
+                <div class="more-content">
+                    
                 </div>
 
                 <div class=" p-5  bg-[#F5F5F5] w-full grid grid-cols-2 gap-5">
@@ -237,14 +192,83 @@
                 </div>
             </div>
         </div>
+
+        <div class="share hidden fixed w-full h-screen bg-[#808080BF] flex items-center justify-center ">
+            <div class="bg-white p-4 w-[600px]  rounded-lg ">
+                    <div class=" border-b border-gray-300 py-3">
+                        <h2 class=" text-2xl font-semibold">Share</h2>
+                    </div>
+                    <div class=" py-5">
+                        <div class=" mb-5">
+                            <ul class=" flex items-center ">
+                                <li data-tab="email" class=" tab-btn text-textsub  py-2 px-2 text-md border-b-2 border-red-800 hover:cursor-pointer">Send as mail</li>
+                                <li data-tab="app" class=" tab-btn  text-textsub py-2 px-2 text-md border-b-2 border-red-800 hover:cursor-pointer">Share in-app</li>
+                                <li data-tab="link" class=" tab-btn  text-textsub py-2 px-2 text-md border-b-2 border-red-800 hover:cursor-pointer">Generate link</li>
+                            </ul>
+                        </div>
+                        <div class=" email-tab tab-content w-full flex flex-col gap-5 border border-gray-300 rounded-md py-2 flex items-center px-3">
+                            <div class=" w-full gap-3 flex items-center border border-solid border-gray-300 p-3 rounded-md">
+                                <span class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                                      </svg>                                      
+                                </span>
+                                <input type="text" class=" outline-none flex-grow" placeholder="Add email address" />
+                            </div>
+                            <div class=" w-full flex items-center justify-between">
+                                <p class="text-base text-neutral-700 leading-tight">Person shared with </p>
+                                <div class="dropdown relative">
+                                    <button data-tag="" class=" flex items-center">
+                                      <span class="text max-w-[150px] truncate">can view</span>
+                                      <span class="  ">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                              <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                                          </svg>
+                                      </span>
+                                    </button>
+                                    <div data-dropdown class=" hidden w-44 h-20 px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg ">
+                                          <button data-sub="can view" class="p-1 hover:bg-gray-50 text-left rounded-sm">can view</button>
+                                          <button data-sub="can view" class="p-1 hover:bg-gray-50 text-left rounded-sm">can download</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" w-full flex items-center justify-between">
+                                <p class="text-base text-neutral-700 leading-tight">Set expiration date</p>
+                                <label for="setdate"  class=" hover:cursor-pointer">
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                                    </svg>                                       -->
+                                    <input type="date" name="date" class=" " id="setdate">
+                                </label>
+                            </div>
+                            <div class=" w-full flex items-center justify-between">
+                                <button class=" text-sm font-semibold text-white bg-primary w-full text-center p-3 rounded-lg">Share</button>
+                            </div>
+                        </div>
+                        <div class=" app-tab tab-content border border-gray-300 rounded-md py-2 flex items-center px-3">
+                            app
+                        </div>
+                        <div class=" link-tab tab-content border border-gray-300 rounded-md py-2 flex items-center px-3">
+                            link
+                        </div>
+                    </div>
+                    <div class=" flex justify-end">
+                    </div>
+            </div>
+        </div>
+        <div class="fixed top-10 right-10">
+            
+        </div>
     </div>
     <script src="./common.js"></script>
+    <script src="./alert.js"></script>
 
     <script >
         $(document).ready(function () {
 
             loadSidebar();
             renderContent(contentData.Result);
+            // showToast('success', 'Item moved successfully.');
 
 
             $('nav a').click(function (e) {
@@ -269,45 +293,80 @@
                 filterContentBySearch(searchText);
             });
 
-            populateDropdown(Subsidiaries, 'organization');
-            populateDropdown(ContentTypes, 'type');
-            populateDropdown(Departments, 'department');
             
             let filterObject = {};
+            
+
+
+            populateDropdown(Subsidiaries, 'subsidiary');
+            populateDropdown(ContentTypes, 'type');
+            
+
 
             $('.dropdown').each(function () {
                 const $button = $(this).find('[data-tag]');
                 const $dropdown = $(this).find('[data-dropdown]');
-            
+                const dropdownId = $(this).attr('id');
+
+                if ($button.data('tag') === 'all') {
+                    console.log('all btns');
+                    filterObject = {}; // Reset the filterObject
+                    filterContent(filterObject);
+                    handleSubsidiaryFilter(filterObject);
+                }
+                
+                
                 let currentSelectedValue = ""; 
 
 
                 $button.click(function (e) {
                     e.stopPropagation(); 
+                    console.log(' btns clicked')
                     $dropdown.toggleClass('hidden');
                 });
 
+
                 $dropdown.find('[data-sub]').click(function () {
-                    const selectedValue = $(this).data('sub');
+                    const selectedName = $(this).data('sub');
+                    let selectedValue ='';
+
+                    if($button.data('tag') === 'ContentType'){
+                        selectedValue = $(this).data('sub');
+                    }else{
+                        selectedValue = $(this).data('value');
+                    }
 
                     // Check if the selected value is already the current selected value
                     if (filterObject[$button.data('tag')] === selectedValue) {
                         // If it is the same value, remove the selection
-                        filterObject[$button.data('tag')] = ""; // Clear the selected value from filterObject
-                        $button.find('.text').text($button.data('tag')); // Clear the button text
-                        $(this).removeClass('bg-primary text-white'); // Remove the styling from the selected option
+                        console.log(filterObject);
+                        
+                        // Clear the selected value from filterObject
+                        filterObject[$button.data('tag')] = ""; 
+                        console.log(dropdownId);
+                        // Clear the button text
+                        $button.find('.text').text(dropdownId); 
+                        
+                        // Remove the styling from the selected option
+                        $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
+                        filterContent({});
+                        handleSubsidiaryFilter(filterObject);
                     } else {
                         // Update the filter object
                         filterObject[$button.data('tag')] = selectedValue;
 
+                        console.log(filterObject);
 
                         filterContent(filterObject);
+                        handleSubsidiaryFilter(filterObject);
 
-                        currentSelectedValue = selectedValue; // Update the current selected value
-                        $button.find('.text').text(selectedValue);
+                        // Update the current selected value
+                        currentSelectedValue = selectedValue; 
+                        $button.find('.text').text(selectedName);
                         $dropdown.addClass('hidden');
 
                         $dropdown.find('[data-sub]').removeClass('bg-primary text-white');
+                        $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
                         $(this).addClass('bg-primary text-white');
 
                         if ($(this).attr('data-sub')) {
@@ -315,6 +374,13 @@
                         } else {
                             // If data-sub attribute is not present, you can add an else statement to handle that case
                         }
+                    }
+
+                    if ($button.data('tag') === 'all') {
+                        console.log('all btns');
+                        filterObject = {}; // Reset the filterObject
+                        filterContent({});
+                        handleSubsidiaryFilter(filterObject);
                     }
                 });
 
@@ -324,15 +390,58 @@
                 });
             });
             
+            handleSubsidiaryFilter(filterObject);
+
             filterContent('all');
             markActiveTag('all');
+            
+            const defaultTab = 'email';
+            $(`.tab-btn[data-tab="${defaultTab}"]`).removeClass('text-textsub').addClass('text-text')
+            showTab(defaultTab);
 
+            $('.tab-btn').click(function () {
+                const tabName = $(this).data('tab');
+                showTab(tabName);
+
+                $('.tab-btn').removeClass('text-text').addClass('text-textsub');
+                $(this).removeClass('text-textsub').addClass('text-text');
+            });
         })
         
+        function showTab(tabName) {
+            $('.tab-content').hide();
+            $(`.${tabName}-tab`).show();
+        }
+
+        function handleSubsidiaryFilter(filterObject) {
+            if (filterObject && filterObject.SubsidiaryId) {
+                const selectedSubsidiaryId = filterObject.SubsidiaryId;
+                const departmentsForSubsidiary = getDepartmentsForSubsidiary(selectedSubsidiaryId);
+                populateDropdown(departmentsForSubsidiary, 'department');
+            }
+        }
+
+        function getDepartmentsForSubsidiary(subId) {
+
+            const relationshipsForSubsidiary = SubsidiaryDepartmentRelationships.filter(relationship => {
+                return relationship.subId === subId;
+            });
+
+            // Extract department IDs from the relationships
+            const departmentIds = relationshipsForSubsidiary.map(relationship => relationship.deptId);
+
+            // Map department IDs to department objects
+            const departmentsForSubsidiary = Departments.filter(department => {
+                return departmentIds.includes(department.id);
+            });
+
+            return departmentsForSubsidiary;
+        }
+
         function populateDropdown(data, dropdownId) {
             const dropdown = $(`#${dropdownId} [data-dropdown]`);
             data.forEach(item => {
-                const button = `<button data-sub="${item.name}" class="py-1 hover:bg-gray-50 hover:text-primary text-left px-10 rounded-sm">${item.name}</button>`;
+                const button = `<button data-sub="${item.name}" data-value="${item.id}" class=" capitalize py-1 hover:bg-gray-50 hover:text-primary text-left px-5 rounded-sm">${item.name}</button>`;
                 dropdown.append(button);
             });
         }
@@ -379,7 +488,85 @@
             })
         }
 
-  
+        function renderMoreContent(id){
+            const data = sigledata.Result;
+            const versions = sigledata.Versions;
+            const $moreContiner = $('.more-content');
+
+            $moreContiner.empty();
+            
+            $('.more-title').append(`${data.Title}`);
+
+            if(data.ContentType=== 'Document'){
+                $moreContiner.append(`
+                        <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex flex-col gap-[15px] ">
+                            <h2 class=" text-[15px] font-semibold">Decription</h2>
+                            <p class=" text-[#808080] text-sm">
+                                ${data.Description}
+                            </p>
+                        </div>
+                        <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                            <h2 class=" text-[15px] text-[#606060]">Category</h2>
+                            <p class="">${data.Description}</p>
+                        </div>
+                        <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                            <h2 class=" text-[15px] text-[#606060]">Subsidiary</h2>
+                            <p class="">${getSubsidiary(data.SubsidiaryId)}</p>
+                        </div>
+                        <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                            <h2 class=" text-[15px] text-[#606060]">Department</h2>
+                            <p class="">${getDepartment(data.DeptId)}</p>
+                        </div>
+                        <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                            <h2 class=" text-[15px] text-[#606060]">Documents</h2>
+                            <ul class="flex flex-col gap-2">
+                                ${generateDocumentList(sigledata.ContentDocuments)}
+                            </ul>
+                        </div>
+                        <div class="py-5 px-5 border-solid border-b gap-2 border-[#DBDBDB] flex flex-col justify-start  ">
+                            <h2 class=" text-[15px] text-[#606060]">Version History</h2>
+                            <div class=" flex flex-col justify-between  ">
+                                ${renderVariations(versions)}
+                            </div>
+                        </div>
+                    
+            
+                `);
+                
+            }
+        }
+
+        function generateDocumentList(contentDocuments) {
+            return contentDocuments.map(item => `<li class=" flex items-center gap-3 p-2.5 border-solid border border-primary rounded text-primary font-bold text-[10px] ">
+                <img class="w-4 h-5" src="./img/pdf.jpg" alt="doc type"/>
+                <span>${item.FileName}</span>
+            </li>`).join('');
+        }
+
+        function renderVariations(variations){
+            return variations.map(item=>`
+                <div class="border-solid border border-primary rounded p-2.5">
+                    <p class="text-xs"><span class="mr-4 text-gray-600 font-bold">Reviwed By:</span>${item.Reviewedby}</p>
+                    <p class="text-xs"><span class="mr-4 text-gray-600 font-bold">Created By:</span>${item.Createdby}</p>
+                    <p class="text-xs"><span class="mr-4 text-gray-600 font-bold">Date Reviewed :</span>${item.DateReviewed}</p>
+                </div>
+
+            `)
+        }
+
+        function getSubsidiary(id) {
+            const subsidiaries = Subsidiaries
+
+            const subsidiary = subsidiaries.find(sub => sub.id === id);
+
+            return subsidiary.name || null; 
+        }
+        function getDepartment(id) {
+
+            const Department = Departments.find(sub => sub.id === id);
+
+            return Department.name || null; 
+        }
 
         function filterContent(filters) {
             let filteredContent = contentData.Result;
@@ -407,7 +594,6 @@
             renderContent(filteredContent);
         }
 
-
         function isEmptyObject(obj) {
             for (const key in obj) {
                 if (obj.hasOwnProperty(key)) {
@@ -416,6 +602,7 @@
             }
             return true;
         }
+
         function filterContentBySearch(searchText) {
             const filteredContent = contentData.Result.filter(item => {
                 return item.Title.toLowerCase().includes(searchText) || item.Description.toLowerCase().includes(searchText);
@@ -423,10 +610,12 @@
 
             renderContent(filteredContent);
         }
+
         function markActiveTag(activeTag) {
             $('button[data-tag]').removeClass('bg-primary text-white');
             $(`button[data-tag="${activeTag}"]`).addClass('bg-primary text-white');
         }
+
         function loadContent(route) {
         // Load content based on the selected route
             switch (route) {
@@ -440,6 +629,7 @@
                     $('#content').html('<h2>Page Not Found</h2>');
             }
         }
+
         function modal(id){
             console.log(id)
             moretoggle()
@@ -448,7 +638,12 @@
         function moretoggle(){
             $('.more').toggleClass('hidden');
             animateMore()
+            renderMoreContent()
         }
+        function sharetoggle(){
+            $('.share').toggleClass('hidden');
+        }
+
         function loadSidebar() {
             const $nav = $('#sidebar');
             console.log(menu);

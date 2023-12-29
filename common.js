@@ -62,9 +62,7 @@
       </svg>`
     },
 ]
-{{
-      
-}}
+
 
 const contentData ={
     "Result": [
@@ -346,6 +344,14 @@ const Departments = [
     { name: "Sales", id: 8 },
     { name: "Legal", id: 9 },
     { name: "Quality Assurance", id: 10 },
+];
+const SubsidiaryDepartmentRelationships = [
+  {id:1, subId: 1, deptId: 1 },
+  {id:2, subId: 3, deptId: 1 },
+  {id:3, subId: 5, deptId: 1 },
+  {id:4, subId: 2, deptId: 2 },
+  {id:5, subId: 4, deptId: 2 },
+  {id:6, subId: 6, deptId: 2 },
 ];
 const ContentTypes = [
     { name: "Document", id: 1 },
