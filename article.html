@@ -46,6 +46,44 @@
                     <p class=" text-textsub text-xs">Knowledge management System</p>
                 </div>
             </div>
+            <div class=" py-5">
+                <div class="dropdown flex w-[80%] mx-auto rounded-lg flex-col  bg-white relative z-0">
+                    <button data-tag class="flex text-primary items-center px-2.5 py-[15px] rounded-lg gap-4 text-sm font-medium">
+                        <span class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                        </span>
+                        Create new content
+                    </button>
+                    <div data-dropdown class=" w-full absolute hidden z-50 bg-white top-0 left-0 flex flex-col gap-4 rounded-lg px-2.5 py-[15px]  ">
+                        <button data-tag class="px-2.5 py-[15px] border-b border-solid border-gray-100">
+                            <h2 class="">Select content type</h2>
+                        </button>
+                        <ul class="">
+                            <li class="">
+                                <a href="./newarticle.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Article
+                                <span class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                                </span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="./newimage.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Image
+                                <span class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                                </span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="./newvideo.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Video
+                                <span class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                                </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class=" flex-1 overflow-y-scroll flex flex-col">
             <div class="article-header p-8 flex items-center justify-between   border-solid border-gray-300">
@@ -59,8 +97,8 @@
                     </a>
                     <h2 class=" text-[26px] font-bold">New employee guide</h2>
                 </div>
-                <div class="flex items-center gap-5">~
-                    <button class="py-[8px] px-[14px] bg-[#900000] capitalize text-sm rounded-lg text-white font-semibold ">Share</button>
+                <div class="flex items-center gap-5">
+                    <button onclick="sharetoggle()" class="py-[8px] px-[14px] bg-[#900000] capitalize text-sm rounded-lg text-white font-semibold ">Share</button>
                     <button class="py-2 px-2  rounded-lg hover:bg-gray-50">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M8 12L12 16M12 16L16 12M12 16V8M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#3F3F3F" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
@@ -71,13 +109,13 @@
                             <path d="M5 7.8C5 6.11984 5 5.27976 5.32698 4.63803C5.6146 4.07354 6.07354 3.6146 6.63803 3.32698C7.27976 3 8.11984 3 9.8 3H14.2C15.8802 3 16.7202 3 17.362 3.32698C17.9265 3.6146 18.3854 4.07354 18.673 4.63803C19 5.27976 19 6.11984 19 7.8V21L12 17L5 21V7.8Z" stroke="#3F3F3F" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
-                    <button class="py-2 px-2  rounded-lg hover:bg-gray-50">
+                    <!-- <button class="py-2 px-2  rounded-lg hover:bg-gray-50">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#3F3F3F" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z" stroke="#3F3F3F" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13Z" stroke="#3F3F3F" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                    </button>
+                    </button> -->
                     <button class="dock-toggle py-2 px-2  rounded-lg hover:bg-gray-50">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="rotate-svg transition-transform ease duration-300">
                             <path d="M6 17L11 12L6 7M13 17L18 12L13 7" stroke="black" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
@@ -89,14 +127,14 @@
                 <div class=" document-content flex-1 min-h-screen p-8 relative ">
                     <div class=" mb-3">
                         <h2 class=" mb-3 text-md font-semibold capitalize">Description</h2>
-                        <p class="text-[#808080] text-sm">
+                        <p class="text-[#808080] text-sm textarea">
                             The "New Employee Guide" folder is a comprehensive resource designed to orient and support individuals who have recently joined an organization. This folder serves as a one-stop repository for essential information that new employees need to navigate their way through the onboarding process and integrate seamlessly into the company culture. It includes a range of documents such as welcome messages, an organizational chart, policies and procedures, employee benefits information, and details on workplace etiquette.
                         </p>
                     </div>
                     <div class="">
                         <h2 class="mb-3 text-md font-semibold capitalize">content</h2>
     
-                        <p class="text-[#808080] text-sm">
+                        <p class="text-[#808080] text-sm textarea">
                             Navigating Your Workspace
     Welcome to your new professional home! Navigating your workspace is a multifaceted journey that goes beyond the confines of a physical desk. In this comprehensive guide, we'll walk you through the intricacies of both your physical and virtual work environments at [Company Name], ensuring that you feel empowered and well-equipped in every aspect of your professional life.
     
@@ -115,7 +153,7 @@
     Explore, engage, and make your workspace uniquely yours! Welcome to a new era of productivity and collaboration at [Company Name].
                         </p>
 
-                        <div class=" p-[10px] w-fit fixed bottom-10 z-50 rounded-lg border-[#CDCDCD] border border-solid bg-[#FBFBFB] flex items-center justify-between">
+                        <div class=" p-[10px] w-fit fixed bottom-10 z-10 rounded-lg border-[#CDCDCD] border border-solid bg-[#FBFBFB] flex items-center justify-between">
                             <span class="flex items-center gap-2">
                                 <img src="./img/pdf.png" alt="" class="">
                                 <h2 class=" w-[256px]">Training.pdf</h2>
@@ -143,14 +181,27 @@
                     <div class="remarks-tab tab-content">
                         <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
                             <h3 class=" text-[12px] text-text font-semibold ">Like</h3>
-                            <button class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
-                                    <path d="M4.66683 15.1668V7.8335M1.3335 9.16683V13.8335C1.3335 14.5699 1.93045 15.1668 2.66683 15.1668H11.6177C12.6048 15.1668 13.4443 14.4466 13.5944 13.4709L14.3124 8.80428C14.4987 7.59276 13.5614 6.50016 12.3356 6.50016H10.0002C9.63197 6.50016 9.3335 6.20169 9.3335 5.8335V3.47739C9.3335 2.56949 8.5975 1.8335 7.6896 1.8335C7.47305 1.8335 7.27682 1.96103 7.18887 2.15891L4.84279 7.43759C4.73579 7.67834 4.49704 7.8335 4.23358 7.8335H2.66683C1.93045 7.8335 1.3335 8.43045 1.3335 9.16683Z" stroke="#808080" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </button>
+                            <form action="" method="post" id="likeForm">
+                                <input type="hidden" value="1" class="">
+                                <button type="submit" class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                                        <path d="M4.66683 15.1668V7.8335M1.3335 9.16683V13.8335C1.3335 14.5699 1.93045 15.1668 2.66683 15.1668H11.6177C12.6048 15.1668 13.4443 14.4466 13.5944 13.4709L14.3124 8.80428C14.4987 7.59276 13.5614 6.50016 12.3356 6.50016H10.0002C9.63197 6.50016 9.3335 6.20169 9.3335 5.8335V3.47739C9.3335 2.56949 8.5975 1.8335 7.6896 1.8335C7.47305 1.8335 7.27682 1.96103 7.18887 2.15891L4.84279 7.43759C4.73579 7.67834 4.49704 7.8335 4.23358 7.8335H2.66683C1.93045 7.8335 1.3335 8.43045 1.3335 9.16683Z" stroke="#808080" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                            </form>
                         </div>
                         <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
                             <h3 class=" text-[12px] text-text font-semibold ">Rate</h3>
+                            <div class="flex gap-2">
+                                <div class="rating">
+                                    <span class="star hover:cursor-pointer text-gray-300">&#9733;</span>
+                                    <span class="star hover:cursor-pointer text-gray-300">&#9733;</span>
+                                    <span class="star hover:cursor-pointer text-gray-300">&#9733;</span>
+                                    <span class="star hover:cursor-pointer text-gray-300">&#9733;</span>
+                                    <span class="star hover:cursor-pointer text-gray-300">&#9733;</span>
+                                </div>
+                                <p class="result"><span id="rating-value">0</span></p>
+                            </div>
                         </div>
                         <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
                             <div class="">
@@ -182,6 +233,74 @@
                 </div>
             </div>
         </div>
+        <div class="share hidden fixed w-full z-20 h-screen bg-[#808080BF] flex items-center justify-center ">
+            <div class="bg-white p-4 w-[600px]  rounded-lg ">
+                    <div class=" flex justify-between items-center border-b border-gray-300 py-3">
+                        <h2 class=" text-2xl font-semibold">Share</h2>
+                        <button onclick="sharetoggle()" class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                              </svg>                              
+                        </button>
+                    </div>
+                    <div class=" py-5">
+                        <div class=" mb-5">
+                            <ul class=" flex items-center ">
+                                <li data-tab="email" class=" tab-btn text-textsub  py-2 px-2 text-md border-b-2 border-red-800 hover:cursor-pointer">Send as mail</li>
+                                <li data-tab="app" class=" tab-btn  text-textsub py-2 px-2 text-md border-b-2 border-red-800 hover:cursor-pointer">Share in-app</li>
+                                <li data-tab="link" class=" tab-btn  text-textsub py-2 px-2 text-md border-b-2 border-red-800 hover:cursor-pointer">Generate link</li>
+                            </ul>
+                        </div>
+                        <div class=" email-tab tab-content w-full flex flex-col gap-5 border border-gray-300 rounded-md py-2 flex items-center px-3">
+                            <div class=" w-full gap-3 flex items-center border border-solid border-gray-300 p-3 rounded-md">
+                                <span class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                                      </svg>                                      
+                                </span>
+                                <input type="text" class=" outline-none flex-grow" placeholder="Add email address" />
+                            </div>
+                            <div class=" w-full flex items-center justify-between">
+                                <p class="text-base text-neutral-700 leading-tight">Person shared with </p>
+                                <div class="dropdown relative">
+                                    <button data-tag="" class=" flex items-center">
+                                      <span class="text max-w-[150px] truncate">can view</span>
+                                      <span class="  ">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                              <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                                          </svg>
+                                      </span>
+                                    </button>
+                                    <div data-dropdown class=" hidden w-44 h-20 px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg ">
+                                          <button data-sub="can view" class="p-1 hover:bg-gray-50 text-left rounded-sm">can view</button>
+                                          <button data-sub="can view" class="p-1 hover:bg-gray-50 text-left rounded-sm">can download</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" w-full flex items-center justify-between">
+                                <p class="text-base text-neutral-700 leading-tight">Set expiration date</p>
+                                <label for="setdate"  class=" hover:cursor-pointer">
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                                    </svg>                                       -->
+                                    <input type="date" name="date" class=" " id="setdate">
+                                </label>
+                            </div>
+                            <div class=" w-full flex items-center justify-between">
+                                <button onclick="sharetoggle()" class=" text-sm font-semibold text-white bg-primary w-full text-center p-3 rounded-lg">Share</button>
+                            </div>
+                        </div>
+                        <div class=" app-tab tab-content border border-gray-300 rounded-md py-2 flex items-center px-3">
+                            app
+                        </div>
+                        <div class=" link-tab tab-content border border-gray-300 rounded-md py-2 flex items-center px-3">
+                            link
+                        </div>
+                    </div>
+                    <div class=" flex justify-end">
+                    </div>
+            </div>
+        </div>
     </div>
     <script src="./common.js"></script>
 
@@ -210,8 +329,13 @@
 
             })
             const defaultTab = 'remarks';
+            const defaultShareTab = 'email';
+
             $(`.tab-btn[data-tab="${defaultTab}"]`).removeClass('text-textsub').addClass('text-text')
             showTab(defaultTab);
+
+            $(`.tab-btn[data-tab="${defaultShareTab}"]`).removeClass('text-textsub').addClass('text-text')
+            showTab(defaultShareTab);
 
             $('.tab-btn').click(function () {
                 const tabName = $(this).data('tab');
@@ -220,12 +344,123 @@
                 $('.tab-btn').removeClass('text-text').addClass('text-textsub');
                 $(this).removeClass('text-textsub').addClass('text-text');
             });
+
+
+           
+            $('#likeForm').submit(function(e){
+                e.preventDefault;
+            })
+
+            $('.star').on('click', function () {
+                const clickedStar = $(this);
+                const rating = clickedStar.index() + 1;
+
+                // Set the rating value
+                $('#rating-value').text(rating);
+
+                // Highlight the selected stars
+                clickedStar.prevAll().addBack().addClass('text-yellow-400');
+                clickedStar.nextAll().removeClass('text-yellow-400');
+            });
+            
+            $('.dropdown').each(function () {
+                const $button = $(this).find('[data-tag]');
+                const $dropdown = $(this).find('[data-dropdown]');
+                const dropdownId = $(this).attr('id');
+
+                if ($button.data('tag') === 'all') {
+                    console.log('all btns');
+                    filterObject = {}; // Reset the filterObject
+                    filterContent(filterObject);
+                    handleSubsidiaryFilter(filterObject);
+                }
+                
+                
+                let currentSelectedValue = ""; 
+
+
+                $button.click(function (e) {
+                    e.stopPropagation(); 
+                    console.log(' btns clicked')
+                    $dropdown.toggleClass('hidden');
+                });
+
+
+                $dropdown.find('[data-sub]').click(function () {
+                    const selectedName = $(this).data('sub');
+                    let selectedValue ='';
+
+                    if($button.data('tag') === 'ContentType'){
+                        selectedValue = $(this).data('sub');
+                    }else{
+                        selectedValue = $(this).data('value');
+                    }
+
+                    // Check if the selected value is already the current selected value
+                    if (filterObject[$button.data('tag')] === selectedValue) {
+                        // If it is the same value, remove the selection
+                        console.log(filterObject);
+                        
+                        // Clear the selected value from filterObject
+                        filterObject[$button.data('tag')] = ""; 
+                        console.log(dropdownId);
+                        // Clear the button text
+                        $button.find('.text').text(dropdownId); 
+                        
+                        // Remove the styling from the selected option
+                        $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
+                        // filterContent({});
+                        // handleSubsidiaryFilter(filterObject);
+                    } else {
+                        // Update the filter object
+                        filterObject[$button.data('tag')] = selectedValue;
+
+                        // console.log(filterObject);
+
+                        // filterContent(filterObject);
+                        // handleSubsidiaryFilter(filterObject);
+
+                        // Update the current selected value
+                        currentSelectedValue = selectedValue; 
+                        $button.find('.text').text(selectedName);
+                        $dropdown.addClass('hidden');
+
+                        $dropdown.find('[data-sub]').removeClass('bg-primary text-white');
+                        $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
+                        $(this).addClass('bg-primary text-white');
+
+                        if ($(this).attr('data-sub')) {
+                            $button.removeClass('text-[#606060] border border-solid border-[#606060]').addClass('bg-primary text-white');
+                        } else {
+                            // If data-sub attribute is not present, you can add an else statement to handle that case
+                        }
+                    }
+
+                    if ($button.data('tag') === 'all') {
+                        console.log('all btns');
+                        filterObject = {}; // Reset the filterObject
+                        // filterContent({});
+                        // handleSubsidiaryFilter(filterObject);
+                    }
+                });
+
+
+                $(document).click(function () {
+                    $dropdown.addClass('hidden');
+                });
+            });
+            
         })
+
+        function sharetoggle(){
+            $('.share').toggleClass('hidden');
+        }
 
         function showTab(tabName) {
             $('.tab-content').hide();
             $(`.${tabName}-tab`).show();
         }
+        
 
         function loadSidebar() {
             const $nav = $('#sidebar');

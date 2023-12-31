@@ -118,28 +118,24 @@
                 <div class=" document-content flex-1 min-h-screen p-8 relative ">
                     <div class=" mb-3">
                         <h2 class=" mb-3 text-md font-semibold capitalize">Description</h2>
-                        <textarea name="" id="" class="w-full min-h-[50px] outline-none border-none text-[#808080] placeholder:text-[#CDCDCD]" placeholder="Write a description..."></textarea>
+                        <textarea name="" id="" rows="5" class="textarea w-full min-h-[50px] p-4 outline-none border border-gray-300 rounded-md text-[#808080] placeholder:text-[#CDCDCD]" placeholder="Write a description..."></textarea>
                     </div>
                     <div class="">
                         <h2 class="mb-3 text-md font-semibold capitalize">content</h2>
-                        <div class=" grid grid-cols-3 gap-2">
-                            <div class="w-full h-40 p-2.5 bg-neutral-50 rounded-lg border border-stone-300 flex-col justify-start items-start gap-3.5 inline-flex">
-                                <div class="w-full justify-start items-center gap-2 flex flex-col">
-                                    <div class=" w-full flex-grow h-[90px] p-2.5 bg-black bg-opacity-30 rounded justify-center items-center flex">
-                                            <div class="w-12 h-12 flex justify-center items-center bg-neutral-100 bg-opacity-40 rounded-full">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                                            </div>
-                                    </div>
-                                    <h2 class="self-stretch  text-black text-sm font-normal leading-tight">Tech Tools for Onboarding Success: A Visual Guide</h2>
-                                </div>
-                            </div>                            
-                            <label class="w-full h-40 px-2.5 py-3.5 bg-white rounded border border-gray-200 border-dashed flex-col justify-center items-center gap-5 inline-flex">
+                        <div id="mediaStack" class=" grid grid-cols-3 gap-2">
+                                                      
+                            <label for="mediaUpload" class="w-full h-40 px-2.5 py-3.5 bg-white hover:cursor-pointer hover:border-primary rounded border border-gray-200 border-dashed flex-col justify-center items-center gap-5 inline-flex">
                                 <div class="w-6 h-6 relative">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-video"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>                                </div>
-                                <div class="self-stretch h-10 text-center text-zinc-600 text-sm font-normal  leading-tight">Choose an video or drag and drop it here</div>
-                                <Button class="px-2.5 py-2 bg-white rounded-lg shadow border border-neutral-100 justify-center items-center gap-2 inline-flex text-center text-red-800 text-xs font-medium  leading-none">
-                                    Upload
-                                </Button>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-plus">
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7" />
+                                        <line x1="16" x2="22" y1="5" y2="5" />
+                                        <line x1="19" x2="19" y1="2" y2="8" />
+                                        <circle cx="9" cy="9" r="2" />
+                                        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                                    </svg>
+                                </div>
+                                <div class="self-stretch h-10 text-center text-zinc-600 text-sm font-normal  leading-tight">Choose media or drag and drop it here</div>
+                                <input type="file" class="hidden" id="mediaUpload" multiple>
                             </label>
                         </div>
                     </div>
@@ -188,6 +184,22 @@
             loadSidebar();
             renderContent(contentData.Result);
 
+
+            $('#mediaUpload').change(function () {
+                readMedia(this);
+            });
+
+            $(document).on('click', '#mediaStack button', function () {
+                const index = $(this).data('index');
+                $(`#mediaStack div:eq(${index})`).remove(); // Remove the entire div
+                const remainingImages = $('#mediaStack img').length;
+                $('#selectedImageText').text(`${remainingImages} images selected`);
+            });
+
+
+            $('#uploadButton').click(function () {
+                $('#imageupload').click();
+            });
 
             $('nav a').click(function (e) {
                 e.preventDefault();
@@ -271,6 +283,42 @@
 
         })
         
+        function readMedia(input) {
+            if (input.files && input.files.length > 0) {
+                for (let i = 0; i < input.files.length; i++) {
+                    const mediaFile = input.files[i];
+                    if (mediaFile.size <= 30 * 1024 * 1024) { // Check if file size is less than or equal to 3MB
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            const mediaElement = `
+                                <div class="relative group w-full h-40">
+                                    
+                                    <video class="object-fit-cover w-full h-full rounded" controls><source src="${e.target.result}" type="${mediaFile.type}"></video>
+                                    
+                                    <button class="absolute top-3 right-3 bg-white text-gray-600 p-1 rounded-full opacity-0 group-hover:opacity-100" data-index="${i}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                    </button>
+                                </div>
+                            `;
+                            $('#mediaStack').prepend(mediaElement);
+                        }
+                        if (mediaFile.type.startsWith('image/') || mediaFile.type.startsWith('video/')) {
+                            reader.readAsDataURL(mediaFile);
+                        } else {
+                            alert(`Unsupported media type: ${mediaFile.type}`);
+                        }
+                    } else {
+                        alert(`File ${mediaFile.name} exceeds the 3MB size limit and will not be uploaded.`);
+                    }
+                }
+
+                $('#selectedMediaText').text(`${input.files.length} media files selected`);
+            }
+        }
+
         function populateDropdown(data, dropdownId) {
             const dropdown = $(`#${dropdownId} [data-dropdown]`);
             data.forEach(item => {

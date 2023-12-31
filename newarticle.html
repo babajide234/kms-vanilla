@@ -10,6 +10,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
 
   <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.tiny.cloud/1/50wdqgqz88fpl68n52tmf8ilkr5udtv1jwcbcymq1f2xe9bo/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
   <script>
 
     tailwind.config = {
@@ -60,21 +62,21 @@
                         </button>
                         <ul class="">
                             <li class="">
-                                <a href="./article.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Article
+                                <a href="./newarticle.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Article
                                 <span class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                                 </span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Image
+                                <a href="./newimage.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Image
                                 <span class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                                 </span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Video
+                                <a href="./newvideo.htmls" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Video
                                 <span class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                                 </span>
@@ -118,11 +120,12 @@
                 <div class=" document-content flex-1 min-h-screen p-8 relative ">
                     <div class=" mb-3">
                         <h2 class=" mb-3 text-md font-semibold capitalize">Description</h2>
-                        <textarea name="" id="" class="w-full min-h-[50px] outline-none border-none text-[#808080] placeholder:text-[#CDCDCD]" placeholder="Write a description..."></textarea>
+                        <textarea name="" id="" rows="10" class="textarea w-full min-h-[50px] p-4 outline-none border border-gray-300 rounded-md text-[#808080] placeholder:text-[#CDCDCD]" placeholder="Write a description..."></textarea>
+                        <!-- <div class="textarea"></div> -->
                     </div>
                     <div class="">
                         <h2 class="mb-3 text-md font-semibold capitalize">content</h2>
-                        <textarea name="" id="" class="w-full min-h-[50px] outline-none border-none text-[#808080] placeholder:text-[#CDCDCD]" placeholder="Start writing...."></textarea>                        
+                        <textarea name="" id="" rows="10" class=" textarea w-full min-h-[200px] p-4 outline-none border border-gray-300 rounded-md text-[#808080] placeholder:text-[#CDCDCD]" placeholder="Start writing...."></textarea>                        
                     </div>
                 </div>
                 <div class=" document-dock w-[253px] border-l border-gray-300 border-solid min-h-screen ">
@@ -234,6 +237,17 @@
             loadSidebar();
             renderContent(contentData.Result);
 
+            tinymce.init({
+                selector: '.textarea',
+                maenubar:false,
+                inline: true,
+                plugins:[
+                    'lists',
+                    'powerpaste',
+                    'autolink'
+                ],
+                toolbar: 'undo redo | bold italic underline',
+            });
 
             $('nav a').click(function (e) {
                 e.preventDefault();

@@ -118,20 +118,21 @@
                 <div class=" document-content flex-1 min-h-screen p-8 relative ">
                     <div class=" mb-3">
                         <h2 class=" mb-3 text-md font-semibold capitalize">Description</h2>
-                        <textarea name="" id="" class="w-full min-h-[50px] outline-none border-none text-[#808080] placeholder:text-[#CDCDCD]" placeholder="Write a description..."></textarea>
+                        <textarea name="" id="" rows="5" class="textarea w-full min-h-[50px] p-4 outline-none border border-gray-300 rounded-md text-[#808080] placeholder:text-[#CDCDCD]" placeholder="Write a description..."></textarea>
                     </div>
                     <div class="">
                         <h2 class="mb-3 text-md font-semibold capitalize">content</h2>
-                        <div class=" grid grid-cols-3 gap-2">
-                            <img src="./img/frame.png" alt="" class=" object-fit-cover w-full h-full">
-                            <label class="w-full h-40 px-2.5 py-3.5 bg-white rounded border border-gray-200 border-dashed flex-col justify-center items-center gap-5 inline-flex">
+                        <div id="imageStack" class=" grid grid-cols-3 gap-2">
+
+                            <!-- <img src="./img/frame.png" alt="" class=" object-fit-cover w-full h-full"> -->
+                            <label for="imageupload" class="w-full h-40 px-2.5 py-3.5 bg-white hover:cursor-pointer hover:border-primary rounded border border-gray-200 border-dashed flex-col justify-center items-center gap-5 inline-flex">
+
                                 <div class="w-6 h-6 relative">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-plus"><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"/><line x1="16" x2="22" y1="5" y2="5"/><line x1="19" x2="19" y1="2" y2="8"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
                                 </div>
                                 <div class="self-stretch h-10 text-center text-zinc-600 text-sm font-normal  leading-tight">Choose an image or drag and drop it here</div>
-                                <Button class="px-2.5 py-2 bg-white rounded-lg shadow border border-neutral-100 justify-center items-center gap-2 inline-flex text-center text-red-800 text-xs font-medium  leading-none">
-                                    Upload
-                                </Button>
+                                <input type="file" class="hidden" id="imageupload">
+                                
                             </label>
                         </div>
                     </div>
@@ -179,6 +180,22 @@
 
             loadSidebar();
             renderContent(contentData.Result);
+
+            $('#imageupload').change(function () {
+                readURL(this);
+            });
+
+            $(document).on('click', '#imageStack button', function () {
+                const index = $(this).data('index');
+                $(`#imageStack div:eq(${index})`).remove(); // Remove the entire div
+                const remainingImages = $('#imageStack img').length;
+                $('#selectedImageText').text(`${remainingImages} images selected`);
+            });
+
+
+            $('#uploadButton').click(function () {
+                $('#imageupload').click();
+            });
 
 
             $('nav a').click(function (e) {
@@ -263,6 +280,36 @@
 
         })
         
+        function readURL(input) {
+            if (input.files && input.files.length > 0) {
+                for (let i = 0; i < input.files.length; i++) {
+                    const file = input.files[i];
+                    if (file.size <= 3 * 1024 * 1024) { // Check if file size is less than or equal to 3MB
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            const imageElement = `
+                                <div class="relative group w-full h-40">
+                                    <img class="object-fit-cover w-full h-full rounded" src="${e.target.result}" alt="Image ${i + 1}">
+                                    <button class="absolute top-3 right-3 bg-white text-gray-600 p-1 rounded-full opacity-0 group-hover:opacity-100" data-index="${i}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                    </button>
+                                </div>
+                            `;
+                            $('#imageStack').prepend(imageElement);
+                        }
+                        reader.readAsDataURL(file);
+                    } else {
+                        alert(`File ${file.name} exceeds the 3MB size limit and will not be uploaded.`);
+                    }
+                }
+
+                $('#selectedImageText').text(`${input.files.length} images selected`);
+            }
+        }
+
         function populateDropdown(data, dropdownId) {
             const dropdown = $(`#${dropdownId} [data-dropdown]`);
             data.forEach(item => {
