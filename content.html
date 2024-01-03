@@ -10,6 +10,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
 
   <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.tiny.cloud/1/50wdqgqz88fpl68n52tmf8ilkr5udtv1jwcbcymq1f2xe9bo/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  <link href="./toast/jquery.toast.min.css" rel="stylesheet">
+  <script src="./toast/jquery.toast.min.js"></script>
+
   <script>
 
     tailwind.config = {
@@ -60,21 +66,21 @@
                         </button>
                         <ul class="">
                             <li class="">
-                                <a href="./article.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Article
+                                <a href="./newarticle.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Article
                                 <span class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                                 </span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Image
+                                <a href="./newimage.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Image
                                 <span class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                                 </span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Video
+                                <a href="./newvideo.htmls" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Video
                                 <span class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                                 </span>
@@ -98,7 +104,7 @@
                     <input type="text" class=" text-[26px] font-bold placeholder:text-gray-200 px-4 flex-grow outline-none border-none " placeholder="Untitled">
                 </div>
                 <div class="flex items-center gap-5">
-                    <button class="py-[8px] px-[14px] bg-[#900000] capitalize text-sm rounded-lg text-white font-semibold ">Submit for review</button>
+                    <button id="submit" class="py-[8px] px-[14px] bg-[#900000] capitalize text-sm rounded-lg text-white font-semibold ">Submit for review</button>
                     <button class="py-2 px-2  rounded-lg hover:bg-gray-50">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round-plus"><path d="M2 21a8 8 0 0 1 13.292-6"/><circle cx="10" cy="8" r="5"/><path d="M19 16v6"/><path d="M22 19h-6"/></svg>
                     </button>
@@ -118,9 +124,24 @@
                 <div class=" document-content flex-1 min-h-screen p-8 relative ">
                     <div class=" mb-3">
                         <h2 class=" mb-3 text-md font-semibold capitalize">Description</h2>
-                        <textarea name="" id="" rows="5" class="textarea w-full min-h-[50px] p-4 outline-none border border-gray-300 rounded-md text-[#808080] placeholder:text-[#CDCDCD]" placeholder="Write a description..."></textarea>
+                        <textarea name="descriptioninput" id="descriptioninput" rows="5" class="textarea w-full min-h-[50px] p-4 outline-none border border-gray-300 rounded-md text-[#808080] placeholder:text-[#CDCDCD]" placeholder="Write a description..."></textarea>                        
                     </div>
-                    <div class="">
+                    <div class="mb-3">
+                        <h2 class="mb-3 text-md font-semibold capitalize">Content Type</h2>
+                        <select name="contentType" id="contentType" class=" px-2 py-1 outline-none rounded-md border border-gray-300 border-solid">
+                            <option value="article" class="">Article</option>
+                            <option value="document" class="">Document</option>
+                            <option value="video" class="">Video</option>
+                            <option value="image" class="">Image</option>
+                        </select>
+                    </div>
+                    <div id="article" class="">
+                        <h2 class="mb-3 text-md font-semibold capitalize">content</h2>
+                        <div id="editor" class=" min-h-[300px]">
+                            
+                        </div>                     
+                    </div>
+                    <div id="image" class="">
                         <h2 class="mb-3 text-md font-semibold capitalize">content</h2>
                         <div id="imageStack" class=" grid grid-cols-3 gap-2">
                             <!-- <img src="./img/frame.png" alt="" class=" object-fit-cover w-full h-full"> -->
@@ -135,6 +156,44 @@
                             </label>
                         </div>
                     </div>
+                    <div id="video" class="">
+                        <h2 class="mb-3 text-md font-semibold capitalize">content</h2>
+                        <div id="mediaStack" class=" grid grid-cols-3 gap-2">
+                                                      
+                            <label for="mediaUpload" class="w-full h-40 px-2.5 py-3.5 bg-white hover:cursor-pointer hover:border-primary rounded border border-gray-200 border-dashed flex-col justify-center items-center gap-5 inline-flex">
+                                <div class="w-6 h-6 relative">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-plus">
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7" />
+                                        <line x1="16" x2="22" y1="5" y2="5" />
+                                        <line x1="19" x2="19" y1="2" y2="8" />
+                                        <circle cx="9" cy="9" r="2" />
+                                        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                                    </svg>
+                                </div>
+                                <div class="self-stretch h-10 text-center text-zinc-600 text-sm font-normal  leading-tight">Choose media or drag and drop it here</div>
+                                <input type="file" class="hidden" id="mediaUpload" multiple>
+                            </label>
+                        </div>
+                    </div>
+                    <div id="document" class="">
+                        <h2 class="mb-3 text-md font-semibold capitalize">content</h2>
+                        <div id="mediaStack" class=" grid grid-cols-3 gap-2">
+                                                      
+                            <label for="mediaUpload" class="w-full h-40 px-2.5 py-3.5 bg-white hover:cursor-pointer hover:border-primary rounded border border-gray-200 border-dashed flex-col justify-center items-center gap-5 inline-flex">
+                                <div class="w-6 h-6 relative">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-plus">
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7" />
+                                        <line x1="16" x2="22" y1="5" y2="5" />
+                                        <line x1="19" x2="19" y1="2" y2="8" />
+                                        <circle cx="9" cy="9" r="2" />
+                                        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                                    </svg>
+                                </div>
+                                <div class="self-stretch h-10 text-center text-zinc-600 text-sm font-normal  leading-tight">Choose media or drag and drop it here</div>
+                                <input type="file" class="hidden" id="mediaUpload" multiple>
+                            </label>
+                        </div>
+                    </div>
                 </div>
                 <div class=" document-dock w-[253px] border-l border-gray-300 border-solid min-h-screen ">
                     <div class=" flex gap-5 px-[10px] py-[15px] items-center border-b border-gray-300 border-solid">
@@ -144,30 +203,106 @@
                         
                         <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
                             <div class=" flex flex-col gap-2 w-full align-start">
-                                <label for="" class=" text-sm font-normal">Category</label>
-                                <input type="text" class=" w-full border-none outline-none" placeholder="..." >
+                                <label for="" class=" text-sm font-normal">Classification</label>
+                                <select name="" id="classificationselect" class=" px-2 py-1 outline-none rounded-md border border-gray-300 border-solid">
+                                    <option value="private" class="">
+                                        Private
+                                    </option>
+                                    <option value="general" class="">
+                                        General
+                                    </option>
+                                    <option value="confidential" class="">
+                                        Confidential
+                                    </option>
+                                    <option value="subsidiary" class="">
+                                        Subsidiary
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
                             <div class=" flex flex-col gap-2 w-full align-start">
                                 <label for="" class=" text-sm font-normal">Subsidiary</label>
-                                <input type="text" class=" w-full border-none outline-none" placeholder="Custodian Trusties LTD" >
+                                <select name="" id="subsidiaryselect" class=" px-2 py-1 outline-none rounded-md border border-gray-300 border-solid">
+                                    
+                                </select>
                             </div>
                         </div>
                         <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
                             <div class=" flex flex-col gap-2 w-full align-start">
                                 <label for="" class=" text-sm font-normal">Department</label>
-                                <input type="text" class=" w-full border-none outline-none" placeholder="Training and compliance" >
-                            </div>
-                        </div>
-                        <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
-                            <div class=" flex flex-col gap-2 w-full align-start">
-                                <label for="" class=" text-sm font-normal">Role</label>
-                                <input type="text" class=" w-full border-none outline-none" placeholder="Compliance officer" >
+                                <select name="" id="departmentselect" class=" px-2 py-1 outline-none rounded-md border border-gray-300 border-solid">
+                                    
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="requestUpdate-tab tab-content"></div>
+                </div>
+            </div>
+        </div>
+        <div class="more fixed hidden w-full h-screen bg-[#808080BF] flex items-center justify-end ">
+            <div class="more-modal w-[529px] py-[20px] bg-[#F5F5F5] h-screen relative overflow-y-scroll ">
+                <div class="pb-[13px] px-[20px]  border-solid border-b border-[#DBDBDB] flex justify-between items-center">
+                    <h2 class=" text-[22px] font-semibold">Title</h2>
+                    <button onclick="moretoggle()" class=" p-2 rounded-lg hover:bg-gray-50">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M15.0005 5L5.00049 15M5.00049 5L15.0005 15" stroke="#606060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                    </button>
+                </div>
+                <div class=" ">
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex flex-col gap-[15px] ">
+                        <h2 class=" text-[15px] font-semibold">Decription</h2>
+                        <p class=" text-[#808080] text-sm">
+                            The "New Employee Guide" folder is a comprehensive resource designed to orient and support individuals who have recently joined an organization. This folder serves as a one-stop repository for essential information that new employees need to navigate their way through the onboarding process and integrate seamlessly into the company culture. It includes a range of documents such as welcome messages, an organizational chart, policies and procedures, employee benefits information, and details on workplace etiquette.
+                        </p>
+                    </div>
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                        <h2 class=" text-[15px] text-[#606060]">Category</h2>
+                        <p class="">video</p>
+                    </div>
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                        <h2 class=" text-[15px] text-[#606060]">Subsidiary</h2>
+                        <p class="">Custodian Trustees LTD</p>
+                    </div>
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                        <h2 class=" text-[15px] text-[#606060]">Department</h2>
+                        <p class="">Legal and Compliance</p>
+                    </div>
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                        <h2 class=" text-[15px] text-[#606060]">Role</h2>
+                        <p class="">Compliance auditor</p>
+                    </div>
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                        <h2 class=" text-[15px] text-[#606060]">Size</h2>
+                        <p class="">1.3 GB</p>
+                    </div>
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                        <h2 class=" text-[15px] text-[#606060]">Created by</h2>
+                        <p class="">Adetokunbo Adeoluwa</p>
+                    </div>
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                        <h2 class=" text-[15px] text-[#606060]">Date created</h2>
+                        <p class="">10 January 2017</p>
+                    </div>
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                        <h2 class=" text-[15px] text-[#606060]">Most recent update</h2>
+                        <p class="">23 October 2023</p>
+                    </div>
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                        <h2 class=" text-[15px] text-[#606060]">Updated by</h2>
+                        <p class="">Yinka Ogunmepon</p>
+                    </div>
+                    <div class="py-5 px-5 border-solid border-b border-[#DBDBDB] flex justify-between items-center ">
+                        <h2 class=" text-[15px] text-[#606060]">Bookmark</h2>
+                        <p class="">video</p>
+                    </div>
+                </div>
+
+                <div class=" p-5  bg-[#F5F5F5] w-full grid grid-cols-2 gap-5">
+                    <button class=" w-full px-[14px] py-[10px] rounded-md bg-white text-primary font-semibold">Download</button>
+                    <button class=" w-full px-[14px] py-[10px] rounded-md bg-primary text-white font-semibold">Share</button>
                 </div>
             </div>
         </div>
@@ -179,23 +314,60 @@
 
             loadSidebar();
             renderContent(contentData.Result);
+            getSubsidiary();
+            getDepartment();
 
-            $('#imageupload').change(function () {
-                readURL(this);
+            var quill = new Quill('#editor', {
+                theme: 'snow',
+                placeholder: '',
             });
 
-            $(document).on('click', '#imageStack button', function () {
-                const index = $(this).data('index');
-                $(`#imageStack div:eq(${index})`).remove(); // Remove the entire div
-                const remainingImages = $('#imageStack img').length;
-                $('#selectedImageText').text(`${remainingImages} images selected`);
+            $("#article, #image, #video, #document").addClass('hidden');
+            $("#article").removeClass('hidden');
+
+            $("#contentType").change(function () {
+                var selectedValue = $(this).val();
+                $("#article, #image, #video,#document").addClass('hidden');
+                $("#" + selectedValue).removeClass('hidden');
             });
 
+            $('#submit').click(function () {
+                // Get values from input, select, and file elements
+                var description = $('#descriptioninput').val();
+                var contentType = $('#contentType').val();
+                var content = quill.getContents();
+                var classification = $('#classificationselect').val();
+                var subsidiary = $('#subsidiaryselect').val();
+                var department = $('#departmentselect').val();
 
-            $('#uploadButton').click(function () {
-                $('#imageupload').click();
+                // Validate the fields
+                if (description.trim() === '') {
+                    showError('Description is required.');
+                } else if (contentType.trim() === '') {
+                    showError('Content Type is required.');
+                } else if (classification.trim() === '') {
+                    showError('Classification is required.');
+                } else if (subsidiary.trim() === '') {
+                    showError('Subsidiary is required.');
+                } else if (department.trim() === '') {
+                    showError('Department is required.');
+                } else {
+                    // If all validations pass, you can proceed with further actions
+                    var data = {
+                        "description": description,
+                        "contentType": contentType,
+                        "content": content,
+                        "classification": classification,
+                        "subsidiary": subsidiary,
+                        "department": department
+                    };
+
+                    console.log(data);
+
+                    // Your code to submit the form or perform other actions
+                    // For example: $.ajax({ method: 'POST', url: 'your_api_url', data: data, success: function(response) { /* Handle success */ }, error: function(error) { /* Handle error */ } });
+                }
             });
-
 
             $('nav a').click(function (e) {
                 e.preventDefault();
@@ -208,11 +380,7 @@
                 $dropdownContent.toggleClass('h-0 h-fit');
             });
 
-            // $('button[data-tag]').click(function () {
-            //     const tag = $(this).data('tag');
-            //     filterContent(tag);
-            //     markActiveTag(tag);
-            // });
+
 
             $('#searchInput').on('input', function () {
                 const searchText = $(this).val().toLowerCase();
@@ -279,36 +447,14 @@
 
         })
         
-        function readURL(input) {
-            if (input.files && input.files.length > 0) {
-                for (let i = 0; i < input.files.length; i++) {
-                    const file = input.files[i];
-                    if (file.size <= 3 * 1024 * 1024) { // Check if file size is less than or equal to 3MB
-                        const reader = new FileReader();
-                        reader.onload = function (e) {
-                            const imageElement = `
-                                <div class="relative group w-full h-40">
-                                    <img class="object-fit-cover w-full h-full rounded" src="${e.target.result}" alt="Image ${i + 1}">
-                                    <button class="absolute top-3 right-3 bg-white text-gray-600 p-1 rounded-full opacity-0 group-hover:opacity-100" data-index="${i}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                                        </svg>
-                                    </button>
-                                </div>
-                            `;
-                            $('#imageStack').prepend(imageElement);
-                        }
-                        reader.readAsDataURL(file);
-                    } else {
-                        alert(`File ${file.name} exceeds the 3MB size limit and will not be uploaded.`);
-                    }
-                }
-
-                $('#selectedImageText').text(`${input.files.length} images selected`);
-            }
+        function showError(message) {
+            $.toast({
+                heading: 'Error',
+                text: message,
+                showHideTransition: 'fade',
+                icon: 'error'
+            });
         }
-
         function populateDropdown(data, dropdownId) {
             const dropdown = $(`#${dropdownId} [data-dropdown]`);
             data.forEach(item => {
@@ -359,7 +505,29 @@
             })
         }
 
-  
+        function getSubsidiary() {
+                const subsidiaries = Subsidiaries; 
+                const selectElement = $('#subsidiaryselect');
+
+                subsidiaries.forEach(subsidiary => {
+                    const optionElement = $(`<option value="${subsidiary.id}">${subsidiary.name}</option>`);
+
+                 
+                    selectElement.append(optionElement);
+                });
+
+        }
+
+        function getDepartment() {
+            const Department = Departments; 
+            const selectElement = $('#departmentselect');
+            // Populate options with subsidiaries
+            Department.forEach(Dep => {
+                const optionElement = $(`<option value="${Dep.id}">${Dep.name}</option>`);
+                selectElement.append(optionElement);
+            });
+        }     
+
 
         function filterContent(filters) {
             let filteredContent = contentData.Result;

@@ -220,8 +220,7 @@ const contentData ={
       }
     ],
     "ResponseCode": 100
-  }
-
+}
 
 const sigledata = {
     "Result": {
@@ -321,6 +320,72 @@ const sigledata = {
     ],
     "ResponseCode": 100
 }
+
+const updaterequest={
+  "Result": [
+      {
+          "ContentId": 22,
+          "RefNo": "47db5a92-5022-4e93-9e6a-641651308441",
+          "Title": "New Employee Onboarding",
+          "Description": "New Employee Onboarding: This has to do with new staff registration and familiarity with the organization",
+          "SubsidiaryId": 2,
+          "Uploadeby": "dmsuser1@custodianplc.com.ng",
+          "Created": "2023-12-29T12:24:15.623",
+          "Reviewer": "dmsuser2@custodianplc.com.ng",
+          "Modified": null,
+          "Classification": "Private",
+          "Status": "Submitted",
+          "Archive": false,
+          "ContentBody": "<p>Background:- This is a document prepared by the wprkforce team for new employee understanding of the organizational regualtions.</p><p>Main Information:- claims information </p>",
+          "ContentType": "Document",
+          "DeptId": 1,
+          "RequestStatus": "Request is submitted",
+          "DelayPublication": true,
+          "PublicationDate": "2023-10-30T00:00:00",
+          "Collaborator1": null,
+          "Collaborator2": null,
+          "Collaborator3": null,
+          "Collaborator4": null,
+          "Collaborator5": null,
+          "Collaborate": null,
+          "CollaborateStatus": null,
+          "IsLocked": null,
+          "CurrentStatus": "Open"
+      },
+      {
+          "ContentId": 23,
+          "RefNo": "6367fba8-e98a-4b19-81ca-1a1de74cfc93",
+          "Title": "Staff Loan",
+          "Description": "Staff Loan: THis is designed for employees for have short term loans for their immediate use.",
+          "SubsidiaryId": 2,
+          "Uploadeby": "dmsuser1@custodianplc.com.ng",
+          "Created": "2023-12-29T12:26:31.747",
+          "Reviewer": "dmsuser2@custodianplc.com.ng",
+          "Modified": null,
+          "Classification": "Private",
+          "Status": "Submitted",
+          "Archive": false,
+          "ContentBody": "<p>Background:- This contains oinformation on how employee can access and utilize the staff loan package for al employees in the group of companies.</p",
+          "ContentType": "Document",
+          "DeptId": 1,
+          "RequestStatus": "Request is submitted",
+          "DelayPublication": true,
+          "PublicationDate": "2023-10-30T00:00:00",
+          "Collaborator1": null,
+          "Collaborator2": null,
+          "Collaborator3": null,
+          "Collaborator4": null,
+          "Collaborator5": null,
+          "Collaborate": null,
+          "CollaborateStatus": null,
+          "IsLocked": null,
+          "CurrentStatus": "Open"
+      }
+  ],
+  "ResponseCode": 100
+}
+
+
 const Subsidiaries = [
     { name: "Tech Innovators Ltd", id: 1 },
     { name: "Eco Solutions Inc", id: 2 },
@@ -333,6 +398,7 @@ const Subsidiaries = [
     { name: "Food Harmony Ltd", id: 9 },
     { name: "Urban Development Corp", id: 10 },
 ];
+
 const Departments = [
     { name: "Human Resources", id: 1 },
     { name: "Marketing", id: 2 },
@@ -345,6 +411,7 @@ const Departments = [
     { name: "Legal", id: 9 },
     { name: "Quality Assurance", id: 10 },
 ];
+
 const SubsidiaryDepartmentRelationships = [
   {id:1, subId: 1, deptId: 1 },
   {id:2, subId: 3, deptId: 1 },
@@ -353,6 +420,7 @@ const SubsidiaryDepartmentRelationships = [
   {id:5, subId: 4, deptId: 2 },
   {id:6, subId: 6, deptId: 2 },
 ];
+
 const ContentTypes = [
     { name: "Document", id: 1 },
     { name: "Video", id: 2 },
