@@ -346,7 +346,8 @@
             const $moreContiner = $('.more-content');
 
             $moreContiner.empty();
-            
+            $('.more-title').empty();
+
             $('.more-title').append(`${request.Title}`);
 
             if(request.ContentType=== 'Document'){
@@ -370,11 +371,6 @@
                             <h2 class=" text-[15px] text-[#606060]">Department</h2>
                             <p class="">${getDepartment(request.DeptId)}</p>
                         </div>
-                
-                        
-                        
-                    
-            
                 `);    
             }
         }

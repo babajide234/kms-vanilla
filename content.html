@@ -444,8 +444,12 @@
             
             filterContent('all');
             markActiveTag('all');
-
         })
+
+        function showTab(tabName) {
+            $('.tab-content').hide();
+            $(`.${tabName}-tab`).show();
+        }
         
         function showError(message) {
             $.toast({
@@ -455,6 +459,7 @@
                 icon: 'error'
             });
         }
+
         function populateDropdown(data, dropdownId) {
             const dropdown = $(`#${dropdownId} [data-dropdown]`);
             data.forEach(item => {
