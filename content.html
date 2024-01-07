@@ -14,7 +14,10 @@
   <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
   <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
   <link href="./toast/jquery.toast.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+
   <script src="./toast/jquery.toast.min.js"></script>
+  <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 
   <script>
 
@@ -53,41 +56,13 @@
                 </div>
             </div>
             <div class=" py-5">
-                <div class="dropdown flex w-[80%] mx-auto rounded-lg flex-col  bg-white relative z-40">
-                    <button data-tag class="flex text-primary items-center px-2.5 py-[15px] rounded-lg gap-4 text-sm font-medium">
+                <div class="dropdown flex w-[80%] mx-auto rounded-lg flex-col  bg-white relative z-0">
+                    <a href="./content.html" class="flex text-primary items-center px-2.5 py-[15px] rounded-lg gap-4 text-sm font-medium">
                         <span class="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                         </span>
                         Create new content
-                    </button>
-                    <div data-dropdown class=" w-full absolute hidden z-50 bg-white top-0 left-0 flex flex-col gap-4 rounded-lg px-2.5 py-[15px]  ">
-                        <button data-tag class="px-2.5 py-[15px] border-b border-solid border-gray-100">
-                            <h2 class="">Select content type</h2>
-                        </button>
-                        <ul class="">
-                            <li class="">
-                                <a href="./newarticle.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Article
-                                <span class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                                </span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="./newimage.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Image
-                                <span class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                                </span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="./newvideo.htmls" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Video
-                                <span class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                                </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -144,23 +119,21 @@
                     <div id="image" class="">
                         <h2 class="mb-3 text-md font-semibold capitalize">content</h2>
                         <div id="imageStack" class=" grid grid-cols-3 gap-2">
-                            <!-- <img src="./img/frame.png" alt="" class=" object-fit-cover w-full h-full"> -->
-                            <label for="imageupload" class="w-full h-40 px-2.5 py-3.5 bg-white hover:cursor-pointer hover:border-primary rounded border border-gray-200 border-dashed flex-col justify-center items-center gap-5 inline-flex">
+                            <label for="imageupload"  data-type="image" class="media-upload-container w-full h-40 px-2.5 py-3.5 bg-white hover:cursor-pointer hover:border-primary rounded border border-gray-200 border-dashed flex-col justify-center items-center gap-5 inline-flex">
 
                                 <div class="w-6 h-6 relative">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-plus"><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"/><line x1="16" x2="22" y1="5" y2="5"/><line x1="19" x2="19" y1="2" y2="8"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
                                 </div>
                                 <div class="self-stretch h-10 text-center text-zinc-600 text-sm font-normal  leading-tight">Choose an image or drag and drop it here</div>
-                                <input type="file" class="hidden" id="imageupload">
+                                <input type="file" class="hidden" id="imageupload" multiple accept="image/*">
                                 
                             </label>
                         </div>
                     </div>
                     <div id="video" class="">
                         <h2 class="mb-3 text-md font-semibold capitalize">content</h2>
-                        <div id="mediaStack" class=" grid grid-cols-3 gap-2">
-                                                      
-                            <label for="mediaUpload" class="w-full h-40 px-2.5 py-3.5 bg-white hover:cursor-pointer hover:border-primary rounded border border-gray-200 border-dashed flex-col justify-center items-center gap-5 inline-flex">
+                        <div id="videoStack"  class=" grid grid-cols-3 gap-2">
+                            <label for="mediaUpload"  data-type="video" class="media-upload-container w-full h-40 px-2.5 py-3.5 bg-white hover:cursor-pointer hover:border-primary rounded border border-gray-200 border-dashed flex-col justify-center items-center gap-5 inline-flex">
                                 <div class="w-6 h-6 relative">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-plus">
                                         <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7" />
@@ -171,15 +144,15 @@
                                     </svg>
                                 </div>
                                 <div class="self-stretch h-10 text-center text-zinc-600 text-sm font-normal  leading-tight">Choose media or drag and drop it here</div>
-                                <input type="file" class="hidden" id="mediaUpload" multiple>
+                                <input type="file" class="hidden" id="mediaUpload" multiple accept="video/*">
                             </label>
                         </div>
                     </div>
                     <div id="document" class="">
                         <h2 class="mb-3 text-md font-semibold capitalize">content</h2>
-                        <div id="mediaStack" class=" grid grid-cols-3 gap-2">
+                        <div id="documentStack" class=" grid grid-cols-3 gap-2">
                                                       
-                            <label for="mediaUpload" class="w-full h-40 px-2.5 py-3.5 bg-white hover:cursor-pointer hover:border-primary rounded border border-gray-200 border-dashed flex-col justify-center items-center gap-5 inline-flex">
+                            <label for="mediaUpload"  data-type="document" class="media-upload-container w-full h-40 px-2.5 py-3.5 bg-white hover:cursor-pointer hover:border-primary rounded border border-gray-200 border-dashed flex-col justify-center items-center gap-5 inline-flex">
                                 <div class="w-6 h-6 relative">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-plus">
                                         <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7" />
@@ -190,7 +163,7 @@
                                     </svg>
                                 </div>
                                 <div class="self-stretch h-10 text-center text-zinc-600 text-sm font-normal  leading-tight">Choose media or drag and drop it here</div>
-                                <input type="file" class="hidden" id="mediaUpload" multiple>
+                                <input type="file" class="hidden" id="mediaUpload" multiple accept=".pdf, application/pdf, .doc, .docx, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                             </label>
                         </div>
                     </div>
@@ -444,8 +417,97 @@
             
             filterContent('all');
             markActiveTag('all');
+
+            $('.media-upload-container').on('dragover', function (e) {
+                e.preventDefault();
+                $(this).removeClass('border-gray-200').addClass('border-primary');
+            });
+
+            $('.media-upload-container').on('dragleave', function () {
+                $(this).removeClass('border-primary').addClass('border-gray-200');
+            });
+
+            $('.media-upload-container').on('drop', function (e) {
+                e.preventDefault();
+                $(this).removeClass('border-primary').addClass('border-gray-200');
+
+                var files = e.originalEvent.dataTransfer.files;
+                handleFiles(files, $(this));
+            });
+
+            $('.media-upload-container').on('click', function () {
+                $(this).find('input[type=file]').click();
+            });
+
+            $('input[type=file]').on('change', function () {
+                var files = this.files;
+                handleFiles(files, $(this).closest('.media-upload-container'));
+            });
+
+            
         })
 
+        function handleFiles(files, container) {
+            var dataType = container.data('type');
+            var stack = $('#' + dataType + 'Stack');
+
+            // Append each file to the respective stack
+            for (var i = 0; i < files.length; i++) {
+                (function (file,index) { // Use a closure to capture the correct file
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        var mediaItem;
+
+                        // Check file type and apply different templates
+                        if (file.type.startsWith('image/')) {
+                            mediaItem = $(`
+                                <div class="media-item relative group w-full h-40">
+                                    <img class="object-fit-cover w-full h-full rounded" src="${e.target.result}" alt="Image ${index + 1}">
+                                    <button class="delete-icon absolute top-3 right-3 bg-white text-gray-600 p-1 rounded-full opacity-0 group-hover:opacity-100" data-index="${index}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                    </button>
+                                </div>
+                            `);
+                        } else if (file.type.startsWith('video/')) {
+                            mediaItem = $(`
+                            <div class="media-item relative group w-full h-40">            
+                                <video class="object-fit-cover w-full h-full rounded" controls><source src="${e.target.result}" type="${mediaFile.type}"></video>
+                                <button class="delete-icon absolute top-3 right-3 bg-white text-gray-600 p-1 rounded-full opacity-0 group-hover:opacity-100" data-index="${i}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </button>
+                            </div>`
+                            );
+                        } else if (file.type.startsWith('application/pdf')) {
+                            mediaItem = $('<div class="media-item">' +
+                                '<iframe src="' + e.target.result + '" width="100%" height="100%"></iframe>' +
+                                '<p>' + file.name + '</p>' +
+                                '</div>');
+                        } else {
+                            // Add more conditions for different file types
+                            mediaItem = $('<div class="media-item">' +
+                                '<p>Unsupported file type: ' + file.type + '</p>' +
+                                '<p>' + file.name + '</p>' +
+                                '</div>');
+                        }
+
+                        stack.prepend(mediaItem);
+                    };
+
+                    reader.readAsDataURL(file);
+                })(files[i]);
+            }
+            stack.on('click', '.delete-icon', function () {
+                $(this).closest('.media-item').remove();
+            });
+    }
+    
         function showTab(tabName) {
             $('.tab-content').hide();
             $(`.${tabName}-tab`).show();

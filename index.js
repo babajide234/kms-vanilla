@@ -2,44 +2,10 @@ $(document).ready(function () {
         let currentSlide = 0;
         updateDots(currentSlide)
 
-        function showSlide(index) {
-            console.log(index)
-            $('.slide').removeClass('hidden').addClass('hidden');
-            $('.slide').eq(index).removeClass('hidden');
-            updateDots(index);
-            animateSlide(index);
-
-        }
-
-        function updateDots(index) {
-            $('.dot').removeClass('bg-gray-100 bg-gray-100/40');
-            $('.dot').not(':eq(' + index + ')').addClass('bg-gray-100/40');
-            $('.dot').eq(index).addClass('bg-gray-100');
-        }
-
-
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % $('.slide').length;
-            showSlide(currentSlide);
-        }
-
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + $('.slide').length) % $('.slide').length;
-            showSlide(currentSlide);
-        }
-
-        function startAutoPlay() {
-            return setInterval(function () {
-                nextSlide();
-            }, 3000); // Change 5000 to the desired interval in milliseconds (e.g., 5000 for 5 seconds)
-        }
     
         let autoPlayInterval = startAutoPlay();
 
-        function restartAutoPlay() {
-            clearInterval(autoPlayInterval);
-            autoPlayInterval = startAutoPlay();
-        }
+
 
         $('.dot').click(function () {
             const dotIndex = $(this).index();
@@ -83,6 +49,8 @@ $(document).ready(function () {
 
         
 });
+
+
 function animateSlide(index) {
     gsap.timeline()
         .from( '.slide', {
@@ -99,3 +67,39 @@ function animateSlide(index) {
         
 }
 
+function restartAutoPlay() {
+    clearInterval(autoPlayInterval);
+    autoPlayInterval = startAutoPlay();
+}
+
+function showSlide(index) {
+    console.log(index)
+    $('.slide').removeClass('hidden').addClass('hidden');
+    $('.slide').eq(index).removeClass('hidden');
+    updateDots(index);
+    animateSlide(index);
+
+}
+
+function updateDots(index) {
+    $('.dot').removeClass('bg-gray-100 bg-gray-100/40');
+    $('.dot').not(':eq(' + index + ')').addClass('bg-gray-100/40');
+    $('.dot').eq(index).addClass('bg-gray-100');
+}
+
+
+function nextSlide() {
+    currentSlide = (currentSlide + 1) % $('.slide').length;
+    showSlide(currentSlide);
+}
+
+function prevSlide() {
+    currentSlide = (currentSlide - 1 + $('.slide').length) % $('.slide').length;
+    showSlide(currentSlide);
+}
+
+function startAutoPlay() {
+    return setInterval(function () {
+        nextSlide();
+    }, 3000); // Change 5000 to the desired interval in milliseconds (e.g., 5000 for 5 seconds)
+}

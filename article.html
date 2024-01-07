@@ -48,40 +48,12 @@
             </div>
             <div class=" py-5">
                 <div class="dropdown flex w-[80%] mx-auto rounded-lg flex-col  bg-white relative z-0">
-                    <button data-tag class="flex text-primary items-center px-2.5 py-[15px] rounded-lg gap-4 text-sm font-medium">
+                    <a href="./content.html" class="flex text-primary items-center px-2.5 py-[15px] rounded-lg gap-4 text-sm font-medium">
                         <span class="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                         </span>
                         Create new content
-                    </button>
-                    <div data-dropdown class=" w-full absolute hidden z-50 bg-white top-0 left-0 flex flex-col gap-4 rounded-lg px-2.5 py-[15px]  ">
-                        <button data-tag class="px-2.5 py-[15px] border-b border-solid border-gray-100">
-                            <h2 class="">Select content type</h2>
-                        </button>
-                        <ul class="">
-                            <li class="">
-                                <a href="./newarticle.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Article
-                                <span class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                                </span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="./newimage.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Image
-                                <span class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                                </span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="./newvideo.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Video
-                                <span class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                                </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -127,33 +99,11 @@
                 <div class=" document-content flex-1 min-h-screen p-8 relative ">
                     <div class=" mb-3">
                         <h2 class=" mb-3 text-md font-semibold capitalize">Description</h2>
-                        <p class="text-[#808080] text-sm textarea">
-                            The "New Employee Guide" folder is a comprehensive resource designed to orient and support individuals who have recently joined an organization. This folder serves as a one-stop repository for essential information that new employees need to navigate their way through the onboarding process and integrate seamlessly into the company culture. It includes a range of documents such as welcome messages, an organizational chart, policies and procedures, employee benefits information, and details on workplace etiquette.
-                        </p>
+                        <div class="" id="display-description"></div>
                     </div>
                     <div class="">
                         <h2 class="mb-3 text-md font-semibold capitalize">content</h2>
-    
-                        <p class="text-[#808080] text-sm textarea">
-                            Navigating Your Workspace
-    Welcome to your new professional home! Navigating your workspace is a multifaceted journey that goes beyond the confines of a physical desk. In this comprehensive guide, we'll walk you through the intricacies of both your physical and virtual work environments at [Company Name], ensuring that you feel empowered and well-equipped in every aspect of your professional life.
-    
-    Understanding Your Physical Workspace:
-    Your desk is more than just a place to complete tasks; it's a reflection of your identity within our communal space. Take a stroll around the office to familiarize yourself with the layout. Locate key areas such as meeting rooms, break rooms, and the coffee station. Understanding the physical flow of the office not only eases your daily navigation but also enhances your overall work experience.
-    
-    Exploring Virtual Platforms:
-    In an era dominated by digital collaboration, your virtual workspace is just as pivotal as the physical. This section is your gateway to our internal platforms and tools. From project management systems that streamline collaboration to shared document repositories that facilitate knowledge sharing, each tool has been carefully selected to enhance your workflow. We'll guide you through the functionalities, ensuring you harness the full potential of these resources.
-    Building Connections within Your Team:
-    
-    At Custodian, we thrive on teamwork and collaboration. Get to know your team members beyond their roles. This section delves into the dynamics of your immediate work group, introducing you to team leads and colleagues. Discover team rituals, communication preferences, and collaborative practices that make each team within our organization unique.
-    
-    Mastering Tech Essentials:
-    Equip yourself with the technological know-how essential for your role. Learn about the devices, software, and tools integral to your day-to-day tasks. Our dedicated IT support team is here to assist you, ensuring a seamless tech experience from day one. Whether it's troubleshooting or exploring advanced features, we've got you covered.
-    Your workspace is not merely a physical location; it's a dynamic ecosystem where collaboration, creativity, and innovation converge. This article sets the stage for a successful journey, providing you with the knowledge and resources to navigate both physical and virtual realms effectively.
-    Explore, engage, and make your workspace uniquely yours! Welcome to a new era of productivity and collaboration at [Company Name].
-                        </p>
-
-                        
+                        <div class="" id="display-content"></div>                        
                     </div>
                 </div>
                 <div class=" document-dock hidden  w-[253px] border-l border-gray-300 border-solid min-h-screen ">
@@ -335,7 +285,8 @@
         $(document).ready(function () {
 
             loadSidebar();
-            
+
+            displayContent()
         
             $('.dock-toggle').click(function(){
                 const $dock = $('.document-dock');
@@ -345,6 +296,7 @@
                 $('.article-header').toggleClass(' border-b');
 
             })
+ 
             const defaultTab = 'remarks';
             const defaultShareTab = 'email';
 
@@ -468,6 +420,13 @@
             });
             
         })
+
+        function displayContent(){
+            var displayDescription = document.getElementById('display-description');
+            var displayContent = document.getElementById('display-content');
+            displayDescription.innerHTML = '<p>This is <strong>bold</strong> and <em>italic</em> text.</p>';
+            displayContent.innerHTML = '<p>This is <strong>bold</strong> and <em>italic</em> text.</p>';
+        }
 
         function sharetoggle(){
             $('.share').toggleClass('hidden');
