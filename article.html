@@ -106,7 +106,7 @@
                         <div class="" id="display-content"></div>                        
                     </div>
                 </div>
-                <div class=" document-dock hidden  w-[253px] border-l border-gray-300 border-solid min-h-screen ">
+                <div id="dock" class=" document-dock tab-container hidden  w-[253px] border-l border-gray-300 border-solid min-h-screen ">
                     <div class=" flex gap-5 px-[10px] py-[15px] items-center border-b border-gray-300 border-solid">
                         <button class="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
@@ -119,14 +119,18 @@
                     <div class="remarks-tab tab-content">
                         <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
                             <h3 class=" text-[12px] text-text font-semibold ">Like</h3>
-                            <form action="" method="post" id="likeForm">
-                                <input type="hidden" value="1" class="">
-                                <button type="submit" class=" ">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none" stroke="currentColor" >
-                                        <path d="M4.66683 15.1668V7.8335M1.3335 9.16683V13.8335C1.3335 14.5699 1.93045 15.1668 2.66683 15.1668H11.6177C12.6048 15.1668 13.4443 14.4466 13.5944 13.4709L14.3124 8.80428C14.4987 7.59276 13.5614 6.50016 12.3356 6.50016H10.0002C9.63197 6.50016 9.3335 6.20169 9.3335 5.8335V3.47739C9.3335 2.56949 8.5975 1.8335 7.6896 1.8335C7.47305 1.8335 7.27682 1.96103 7.18887 2.15891L4.84279 7.43759C4.73579 7.67834 4.49704 7.8335 4.23358 7.8335H2.66683C1.93045 7.8335 1.3335 8.43045 1.3335 9.16683Z" stroke="#808080" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </button>
-                            </form>
+                            <button id="likeForm" class="flex text-gray-300 ">
+                                <svg 
+                                    xmlns="http://www.w3.org/2000/svg" 
+                                    viewBox="0 0 16 17" 
+                                    stroke-width="0" 
+                                    stroke="currentColor" 
+                                    fill="currentColor" 
+                                    class="w-5 h-5"                                
+                                >
+                                    <path d="M4.66683 15.1668V7.8335M1.3335 9.16683V13.8335C1.3335 14.5699 1.93045 15.1668 2.66683 15.1668H11.6177C12.6048 15.1668 13.4443 14.4466 13.5944 13.4709L14.3124 8.80428C14.4987 7.59276 13.5614 6.50016 12.3356 6.50016H10.0002C9.63197 6.50016 9.3335 6.20169 9.3335 5.8335V3.47739C9.3335 2.56949 8.5975 1.8335 7.6896 1.8335C7.47305 1.8335 7.27682 1.96103 7.18887 2.15891L4.84279 7.43759C4.73579 7.67834 4.49704 7.8335 4.23358 7.8335H2.66683C1.93045 7.8335 1.3335 8.43045 1.3335 9.16683Z" stroke="#808080" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
                         </div>
                         <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
                             <h3 class=" text-[12px] text-text font-semibold ">Rate</h3>
@@ -210,7 +214,7 @@
                 </div>
             </div>
         </div>
-        <div class="share hidden fixed w-full z-20 h-screen bg-[#808080BF] flex items-center justify-center ">
+        <div  class="share hidden fixed w-full z-20 h-screen bg-[#808080BF] flex items-center justify-center ">
             <div class="bg-white p-4 w-[600px]  rounded-lg ">
                     <div class=" flex justify-between items-center border-b border-gray-300 py-3">
                         <h2 class=" text-2xl font-semibold">Share</h2>
@@ -220,7 +224,7 @@
                               </svg>                              
                         </button>
                     </div>
-                    <div class=" py-5">
+                    <div id="sharemodal" class="tab-container py-5">
                         <div class=" mb-5">
                             <ul class=" flex items-center ">
                                 <li data-tab="email" class=" tab-btn text-textsub  py-2 px-2 text-md border-b-2 border-red-800 hover:cursor-pointer">Send as mail</li>
@@ -280,192 +284,7 @@
         </div>
     </div>
     <script src="./common.js"></script>
+    <script src="./index.js"></script>
 
-    <script >
-        $(document).ready(function () {
-
-            loadSidebar();
-
-            displayContent()
-        
-            $('.dock-toggle').click(function(){
-                const $dock = $('.document-dock');
-                $dock.toggleClass('hidden');
-
-                $('.rotate-svg').toggleClass(' rotate-180 ');
-                $('.article-header').toggleClass(' border-b');
-
-            })
- 
-            const defaultTab = 'remarks';
-            const defaultShareTab = 'email';
-
-            $(`.tab-btn[data-tab="${defaultTab}"]`).removeClass('text-textsub').addClass('text-text')
-            showTab(defaultTab);
-
-            $(`.tab-btn[data-tab="${defaultShareTab}"]`).removeClass('text-textsub').addClass('text-text')
-            showTab(defaultShareTab);
-
-            $('.tab-btn').click(function () {
-                const tabName = $(this).data('tab');
-                showTab(tabName);
-
-                $('.tab-btn').removeClass('text-text').addClass('text-textsub');
-                $(this).removeClass('text-textsub').addClass('text-text');
-            });
-
-           
-            $('#likeForm').submit(function(e){
-                e.preventDefault();
-                $(this).find('button').toggleClass('text-primary');
-            })
-
-            $('.star').on('click', function () {
-                const clickedStar = $(this);
-                const rating = clickedStar.index() + 1;
-
-                // Set the rating value
-                $('#rating-value').text(rating);
-
-                // Highlight the selected stars
-                clickedStar.prevAll().addBack().addClass('text-yellow-400');
-                clickedStar.nextAll().removeClass('text-yellow-400');
-            });
-            
-            $('.dropdown').each(function () {
-                const $button = $(this).find('[data-tag]');
-                const $dropdown = $(this).find('[data-dropdown]');
-                const dropdownId = $(this).attr('id');
-
-                if ($button.data('tag') === 'all') {
-                    console.log('all btns');
-                    filterObject = {}; // Reset the filterObject
-                    filterContent(filterObject);
-                    handleSubsidiaryFilter(filterObject);
-                }
-                
-                
-                let currentSelectedValue = ""; 
-
-
-                $button.click(function (e) {
-                    e.stopPropagation(); 
-                    console.log(' btns clicked')
-                    $dropdown.toggleClass('hidden');
-                });
-
-
-                $dropdown.find('[data-sub]').click(function () {
-                    const selectedName = $(this).data('sub');
-                    let selectedValue ='';
-
-                    if($button.data('tag') === 'ContentType'){
-                        selectedValue = $(this).data('sub');
-                    }else{
-                        selectedValue = $(this).data('value');
-                    }
-
-                    // Check if the selected value is already the current selected value
-                    if (filterObject[$button.data('tag')] === selectedValue) {
-                        // If it is the same value, remove the selection
-                        console.log(filterObject);
-                        
-                        // Clear the selected value from filterObject
-                        filterObject[$button.data('tag')] = ""; 
-                        console.log(dropdownId);
-                        // Clear the button text
-                        $button.find('.text').text(dropdownId); 
-                        
-                        // Remove the styling from the selected option
-                        $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
-                        // filterContent({});
-                        // handleSubsidiaryFilter(filterObject);
-                    } else {
-                        // Update the filter object
-                        filterObject[$button.data('tag')] = selectedValue;
-
-                        // console.log(filterObject);
-
-                        // filterContent(filterObject);
-                        // handleSubsidiaryFilter(filterObject);
-
-                        // Update the current selected value
-                        currentSelectedValue = selectedValue; 
-                        $button.find('.text').text(selectedName);
-                        $dropdown.addClass('hidden');
-
-                        $dropdown.find('[data-sub]').removeClass('bg-primary text-white');
-                        $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
-                        $(this).addClass('bg-primary text-white');
-
-                        if ($(this).attr('data-sub')) {
-                            $button.removeClass('text-[#606060] border border-solid border-[#606060]').addClass('bg-primary text-white');
-                        } else {
-                            // If data-sub attribute is not present, you can add an else statement to handle that case
-                        }
-                    }
-
-                    if ($button.data('tag') === 'all') {
-                        console.log('all btns');
-                        filterObject = {}; // Reset the filterObject
-                        // filterContent({});
-                        // handleSubsidiaryFilter(filterObject);
-                    }
-                });
-
-
-                $(document).click(function () {
-                    $dropdown.addClass('hidden');
-                });
-            });
-            
-        })
-
-        function displayContent(){
-            var displayDescription = document.getElementById('display-description');
-            var displayContent = document.getElementById('display-content');
-            displayDescription.innerHTML = '<p>This is <strong>bold</strong> and <em>italic</em> text.</p>';
-            displayContent.innerHTML = '<p>This is <strong>bold</strong> and <em>italic</em> text.</p>';
-        }
-
-        function sharetoggle(){
-            $('.share').toggleClass('hidden');
-        }
-
-        function showTab(tabName) {
-            $('.tab-content').hide();
-            $(`.${tabName}-tab`).show();
-        }
-        
-
-        function loadSidebar() {
-            const $nav = $('#sidebar');
-            console.log(menu);
-
-            menu.forEach(item => {
-                if (item.header) {
-                    $nav.append(`<h2 class="uppercase mb-5 text-sm font-semibold mx-5 text-gray-500">${item.header}</h2>`);
-                } else {
-                    if (item.children) {
-                        // Dropdown item
-                        $nav.append(`<div class="flex flex-col">
-                                        <div class=" dropdown-toggle flex justify-between items-center text-[#606060] text-md px-5 py-2 hover:bg-red-800 hover:text-white hover:cursor-pointer w-11/12 rounded-e-md mb-3 capitalize font-normal">
-                                            <span class="flex items-center "><i class=" mr-3 text-md">${item.icon}</i><span>${item.name}</span> </span>  <i class=""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg></i>
-                                        </div>
-                                        <div class="  dropdown-content px-5 flex flex-col h-0 overflow-hidden transition-all duration-500 ease-in-out">
-                                            ${item.children.map(child => `<a href="${child.url}" class="px-5 py-2 hover:bg-red-800 hover:text-white w-11/12 rounded-e-md mb-3 capitalize font-normal">${child.name}</a>`).join('')}
-                                        </div>
-                                    </div>`);
-                    } else {
-                        // Regular item without dropdown
-                        $nav.append(`<a href="${item.url}" class="flex items-center group text-[#606060] text-md px-5 py-2 hover:bg-red-800 hover:text-white hover:cursor-pointer w-11/12 rounded-e-md mb-3 capitalize font-normal">
-                                        <i class=" mr-3 text-md">${item.icon}</i><span>${item.name}</span>
-                                    </a>`);
-                    }
-                }
-            });
-        }
-
-    </script>
 </body>
 </html>
