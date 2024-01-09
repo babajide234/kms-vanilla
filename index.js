@@ -4,82 +4,7 @@ $(document).ready(function () {
         let currentSlide = 0;
         let filterObject = {};
 
-        $('.dropdown').each(function () {
-            const $button = $(this).find('[data-tag]');
-            const $dropdown = $(this).find('[data-dropdown]');
-            const dropdownId = $(this).attr('id');
-
-            if ($button.data('tag') === 'all') {
-                console.log('all btns');
-                filterObject = {}; // Reset the filterObject
-                filterContent(filterObject);
-                handleSubsidiaryFilter(filterObject);
-            }
-            
-            
-            let currentSelectedValue = ""; 
-
-
-            $button.click(function (e) {
-                e.stopPropagation(); 
-                console.log(' btns clicked')
-                $dropdown.toggleClass('hidden');
-            });
-
-
-            $dropdown.find('[data-sub]').click(function () {
-                const selectedName = $(this).data('sub');
-                let selectedValue ='';
-
-                if($button.data('tag') === 'ContentType'){
-                    selectedValue = $(this).data('sub');
-                }else{
-                    selectedValue = $(this).data('value');
-                }
-
-                // Check if the selected value is already the current selected value
-                if (filterObject[$button.data('tag')] === selectedValue) {
-                    // If it is the same value, remove the selection
-                    console.log(filterObject);
-                    
-                    // Clear the selected value from filterObject
-                    filterObject[$button.data('tag')] = ""; 
-                    console.log(dropdownId);
-                    // Clear the button text
-                    $button.find('.text').text(dropdownId); 
-                    
-                    // Remove the styling from the selected option
-                    $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
-                } else {
-                    // Update the filter object
-                    filterObject[$button.data('tag')] = selectedValue;
-
-                    currentSelectedValue = selectedValue; 
-                    $button.find('.text').text(selectedName);
-                    $dropdown.addClass('hidden');
-
-                    $dropdown.find('[data-sub]').removeClass('bg-primary text-white');
-                    $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
-                    $(this).addClass('bg-primary text-white');
-
-                    if ($(this).attr('data-sub')) {
-                        $button.removeClass('text-[#606060] border border-solid border-[#606060]').addClass('bg-primary text-white');
-                    } else {
-                        // If data-sub attribute is not present, you can add an else statement to handle that case
-                    }
-                }
-
-                if ($button.data('tag') === 'all') {
-                    console.log('all btns');
-                    filterObject = {}; // Reset the filterObject
-                }
-            });
-
-
-            $(document).click(function () {
-                $dropdown.addClass('hidden');
-            });
-        });
+        
 
         if(location === '/'){
             updateDots(currentSlide);
@@ -128,6 +53,92 @@ $(document).ready(function () {
 
             loadSidebar();
             renderContent(contentData.Result);
+            
+            populateDropdown(Subsidiaries, 'subsidiary');
+            populateDropdown(ContentTypes, 'type');
+
+            $('.dropdown').each(function () {
+                const $button = $(this).find('[data-tag]');
+                const $dropdown = $(this).find('[data-dropdown]');
+                const dropdownId = $(this).attr('id');
+    
+                if ($button.data('tag') === 'all') {
+                    console.log('all btns');
+                    filterObject = {}; // Reset the filterObject
+                    filterContent(filterObject,'dashboard');
+                    handleSubsidiaryFilter(filterObject);
+                }
+                
+                
+                let currentSelectedValue = ""; 
+    
+    
+                $button.click(function (e) {
+                    e.stopPropagation(); 
+                    console.log(' btns clicked')
+                    $dropdown.toggleClass('hidden');
+                });
+    
+    
+                $dropdown.find('[data-sub]').click(function () {
+                    const selectedName = $(this).data('sub');
+                    let selectedValue ='';
+                    console.log('sub btn clicked');
+                    if($button.data('tag') === 'ContentType'){
+                        selectedValue = $(this).data('sub');
+                    }else{
+                        selectedValue = $(this).data('value');
+                    }
+    
+                    // Check if the selected value is already the current selected value
+                    if (filterObject[$button.data('tag')] === selectedValue) {
+                        // If it is the same value, remove the selection
+                        console.log(filterObject);
+                        
+                        // Clear the selected value from filterObject
+                        filterObject[$button.data('tag')] = ""; 
+                        console.log(dropdownId);
+                        // Clear the button text
+                        $button.find('.text').text(dropdownId); 
+                        
+                        // Remove the styling from the selected option
+                        $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
+                        filterContent({},'dashboard');
+                        handleSubsidiaryFilter(filterObject);
+                    } else {
+                        // Update the filter object
+                        filterObject[$button.data('tag')] = selectedValue;
+                        
+                        filterContent(filterObject,'dashboard');
+                        handleSubsidiaryFilter(filterObject);
+
+                        currentSelectedValue = selectedValue; 
+                        $button.find('.text').text(selectedName);
+                        $dropdown.addClass('hidden');
+    
+                        $dropdown.find('[data-sub]').removeClass('bg-primary text-white');
+                        $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
+                        $(this).addClass('bg-primary text-white');
+    
+                        if ($(this).attr('data-sub')) {
+                            $button.removeClass('text-[#606060] border border-solid border-[#606060]').addClass('bg-primary text-white');
+                        } else {
+                            // If data-sub attribute is not present, you can add an else statement to handle that case
+                        }
+                    }
+                    if ($button.data('tag') === 'all') {
+                        console.log('all btns');
+                        filterObject = {}; // Reset the filterObject
+                        filterContent({},'dashboard');
+                        handleSubsidiaryFilter(filterObject);
+                    }
+                });
+    
+    
+                $(document).click(function () {
+                    $dropdown.addClass('hidden');
+                });
+            });
 
             $('nav a').click(function (e) {
                 e.preventDefault();
@@ -145,12 +156,7 @@ $(document).ready(function () {
                 filterContentBySearch(searchText);
             });
 
-            populateDropdown(Subsidiaries, 'subsidiary');
-            populateDropdown(ContentTypes, 'type');
-            
-
-
-            
+      
             handleSubsidiaryFilter(filterObject);
 
             filterContent('all');
@@ -232,7 +238,95 @@ $(document).ready(function () {
             
         }else if(location === '/updaterequest.html' ){
             loadSidebar();
-            populateTable();
+            populateTable(updaterequest.Result);
+
+            populateDropdown(Subsidiaries, 'organization');
+            populateDropdown(ContentTypes, 'type');
+            populateDropdown(Departments, 'department');
+
+            $('.dropdown').each(function () {
+                const $button = $(this).find('[data-tag]');
+                const $dropdown = $(this).find('[data-dropdown]');
+                const dropdownId = $(this).attr('id');
+                console.log('dropdown opened')
+
+                if ($button.data('tag') === 'all') {
+                    console.log('all btns');
+                    filterObject = {}; // Reset the filterObject
+                    filterContent(filterObject,'request');
+                    handleSubsidiaryFilter(filterObject);
+                }
+                
+                
+                let currentSelectedValue = ""; 
+    
+    
+                $button.click(function (e) {
+                    e.stopPropagation(); 
+                    console.log(' btns clicked')
+                    $dropdown.toggleClass('hidden');
+                });
+    
+    
+                $dropdown.find('[data-sub]').click(function () {
+                    const selectedName = $(this).data('sub');
+                    let selectedValue ='';
+    
+                    if($button.data('tag') === 'ContentType'){
+                        selectedValue = $(this).data('sub');
+                    }else{
+                        selectedValue = $(this).data('value');
+                    }
+    
+                    // Check if the selected value is already the current selected value
+                    if (filterObject[$button.data('tag')] === selectedValue) {
+                        // If it is the same value, remove the selection
+                        console.log(filterObject);
+                        
+                        // Clear the selected value from filterObject
+                        filterObject[$button.data('tag')] = ""; 
+                        console.log(dropdownId);
+                        // Clear the button text
+                        $button.find('.text').text(dropdownId); 
+                        
+                        // Remove the styling from the selected option
+                        $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
+                        filterContent({},'request');
+                        handleSubsidiaryFilter(filterObject);
+                    } else {
+                        // Update the filter object
+                        filterObject[$button.data('tag')] = selectedValue;
+                        
+                        filterContent(filterObject,'request');
+                        handleSubsidiaryFilter(filterObject);
+
+                        currentSelectedValue = selectedValue; 
+                        $button.find('.text').text(selectedName);
+                        $dropdown.addClass('hidden');
+    
+                        $dropdown.find('[data-sub]').removeClass('bg-primary text-white');
+                        $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
+                        $(this).addClass('bg-primary text-white');
+    
+                        if ($(this).attr('data-sub')) {
+                            $button.removeClass('text-[#606060] border border-solid border-[#606060]').addClass('bg-primary text-white');
+                        } else {
+                            // If data-sub attribute is not present, you can add an else statement to handle that case
+                        }
+                    }
+                    if ($button.data('tag') === 'all') {
+                        console.log('all btns');
+                        filterObject = {}; // Reset the filterObject
+                        filterContent({},'request');
+                        handleSubsidiaryFilter(filterObject);
+                    }
+                });
+    
+    
+                $(document).click(function () {
+                    $dropdown.addClass('hidden');
+                });
+            });
 
             $('nav a').click(function (e) {
                 e.preventDefault();
@@ -258,9 +352,7 @@ $(document).ready(function () {
                 filterContentBySearch(searchText);
             });
 
-            populateDropdown(Subsidiaries, 'organization');
-            populateDropdown(ContentTypes, 'type');
-            populateDropdown(Departments, 'department');
+
         }
 
         
@@ -451,6 +543,7 @@ function renderMoreContent(id,type){
     if(type === 'request'){
         const data = updaterequest.Result;
         const request = data.find(item => item.ContentId === id);
+        $('.more-title').empty();
         $('.more-title').append(`${request.Title}`);
 
         $moreContiner.append(`
@@ -505,6 +598,8 @@ function renderMoreContent(id,type){
     }else {
         const data = sigledata.Result;
         const versions = sigledata.Versions;
+        $('.more-title').empty();
+
         $('.more-title').append(`${data.Title}`);
 
         $moreContiner.append(`
@@ -587,9 +682,6 @@ function getSubsidiary(selectedId) {
     const subsidiaries = Subsidiaries; // Assuming Subsidiaries is an array of subsidiary objects
     const selectElement = $('<select name="" id="" class=" p-2 rounded bg-"></select>');
 
-    // Create an empty option as the default
-
-    // Populate options with subsidiaries
     subsidiaries.forEach(subsidiary => {
         const optionElement = $(`<option value="${subsidiary.id}">${subsidiary.name}</option>`);
 
@@ -607,9 +699,6 @@ function getDepartment(selectedId) {
     const Department = Departments; // Assuming Subsidiaries is an array of subsidiary objects
     const selectElement = $('<select name="" id="" class=" p-2 rounded bg-"></select>');
 
-    // Create an empty option as the default
-
-    // Populate options with subsidiaries
     Department.forEach(Dep => {
         const optionElement = $(`<option value="${Dep.id}">${Dep.name}</option>`);
 
@@ -623,8 +712,16 @@ function getDepartment(selectedId) {
     return selectElement.prop('outerHTML'); // Return the outerHTML string
 }     
 
-function filterContent(filters) {
-    let filteredContent = contentData.Result;
+function filterContent(filters,location) {
+    let filteredContent = ''
+    console.log('just clicked')
+    if (location == 'request'){
+        console.log('request')
+        filteredContent=updaterequest.Result;
+    }else{
+        console.log('dashboard')
+        filteredContent=contentData.Result;
+    }
 
 
     // Apply filters based on other criteria (SubsidiaryId, DeptId, ContentType)
@@ -646,7 +743,11 @@ function filterContent(filters) {
         });
     }
 
-    renderContent(filteredContent);
+    if (location == 'request'){
+        populateTable(filteredContent)
+    }else{
+        renderContent(filteredContent);
+    }
 }
 
 function isEmptyObject(obj) {
@@ -667,8 +768,8 @@ function filterContentBySearch(searchText) {
 }
 
 function markActiveTag(activeTag) {
-$('button[data-tag]').removeClass('bg-primary text-white');
-$(`button[data-tag="${activeTag}"]`).addClass('bg-primary text-white');
+    $('button[data-tag]').removeClass('bg-primary text-white');
+    $(`button[data-tag="${activeTag}"]`).addClass('bg-primary text-white');
 }
 
 function loadContent(route) {
@@ -704,21 +805,21 @@ function displayContent(){
     displayContent.innerHTML = '<p>This is <strong>bold</strong> and <em>italic</em> text.</p>';
 }
 
-function populateTable(){
+function populateTable(data){
     const $requestContent = $('.requestTable');
     $requestContent.empty();
-    $content= updaterequest.Result
+    $content= data
 
     $content.forEach(item=>{
         $requestContent.append(
-            `<div data-id="${item.ContentId}" class="request grid grid-flow-col hover:cursor-pointer hover:bg-gray-50 border-b border-solid border-gray-200">
+            `<div data-id="${item.ContentId}" class="request grid grid-cols-5 hover:cursor-pointer hover:bg-gray-50 border-b border-solid border-gray-200">
                 <div class=" w-full  py-[16px] px-[24px] text-sm">${item.Title}</div>
-                <div class=" w-full col-span-1 py-[16px] px-[24px] text-sm">
+                <div class=" w-full  py-[16px] px-[24px] text-sm">
                     <div class="w-20 h-6 px-5 py-1 bg-neutral-100 rounded-3xl justify-center items-center gap-2.5 flex text-red-950 text-xs font-normal">
                         ${item.ContentType}
                     </div>
                 </div>
-                <div class=" w-full col-span-2 py-[16px] px-[24px] text-sm">
+                <div class=" w-full py-[16px] px-[24px] text-sm">
                     <p class="">
                         ${item.Description}
                     </p>
@@ -734,7 +835,7 @@ function populateTable(){
                         </div>
                     </div>
                 </div>
-                <div class=" w-full col-span-1  py-[16px] px-[24px] text-sm">
+                <div class=" w-full   py-[16px] px-[24px] text-sm">
                     <div class="w-20 h-6 px-5 py-1 bg-amber-100 rounded-3xl justify-center items-center gap-2.5 flex text-amber-600 text-xs font-normal  leading-none">
                         <div class="">${item.Status}</div>
                     </div>
