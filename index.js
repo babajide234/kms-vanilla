@@ -339,7 +339,7 @@ $(document).ready(function () {
                 $dropdownContent.toggleClass('h-0 h-fit');
             });
 
-            $('.request').click(function () {
+            $(document).on('click', '.request', function() {
                 const $requestId = $(this).data('id')
                 console.log($requestId);
                 modal()
