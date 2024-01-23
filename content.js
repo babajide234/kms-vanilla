@@ -214,7 +214,8 @@ function SubmitContent() {
                 console.log(response)
                 const createdContentId = response.ResponseMessage;
                 showSuccess("success sent ");
-                
+                redirectToWithDelay("/dashboard.html", 4000);
+
             }, function (xhr, status, error) {
                 console.error("Error Submiting content:", status, error);
                 // Handle error as needed
@@ -295,6 +296,18 @@ function createNewContent() {
 
         }
 }
+
+function redirectToWithDelay(url, delayMillis) {
+    setTimeout(function () {
+        window.location.href = url;
+    }, delayMillis);
+}
+
+// Example usage:
+// Redirect to "https://example.com" after a delay of 2000 milliseconds (2 seconds)
+
+
+// Example usage:
 
 function getNewContentId() {
     return localStorage.getItem('newContentId');
