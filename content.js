@@ -192,9 +192,24 @@ function SubmitContent() {
                         "PublicationDate": $('#txtPublicationDate').val(),
                         "Archive": false
             }
+            let Docdata = {
+                        "DeptId": department,
+                        "SubsidiaryId": subsidiary,
+                        "AccessType": classification,
+                        "Uploadedby": $('#emailAddy').val(),
+                        "BriefDescription": description,
+                        "Subject": $('#txtTitle').val().toLowerCase(),
+                        "ContentType": contentType,
+                        "Status": $('#statusselect').val(),
+                        "IPAddress": IPAddress,
+                        "RefNo": RefNo,
+                        "DelayPublication": '',
+                        "PublicationDate": $('#txtPublicationDate').val(),
+                        "Archive": false
+            }
 
             console.log(data);
-            makeApiCall(API_ENDPOINTS.NEW_CONTENT_REQUEST, "POST", data, function (response) {
+            makeApiCall(API_ENDPOINTS.NEW_CONTENT_REQUEST, "POST", contentType === "Article"? data : Docdata , function (response) {
                 // Handle successful content creation
                 console.log(response)
                 const createdContentId = response.ResponseMessage;
