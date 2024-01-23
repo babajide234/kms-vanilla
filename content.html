@@ -76,10 +76,11 @@
                             </svg>
                         </i>
                     </a>
-                    <input type="text" class=" text-[26px] font-bold placeholder:text-gray-200 px-4 flex-grow outline-none border-none " placeholder="Untitled">
+                    <input type="text" id="txtTitle" class=" text-[26px] font-bold placeholder:text-gray-200 px-4 flex-grow outline-none border-none " placeholder="Untitled">
+                    <input type="hidden" id="emailAddy" value="dmsuser1@custodianinsurance.com" />
                 </div>
                 <div class="flex items-center gap-5">
-                    <button id="submit" class="py-[8px] px-[14px] bg-[#900000] capitalize text-sm rounded-lg text-white font-semibold ">Submit for review</button>
+                    <button id="submit" class="py-[8px] px-[14px] bg-[#900000] capitalize text-sm rounded-lg text-white font-semibold " onclick="SubmitContent()">Submit for review</button>
                     <button class="py-2 px-2  rounded-lg hover:bg-gray-50">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round-plus"><path d="M2 21a8 8 0 0 1 13.292-6"/><circle cx="10" cy="8" r="5"/><path d="M19 16v6"/><path d="M22 19h-6"/></svg>
                     </button>
@@ -119,6 +120,7 @@
                     <div id="image" class="">
                         <h2 class="mb-3 text-md font-semibold capitalize">content</h2>
                         <div id="imageStack" class=" grid grid-cols-3 gap-2">
+                            
                             <label for="imageupload"  data-type="image" class="media-upload-container w-full h-40 px-2.5 py-3.5 bg-white hover:cursor-pointer hover:border-primary rounded border border-gray-200 border-dashed flex-col justify-center items-center gap-5 inline-flex">
 
                                 <div class="w-6 h-6 relative">
@@ -209,6 +211,32 @@
                                 </select>
                             </div>
                         </div>
+                        <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
+                            <div class=" flex flex-col gap-2 w-full align-start">
+                                <label for="" class=" text-sm font-normal">Content Status</label>
+                                <select name="" id="statusselect" class=" px-2 py-1 outline-none rounded-md border border-gray-300 border-solid">
+                                    <option value="0" class="">Choose Status</option>
+                                    <option value="Draft" class="">Save As draft</option>
+                                    <option value="Submitted" class="">Submit</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
+                            <div class=" flex flex-col gap-2 w-full align-start">
+                                <label for="" class=" text-sm font-normal">Delay Publication</label>
+                                <select name="" id="publicationSelect" class=" px-2 py-1 outline-none rounded-md border border-gray-300 border-solid" onchange="PublicationDate()">
+                                    <option value="0" class="">Choose an action</option>
+                                    <option value="Yes" class="">Yes</option>
+                                    <option value="No" class="">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
+                            <div class=" flex flex-col gap-2 w-full align-start">
+                                <label for="" class=" text-sm font-normal">Publication Date</label>
+                                <input type="date" id="txtPublicationDate"  />
+                            </div>
+                        </div>
                     </div>
                     <div class="requestUpdate-tab tab-content"></div>
                 </div>
@@ -281,436 +309,9 @@
         </div>
     </div>
     <script src="./common.js"></script>
-
+    <script src="./content.js"></script>
     <script >
-        $(document).ready(function () {
 
-            loadSidebar();
-            renderContent(contentData.Result);
-            getSubsidiary();
-            getDepartment();
-
-            var quill = new Quill('#editor', {
-                theme: 'snow',
-                placeholder: '',
-            });
-
-            $("#article, #image, #video, #document").addClass('hidden');
-            $("#article").removeClass('hidden');
-
-            $("#contentType").change(function () {
-                var selectedValue = $(this).val();
-                $("#article, #image, #video,#document").addClass('hidden');
-                $("#" + selectedValue).removeClass('hidden');
-            });
-
-            $('#submit').click(function () {
-                // Get values from input, select, and file elements
-                var description = $('#descriptioninput').val();
-                var contentType = $('#contentType').val();
-                var content = quill.getContents();
-                var classification = $('#classificationselect').val();
-                var subsidiary = $('#subsidiaryselect').val();
-                var department = $('#departmentselect').val();
-
-                // Validate the fields
-                if (description.trim() === '') {
-                    showError('Description is required.');
-                } else if (contentType.trim() === '') {
-                    showError('Content Type is required.');
-                } else if (classification.trim() === '') {
-                    showError('Classification is required.');
-                } else if (subsidiary.trim() === '') {
-                    showError('Subsidiary is required.');
-                } else if (department.trim() === '') {
-                    showError('Department is required.');
-                } else {
-                    // If all validations pass, you can proceed with further actions
-                    var data = {
-                        "description": description,
-                        "contentType": contentType,
-                        "content": content,
-                        "classification": classification,
-                        "subsidiary": subsidiary,
-                        "department": department
-                    };
-
-                    console.log(data);
-
-                    // Your code to submit the form or perform other actions
-                    // For example: $.ajax({ method: 'POST', url: 'your_api_url', data: data, success: function(response) { /* Handle success */ }, error: function(error) { /* Handle error */ } });
-                }
-            });
-
-            $('nav a').click(function (e) {
-                e.preventDefault();
-                const route = $(this).attr('href').substring(1);
-                loadContent(route);
-            });
-
-            $('#sidebar .dropdown-toggle').click(function () {
-                const $dropdownContent = $(this).siblings('.dropdown-content');
-                $dropdownContent.toggleClass('h-0 h-fit');
-            });
-
-
-
-            $('#searchInput').on('input', function () {
-                const searchText = $(this).val().toLowerCase();
-                filterContentBySearch(searchText);
-            });
-
-            populateDropdown(Subsidiaries, 'organization');
-            populateDropdown(ContentTypes, 'type');
-            populateDropdown(Departments, 'department');
-            
-            let filterObject = {};
-
-            $('.dropdown').each(function () {
-                const $button = $(this).find('[data-tag]');
-                const $dropdown = $(this).find('[data-dropdown]');
-            
-                let currentSelectedValue = ""; 
-
-
-                $button.click(function (e) {
-                    e.stopPropagation(); 
-                    $dropdown.toggleClass('hidden');
-                });
-
-                $dropdown.find('[data-sub]').click(function () {
-                    const selectedValue = $(this).data('sub');
-
-                    // Check if the selected value is already the current selected value
-                    if (filterObject[$button.data('tag')] === selectedValue) {
-                        // If it is the same value, remove the selection
-                        filterObject[$button.data('tag')] = ""; // Clear the selected value from filterObject
-                        $button.find('.text').text($button.data('tag')); // Clear the button text
-                        $(this).removeClass('bg-primary text-white'); // Remove the styling from the selected option
-                    } else {
-                        // Update the filter object
-                        filterObject[$button.data('tag')] = selectedValue;
-
-
-                        filterContent(filterObject);
-
-                        currentSelectedValue = selectedValue; // Update the current selected value
-                        $button.find('.text').text(selectedValue);
-                        $dropdown.addClass('hidden');
-
-                        $dropdown.find('[data-sub]').removeClass('bg-primary text-white');
-                        $(this).addClass('bg-primary text-white');
-
-                        if ($(this).attr('data-sub')) {
-                            $button.removeClass('text-[#606060] border border-solid border-[#606060]').addClass('bg-primary text-white');
-                        } else {
-                            // If data-sub attribute is not present, you can add an else statement to handle that case
-                        }
-                    }
-                });
-
-
-                $(document).click(function () {
-                    $dropdown.addClass('hidden');
-                });
-            });
-            
-            filterContent('all');
-            markActiveTag('all');
-
-            $('.media-upload-container').on('dragover', function (e) {
-                e.preventDefault();
-                $(this).removeClass('border-gray-200').addClass('border-primary');
-            });
-
-            $('.media-upload-container').on('dragleave', function () {
-                $(this).removeClass('border-primary').addClass('border-gray-200');
-            });
-
-            $('.media-upload-container').on('drop', function (e) {
-                e.preventDefault();
-                $(this).removeClass('border-primary').addClass('border-gray-200');
-
-                var files = e.originalEvent.dataTransfer.files;
-                handleFiles(files, $(this));
-            });
-
-            $('.media-upload-container').on('click', function () {
-                $(this).find('input[type=file]').click();
-            });
-
-            $('input[type=file]').on('change', function () {
-                var files = this.files;
-                handleFiles(files, $(this).closest('.media-upload-container'));
-            });
-
-            
-        })
-
-        function handleFiles(files, container) {
-            var dataType = container.data('type');
-            var stack = $('#' + dataType + 'Stack');
-
-            // Append each file to the respective stack
-            for (var i = 0; i < files.length; i++) {
-                (function (file,index) { // Use a closure to capture the correct file
-                    var reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        var mediaItem;
-
-                        // Check file type and apply different templates
-                        if (file.type.startsWith('image/')) {
-                            mediaItem = $(`
-                                <div class="media-item relative group w-full h-40">
-                                    <img class="object-fit-cover w-full h-full rounded" src="${e.target.result}" alt="Image ${index + 1}">
-                                    <button class="delete-icon absolute top-3 right-3 bg-white text-gray-600 p-1 rounded-full opacity-0 group-hover:opacity-100" data-index="${index}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                                        </svg>
-                                    </button>
-                                </div>
-                            `);
-                        } else if (file.type.startsWith('video/')) {
-                            mediaItem = $(`
-                            <div class="media-item relative group w-full h-40">            
-                                <video class="object-fit-cover w-full h-full rounded" controls><source src="${e.target.result}" type="${mediaFile.type}"></video>
-                                <button class="delete-icon absolute top-3 right-3 bg-white text-gray-600 p-1 rounded-full opacity-0 group-hover:opacity-100" data-index="${i}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                                    </svg>
-                                </button>
-                            </div>`
-                            );
-                        } else if (file.type.startsWith('application/pdf')) {
-                            mediaItem = $('<div class="media-item">' +
-                                '<iframe src="' + e.target.result + '" width="100%" height="100%"></iframe>' +
-                                '<p>' + file.name + '</p>' +
-                                '</div>');
-                        } else {
-                            // Add more conditions for different file types
-                            mediaItem = $('<div class="media-item">' +
-                                '<p>Unsupported file type: ' + file.type + '</p>' +
-                                '<p>' + file.name + '</p>' +
-                                '</div>');
-                        }
-
-                        stack.prepend(mediaItem);
-                    };
-
-                    reader.readAsDataURL(file);
-                })(files[i]);
-            }
-            stack.on('click', '.delete-icon', function () {
-                $(this).closest('.media-item').remove();
-            });
-    }
-    
-        function showTab(tabName) {
-            $('.tab-content').hide();
-            $(`.${tabName}-tab`).show();
-        }
-        
-        function showError(message) {
-            $.toast({
-                heading: 'Error',
-                text: message,
-                showHideTransition: 'fade',
-                icon: 'error'
-            });
-        }
-
-        function populateDropdown(data, dropdownId) {
-            const dropdown = $(`#${dropdownId} [data-dropdown]`);
-            data.forEach(item => {
-                const button = `<button data-sub="${item.name}" class="py-1 hover:bg-gray-50 hover:text-primary text-left px-10 rounded-sm">${item.name}</button>`;
-                dropdown.append(button);
-            });
-        }
-
-        function renderContent(content) {
-            const $dashboardContent = $('.dashboard-content');
-            $dashboardContent.empty();
-            console.log(content)
-            content.forEach(item=>{
-
-                $dashboardContent.append(`
-                    <div class=" w-full flex flex-col justify-between gap-2 border border-border border-solid bg-bgsecond/20 overflow-hidden rounded-lg p-2 group">
-                            <div class="flex items-center justify-between gap-3">
-                                <div class=" flex items-center truncate overflow-hidden">
-                                    <div class=" bg-[#F4E6E6] rounded-md p-[10px] flex items-center justify-center mr-2  ">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                            <path d="M11.6663 9.16675H6.66634M8.33301 12.5001H6.66634M13.333 5.83341H6.66634M16.6663 5.66675V14.3334C16.6663 15.7335 16.6663 16.4336 16.3939 16.9684C16.1542 17.4388 15.7717 17.8212 15.3013 18.0609C14.7665 18.3334 14.0665 18.3334 12.6663 18.3334H7.33301C5.93288 18.3334 5.23281 18.3334 4.69803 18.0609C4.22763 17.8212 3.84517 17.4388 3.60549 16.9684C3.33301 16.4336 3.33301 15.7335 3.33301 14.3334V5.66675C3.33301 4.26662 3.33301 3.56655 3.60549 3.03177C3.84517 2.56137 4.22763 2.17892 4.69803 1.93923C5.23281 1.66675 5.93288 1.66675 7.33301 1.66675H12.6663C14.0665 1.66675 14.7665 1.66675 15.3013 1.93923C15.7717 2.17892 16.1542 2.56137 16.3939 3.03177C16.6663 3.56655 16.6663 4.26662 16.6663 5.66675Z" stroke="url(#paint0_linear_592_305)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <defs>
-                                                <linearGradient id="paint0_linear_592_305" x1="9.99967" y1="1.66675" x2="9.99967" y2="18.3334" gradientUnits="userSpaceOnUse">
-                                                <stop stop-color="#BF0000" stop-opacity="0.68"/>
-                                                <stop offset="1" stop-color="#900000"/>
-                                                </linearGradient>
-                                            </defs>
-                                        </svg>
-                                    </div>
-                                    <a href="/article.html" class="capitalize font-semibold text-sm truncate hover:text-primary">${item.Title}</a>
-                                </div>
-                                <button onClick={modal(${item.ContentId})} class=" py-2 px-2 hover:bg-[#F5F5F5] rounded-full flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=" stroke-textsub">
-                                        <circle cx="12" cy="12" r="1"/>
-                                        <circle cx="19" cy="12" r="1"/>
-                                        <circle cx="5" cy="12" r="1"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <p class=" text-textsub text-md">
-                                ${item.Description}
-                            </p>
-                            <div class="flex  items-center">
-                                <div class=" px-[20px] py-[5px] bg-[#F9F5F5] rounded-full text-xs capitalize text-primary">${item.ContentType}</div>
-                            </div>
-                    </div>
-                `)
-            })
-        }
-
-        function getSubsidiary() {
-                const subsidiaries = Subsidiaries; 
-                const selectElement = $('#subsidiaryselect');
-
-                subsidiaries.forEach(subsidiary => {
-                    const optionElement = $(`<option value="${subsidiary.id}">${subsidiary.name}</option>`);
-
-                 
-                    selectElement.append(optionElement);
-                });
-
-        }
-
-        function getDepartment() {
-            const Department = Departments; 
-            const selectElement = $('#departmentselect');
-            // Populate options with subsidiaries
-            Department.forEach(Dep => {
-                const optionElement = $(`<option value="${Dep.id}">${Dep.name}</option>`);
-                selectElement.append(optionElement);
-            });
-        }     
-
-
-        function filterContent(filters) {
-            let filteredContent = contentData.Result;
-
-
-            // Apply filters based on other criteria (SubsidiaryId, DeptId, ContentType)
-            if (filters.SubsidiaryId && filters.SubsidiaryId !== 'all') {
-                filteredContent = filteredContent.filter(item => {
-                    return item.SubsidiaryId === parseInt(filters.SubsidiaryId);
-                });
-            }
-
-            if (filters.DeptId && filters.DeptId !== 'all') {
-                filteredContent = filteredContent.filter(item => {
-                    return item.DeptId === parseInt(filters.DeptId);
-                });
-            }
-
-            if (filters.ContentType && filters.ContentType !== 'all') {
-                filteredContent = filteredContent.filter(item => {
-                    return item.ContentType.toLowerCase() === filters.ContentType.toLowerCase();
-                });
-            }
-
-            renderContent(filteredContent);
-        }
-
-
-        function isEmptyObject(obj) {
-            for (const key in obj) {
-                if (obj.hasOwnProperty(key)) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        function filterContentBySearch(searchText) {
-            const filteredContent = contentData.Result.filter(item => {
-                return item.Title.toLowerCase().includes(searchText) || item.Description.toLowerCase().includes(searchText);
-            });
-
-            renderContent(filteredContent);
-        }
-        function markActiveTag(activeTag) {
-            $('button[data-tag]').removeClass('bg-primary text-white');
-            $(`button[data-tag="${activeTag}"]`).addClass('bg-primary text-white');
-        }
-        function loadContent(route) {
-        // Load content based on the selected route
-            switch (route) {
-                case 'dashboard':
-                    $('#content').html('<h2>This is the Dashboard!</h2><p>Some dashboard content...</p>');
-                    break;
-                case 'settings':
-                    $('#content').html('<h2>Settings Page</h2><p>Configure your settings here...</p>');
-                    break;
-                default:
-                    $('#content').html('<h2>Page Not Found</h2>');
-            }
-        }
-        function modal(id){
-            console.log(id)
-            moretoggle()
-        }
-        
-        function moretoggle(){
-            $('.more').toggleClass('hidden');
-            animateMore()
-        }
-        function loadSidebar() {
-            const $nav = $('#sidebar');
-            console.log(menu);
-
-            menu.forEach(item => {
-                if (item.header) {
-                    $nav.append(`<h2 class="uppercase mb-5 text-sm font-semibold mx-5 text-gray-500">${item.header}</h2>`);
-                } else {
-                    if (item.children) {
-                        // Dropdown item
-                        $nav.append(`<div class="flex flex-col">
-                                        <div class=" dropdown-toggle flex justify-between items-center text-[#606060] text-md px-5 py-2 hover:bg-red-800 hover:text-white hover:cursor-pointer w-11/12 rounded-e-md mb-3 capitalize font-normal">
-                                            <span class="flex items-center "><i class=" mr-3 text-md">${item.icon}</i><span>${item.name}</span> </span>  <i class=""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg></i>
-                                        </div>
-                                        <div class="  dropdown-content px-5 flex flex-col h-0 overflow-hidden transition-all duration-500 ease-in-out">
-                                            ${item.children.map(child => `<a href="${child.url}" class="px-5 py-2 hover:bg-red-800 hover:text-white w-11/12 rounded-e-md mb-3 capitalize font-normal">${child.name}</a>`).join('')}
-                                        </div>
-                                    </div>`);
-                    } else {
-                        // Regular item without dropdown
-                        $nav.append(`<a href="${item.url}" class="flex items-center group text-[#606060] text-md px-5 py-2 hover:bg-red-800 hover:text-white hover:cursor-pointer w-11/12 rounded-e-md mb-3 capitalize font-normal">
-                                        <i class=" mr-3 text-md">${item.icon}</i><span>${item.name}</span>
-                                    </a>`);
-                    }
-                }
-            });
-        }
-        
-        function animateMore(index) {
-            gsap.timeline()
-                .from( '.more', {
-                    opacity: 0, 
-                    duration:0.5,
-                }).to(
-                    '.more',{
-                        opacity: 1, 
-                        duration: 0.5
-                    }
-                ).from('.more-modal',{
-                    x:'100%',
-                    duration: 0.3
-                }).to('.more-modal',{
-                    x:0,
-                    duration: 0.3
-                })
-                
-        }
     </script>
 </body>
 </html>

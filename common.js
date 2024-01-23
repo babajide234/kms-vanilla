@@ -1,4 +1,51 @@
- const menu =[
+const API_BASE_URL = "http://20.50.141.134:8011/";
+const API_ENDPOINTS = {
+    NEW_CONTENT_REQUEST: "_api/CaseMgt/NewContentRequest",
+    NEW_CONTENT_REVIEW: "_api/CaseMgt/NewContentReview",
+    REVIEW_CONTENT_REQUEST: "_api/CaseMgt/ReviewContentRequest",
+    CREATOR_QUEUE: "_api/CaseMgt/CreatorQueue",
+    REVIEWER_QUEUE: "_api/CaseMgt/ReviewerQueue",
+    GET_ACTIVE_SUBSIDIARIES: "_api/UserMgt/GetActiveSubsidiaries",
+    GET_ALL_SUBSIDIARIES: "_api/UserMgt/GetAllSubsidiaries",
+    GET_DEPARTMENTS: "_api/UserMgt/GetDepartments",
+    RETRIEVE_CONTENT: "_api/Content/RetrieveContent",
+    GET_CONTENT_BY_ID: "_api/Content/GetContentbyId",
+    TOP_15_CONTENT: "_api/Content/Top15",
+    RECENTLY_UPDATED_CONTENT: "_api/Content/RecentlyUpdated",
+    UPLOAD_DOCUMENTS: "_api/CaseMgt/UploadDocuments",
+    CREATE_NEW_CONTENT: "_api/CaseMgt/CreateNewContent"
+};
+
+const API_TOKEN = "AxSWpRT1KOmNyJGHoE/PDAZZCustodianKMS123";
+
+function makeApiCall(endpoint, method, requestData, successCallback, errorCallback) {
+  var settings = {
+      "url": API_BASE_URL + endpoint,
+      "method": method,
+      "timeout": 0,
+      "headers": {
+          "Content-Type": "application/json",
+          "token": API_TOKEN
+      },
+      "data": JSON.stringify(requestData),
+  };
+
+  $.ajax(settings)
+      .done(function (response) {
+          if (successCallback) {
+              successCallback(response);
+          }
+      })
+      .fail(function (xhr, status, error) {
+          if (errorCallback) {
+              errorCallback(xhr, status, error);
+          }
+      });
+}
+
+
+
+const menu =[
     {
         header: "general"
     },
