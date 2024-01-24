@@ -177,49 +177,50 @@ function SubmitContent() {
             showError('Department is required.');
         } else {
             let data= {
-                        "DeptId": department,
-                        "SubsidiaryId": subsidiary,
-                        "AccessType": classification,
-                        "Uploadedby": $('#emailAddy').val(),
-                        "BriefDescription": description,
-                        "Subject": $('#txtTitle').val().toLowerCase(),
-                        "ContentType": contentType,
-                        "ContentBody": content,
-                        "Status": $('#statusselect').val(),
-                        "IPAddress": IPAddress,
-                        "RefNo": RefNo,
-                        "DelayPublication": '',
-                        "PublicationDate": $('#txtPublicationDate').val(),
-                        "Archive": false
+                "DeptId": department,
+                "SubsidiaryId": subsidiary,
+                "AccessType": classification,
+                "Uploadedby": $('#emailAddy').val(),
+                "BriefDescription": description,
+                "Subject": $('#txtTitle').val().toLowerCase(),
+                "ContentType": contentType,
+                "ContentBody": content,
+                "Status": $('#statusselect').val(),
+                "IPAddress": IPAddress,
+                "RefNo": RefNo,
+                "DelayPublication": '',
+                "PublicationDate": $('#txtPublicationDate').val(),
+                "Archive": false
             }
             let Docdata = {
-                        "DeptId": department,
-                        "SubsidiaryId": subsidiary,
-                        "AccessType": classification,
-                        "Uploadedby": $('#emailAddy').val(),
-                        "BriefDescription": description,
-                        "Subject": $('#txtTitle').val().toLowerCase(),
-                        "ContentType": contentType,
-                        "Status": $('#statusselect').val(),
-                        "IPAddress": IPAddress,
-                        "RefNo": RefNo,
-                        "DelayPublication": '',
-                        "PublicationDate": $('#txtPublicationDate').val(),
-                        "Archive": false
+                "DeptId": department,
+                "SubsidiaryId": subsidiary,
+                "AccessType": classification,
+                "Uploadedby": $('#emailAddy').val(),
+                "BriefDescription": description,
+                "Subject": $('#txtTitle').val().toLowerCase(),
+                "ContentType": contentType,
+                "Status": $('#statusselect').val(),
+                "IPAddress": IPAddress,
+                "RefNo": RefNo,
+                "DelayPublication": '',
+                "PublicationDate": $('#txtPublicationDate').val(),
+                "Archive": false
             }
 
             console.log(data);
-            makeApiCall(API_ENDPOINTS.NEW_CONTENT_REQUEST, "POST", contentType === "Article"? data : Docdata , function (response) {
-                // Handle successful content creation
-                console.log(response)
-                const createdContentId = response.ResponseMessage;
-                showSuccess("success sent ");
-                redirectToWithDelay("/dashboard.html", 4000);
+            console.log(Docdata);
+            // makeApiCall(API_ENDPOINTS.NEW_CONTENT_REQUEST, "POST", contentType === "article"? data : Docdata , function (response) {
+            //     // Handle successful content creation
+            //     console.log(response)
+            //     const createdContentId = response.ResponseMessage;
+            //     showSuccess("success sent ");
+            //     redirectToWithDelay("/dashboard.html", 4000);
 
-            }, function (xhr, status, error) {
-                console.error("Error Submiting content:", status, error);
-                // Handle error as needed
-            });
+            // }, function (xhr, status, error) {
+            //     console.error("Error Submiting content:", status, error);
+            //     // Handle error as needed
+            // });
             // Your code to submit the form or perform other actions
             // For example: $.ajax({ method: 'POST', url: 'your_api_url', data: data, success: function(response) { /* Handle success */ }, error: function(error) { /* Handle error */ } });
 }

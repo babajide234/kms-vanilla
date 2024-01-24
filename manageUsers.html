@@ -1,0 +1,206 @@
+<!doctype html>
+<html title="home">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- quill cdn -->
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  <!-- bootstrap -->
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+
+  <!-- datatbles cdn  -->
+  <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
+  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+
+  <script>
+
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#991313",
+            bgsecond: "#f1efef",
+            text: "#3a3737",
+            textsub: "#9a9898",
+            border: "#c2bdbd",
+            hemp: "#8a7474",
+            accent1: "#c39494",
+            accent2: "#cdacac",
+            sirocco: "#6c7474",
+          }
+        }
+      }
+    }
+
+    lucide.createIcons();
+
+  </script>
+</head>
+<body>
+    <div class="flex w-full h-screen overflow-y-hidden">
+        <div id="sidebar" class="w-[20%] h-full bg-bgsecond pt-24 hidden md:block">
+            <div class=" absolute top-5 left-5 flex gap-2 items-center text-white">
+                <div class="">
+                    <img src="./img/logo.png" alt="" class=" w-8  ">
+                </div>
+                <div class="">
+                    <h2 class=" font-bold text-sm text-primary">Custodian</h2>
+                    <p class=" text-textsub text-xs">Knowledge management System</p>
+                </div>
+            </div>
+            <div class=" py-5">
+                <div class="dropdown flex w-[80%] mx-auto rounded-lg flex-col  bg-white relative z-0">
+                    <a href="./content.html" class="flex text-primary items-center px-2.5 py-[15px] rounded-lg gap-4 text-sm font-medium">
+                        <span class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                        </span>
+                        Create new content
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class=" flex-1 p-8 overflow-y-scroll">
+            <div class=" flex items-center justify-between mb-10">
+                <div class=" w-fit md:flex-grow">
+                    <h1 class=" font-bold text-4xl text-text mb-1">Manage Users</h1>
+                </div>
+                <div class="hidden md:flex items-center gap-3">
+                    <div class=" bg-[#F5F5F5] rounded-full flex items-center px-4 py-3 focus-within:border border-bg-primary  md:w-[300px]">
+                        <i class="mr-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                              <path d="M17.5 17.5L13.875 13.875M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z" stroke="#900000" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </i>
+                        <input type="text" class=" flex-grow bg-[#F5F5F5] focus:outline-none " id="searchInput" placeholder="Search" />
+                    </div>
+                    <button onclick="invitetoggle()" class=" w-fit py-[8px] px-[14px] bg-[#900000] capitalize text-sm rounded-lg text-white font-semibold ">Invite User</button>
+                    <button class=" bg-[#F5F5F5] w-[48px] h-[48px] rounded-full flex justify-center items-center" type="">
+                        <i class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M9.35395 21C10.0591 21.6224 10.9853 22 11.9998 22C13.0142 22 13.9405 21.6224 14.6456 21M17.9998 8C17.9998 6.4087 17.3676 4.88258 16.2424 3.75736C15.1172 2.63214 13.5911 2 11.9998 2C10.4085 2 8.88235 2.63214 7.75713 3.75736C6.63192 4.88258 5.99977 6.4087 5.99977 8C5.99977 11.0902 5.22024 13.206 4.34944 14.6054C3.6149 15.7859 3.24763 16.3761 3.2611 16.5408C3.27601 16.7231 3.31463 16.7926 3.46155 16.9016C3.59423 17 4.19237 17 5.38863 17H18.6109C19.8072 17 20.4053 17 20.538 16.9016C20.6849 16.7926 20.7235 16.7231 20.7384 16.5408C20.7519 16.3761 20.3846 15.7859 19.6501 14.6054C18.7793 13.206 17.9998 11.0902 17.9998 8Z" stroke="#900000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              </svg>
+                        </i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class=" dashboard-content ">
+                <table id="myTable" class="w-full">
+                    
+                    
+                </table>
+            </div>
+
+        </div>
+
+        <div class="role fixed hidden  w-full h-screen bg-[#808080BF] flex items-center justify-end ">
+            <div class="role-modal w-[529px] py-[20px] bg-[#F5F5F5] h-screen relative overflow-y-scroll ">
+                <div class="pb-[13px] px-[20px]  border-solid border-b border-[#DBDBDB] flex justify-between items-center">
+                    <h2 class=" text-[22px] font-semibold">Change Role</h2>
+                    <button onclick="changeUserRoleToggle()" class=" p-2 rounded-lg hover:bg-gray-50">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M15.0005 5L5.00049 15M5.00049 5L15.0005 15" stroke="#606060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                    </button>
+                </div>
+                <div class="role-content">
+                    <div class="border-solid border-b px-[20px] py-5 border-[#DBDBDB] w-full">
+                        <label class=" w-full flex justify-between items-center">
+                            <span class="sr-only">
+                                role
+                            </span>
+                            <span class=" text-lg text-gray-600">Administrator</span>
+                            <input type="checkbox" name="" id="">
+                        </label>
+                    </div>
+                    <div class="border-solid border-b px-[20px] py-5 border-[#DBDBDB] w-full">
+                        <label class=" w-full flex justify-between items-center">
+                            <span class="sr-only">
+                                role
+                            </span>
+                            <span class=" text-lg text-gray-600">Content Creator</span>
+                            <input type="checkbox" name="" id="">
+                        </label>
+                    </div>
+                    <div class="border-solid border-b px-[20px] py-5 border-[#DBDBDB] w-full">
+                        <label class=" w-full flex justify-between items-center">
+                            <span class="sr-only">
+                                role
+                            </span>
+                            <span class=" text-lg text-gray-600">Knowledge Seeker</span>
+                            <input type="checkbox" name="" id="">
+                        </label>
+                    </div>
+                </div>
+
+                <div class=" p-5  bg-[#F5F5F5] w-full grid grid-cols-2 gap-5">
+                    <!-- <button onclick="sharetoggle()" class=" w-full px-[14px] py-[10px] rounded-md bg-primary text-white font-semibold">Share</button> -->
+                </div>
+            </div>
+        </div>
+
+        
+        <div  class="invite hidden fixed w-full h-screen bg-[#808080BF] flex items-center justify-center ">
+            <div class="bg-white p-4 w-[600px]  rounded-lg ">
+                    <div class=" flex justify-between items-center border-b border-gray-300 py-3">
+                        <h2 class=" text-2xl font-semibold">Invite User</h2>
+                        <button onclick="invitetoggle()" class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                              </svg>                              
+                        </button>
+                    </div>
+                    <div id="invitemodal" class=" py-5 flex flex-col gap-5">
+                        <div class=" w-full gap-3 flex items-center border border-solid border-gray-300 p-3 rounded-md">
+                            <span class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                                  </svg>                                      
+                            </span>
+                            <input type="text" class=" outline-none flex-grow" placeholder="Add email address" />
+                        </div>
+                        <div class=" w-full flex items-center justify-between">
+                            <p class="text-base text-neutral-700 leading-tight">Role</p>
+                            <div class="dropdown relative">
+                                <button data-tag="" class=" flex items-center">
+                                  <span class="text max-w-[150px] truncate">Knowledge Seeker</span>
+                                  <span class="  ">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                          <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                                      </svg>
+                                  </span>
+                                </button>
+                                <div data-dropdown class=" hidden w-44 h-20 px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg ">
+                                      <button data-sub="can view" class="p-1 hover:bg-gray-50 text-left rounded-sm">Knowledge Seeker</button>
+                                      <button data-sub="can view" class="p-1 hover:bg-gray-50 text-left rounded-sm">Content Creator</button>
+                                      <button data-sub="can view" class="p-1 hover:bg-gray-50 text-left rounded-sm">Administrator</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" w-full flex items-center justify-between">
+                            <button class=" text-sm font-semibold text-white bg-primary w-full text-center p-3 rounded-lg">Invite</button>
+                        </div>
+                    </div>
+                    <div class=" flex justify-end">
+                    </div>
+            </div>
+        </div>
+        <div class="fixed top-10 right-10">
+            
+        </div>
+    </div>
+    <script src="./common.js"></script>
+    <script src="./index.js"></script>
+    <script src="./alert.js"></script>
+
+</body>
+</html>

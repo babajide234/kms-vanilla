@@ -4,9 +4,9 @@ $(document).ready(function () {
         let currentSlide = 0;
         let filterObject = {};
 
+        console.log(location);
         
-
-        if(location === '/'){
+        if (location === '/'){
             updateDots(currentSlide);
 
             let autoPlayInterval = startAutoPlay(currentSlide);
@@ -353,10 +353,95 @@ $(document).ready(function () {
             });
 
 
-        }
+        }else if(location === '/manageusers.html' ){
+            loadSidebar();
+            
+            console.log("manage user");
 
-        
+            $('#searchInput').on('input', function () {
+                const searchText = $(this).val().toLowerCase();
+                filterContentBySearch(searchText);
+            });
+
+            getUsers(function (userData) {
+                // Now you have access to the user data, you can do something with it.
+                console.log(userData);
+                // Initialize DataTable with the received data
+                initializeDataTable(userData);
+            });
+            // $('#myTable tbody').on('click', 'tr', function () {
+            //     if ($(this).hasClass('bg-gray-100')) {
+            //         $(this).removeClass('bg-gray-100');
+            //     } else {
+            //         table.$('tr.bg-gray-100').removeClass('bg-gray-100');
+            //         $(this).addClass('bg-gray-100');
+            //     }
+            // });
+
+            $('#myTable tbody').on('click', 'tr', function () {
+                if (table.row(this).data()) {
+                    $(this).toggleClass('selected');
+                }
+            });
+        }
+   
 });
+
+// Function to get users asynchronously
+function getUsers(callback) {
+    const requestData = {
+        "UserName": "dmsuser1@custodianinsurance.com",
+        "IPAddress": "127.0.0.1:5500"
+    };
+
+    makeApiCall(API_ENDPOINTS.GET_ALL_USERS, "POST", requestData, function (response) {
+        console.log(response);
+        if (callback && typeof callback === 'function') {
+            callback(response.UserInfo);
+        }
+    }, function (xhr, status, error) {
+        console.error("Error getting users:", status, error);
+        // Handle error as needed
+    });
+}
+
+// Function to initialize DataTable
+function initializeDataTable(data) {
+    $('#myTable').DataTable({
+        single: false,
+        data: data,
+        columns: [
+            { data: 'UserFullName', title: 'Name' },
+            { data: 'EmailAddress', title: 'Email' },
+            { data: 'Role', title: 'Role' },
+            { data: 'LastLogin', title: 'Last Log in' },
+            { 
+                data: 'IsActive',
+                title: '2FA',
+                render: function (data, type, row) {
+                    return data ? '<span class="">Enabled</span>' : '<span class="">Disabled</span>'; // Assuming IsActive is a boolean
+                }
+            },
+            {
+                data: null,
+                title: '', // Empty title for the last column
+                render: function (data, type, row) {
+                    return '<button onclick="changeUserRoleToggle()" class=" py-2 px-5 rounded-md text-primary font-semibold bg-gray-200 ">Change role</button>';
+                }
+            }
+        ],
+        dom: 'lBfrtip',
+        buttons: [
+            'copy', 'excel', 'pdf'
+        ],
+        initComplete: function () {
+            $('#myTable thead tr').addClass('bg-primary/20');
+        }
+    });
+}
+
+
+
 
 
 function animateSlide(index) {
@@ -455,6 +540,15 @@ function moretoggle(){
     $('.more').toggleClass('hidden');
     animateMore()
     renderMoreContent()
+}
+
+function invitetoggle(){
+    $('.invite').toggleClass('hidden');
+    animateMore()
+}
+function changeUserRoleToggle(){
+    $('.role').toggleClass('hidden');
+    animateMore()
 }
 
 function handleSubsidiaryFilter(filterObject) {
@@ -787,8 +881,8 @@ switch (route) {
 }
 
 function modal(id){
-console.log(id)
-moretoggle()
+    console.log(id)
+    moretoggle()
 }
 
 
@@ -845,9 +939,6 @@ function populateTable(data){
         )
     })
 }
-
-
-
 
 
 

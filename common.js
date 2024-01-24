@@ -13,7 +13,9 @@ const API_ENDPOINTS = {
     TOP_15_CONTENT: "_api/Content/Top15",
     RECENTLY_UPDATED_CONTENT: "_api/Content/RecentlyUpdated",
     UPLOAD_DOCUMENTS: "_api/CaseMgt/UploadDocuments",
-    CREATE_NEW_CONTENT: "_api/CaseMgt/CreateNewContent"
+    CREATE_NEW_CONTENT: "_api/CaseMgt/CreateNewContent",
+    GET_ALL_USERS: "_api/UserMgt/GetAllUserv2",
+    GET_SINGLE_USERS: "_api/UserMgt/GetUserProfilebyUserName",
 };
 
 const API_TOKEN = "AxSWpRT1KOmNyJGHoE/PDAZZCustodianKMS123";
