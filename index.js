@@ -54,91 +54,15 @@ $(document).ready(function () {
             loadSidebar();
             renderContent(contentData.Result);
             
-            populateDropdown(Subsidiaries, 'subsidiary');
-            populateDropdown(ContentTypes, 'type');
+             // Options for the first dropdown
+            const allDropdownOptions = { id: 'all', label: 'All', values: [] };
+            // Callback for the first dropdown
+            const allDropdownCallback = function (filterObject) {
+                // Custom logic for the first dropdown
+                console.log("Filter Object (All):", filterObject);
+            };
+            initializeDynamicDropdown('#dropdownContainer', allDropdownOptions, allDropdownCallback);
 
-            $('.dropdown').each(function () {
-                const $button = $(this).find('[data-tag]');
-                const $dropdown = $(this).find('[data-dropdown]');
-                const dropdownId = $(this).attr('id');
-    
-                if ($button.data('tag') === 'all') {
-                    console.log('all btns');
-                    filterObject = {}; // Reset the filterObject
-                    filterContent(filterObject,'dashboard');
-                    handleSubsidiaryFilter(filterObject);
-                }
-                
-                
-                let currentSelectedValue = ""; 
-    
-    
-                $button.click(function (e) {
-                    e.stopPropagation(); 
-                    console.log(' btns clicked')
-                    $dropdown.toggleClass('hidden');
-                });
-    
-    
-                $dropdown.find('[data-sub]').click(function () {
-                    const selectedName = $(this).data('sub');
-                    let selectedValue ='';
-                    console.log('sub btn clicked');
-                    if($button.data('tag') === 'ContentType'){
-                        selectedValue = $(this).data('sub');
-                    }else{
-                        selectedValue = $(this).data('value');
-                    }
-    
-                    // Check if the selected value is already the current selected value
-                    if (filterObject[$button.data('tag')] === selectedValue) {
-                        // If it is the same value, remove the selection
-                        console.log(filterObject);
-                        
-                        // Clear the selected value from filterObject
-                        filterObject[$button.data('tag')] = ""; 
-                        console.log(dropdownId);
-                        // Clear the button text
-                        $button.find('.text').text(dropdownId); 
-                        
-                        // Remove the styling from the selected option
-                        $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
-                        filterContent({},'dashboard');
-                        handleSubsidiaryFilter(filterObject);
-                    } else {
-                        // Update the filter object
-                        filterObject[$button.data('tag')] = selectedValue;
-                        
-                        filterContent(filterObject,'dashboard');
-                        handleSubsidiaryFilter(filterObject);
-
-                        currentSelectedValue = selectedValue; 
-                        $button.find('.text').text(selectedName);
-                        $dropdown.addClass('hidden');
-    
-                        $dropdown.find('[data-sub]').removeClass('bg-primary text-white');
-                        $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
-                        $(this).addClass('bg-primary text-white');
-    
-                        if ($(this).attr('data-sub')) {
-                            $button.removeClass('text-[#606060] border border-solid border-[#606060]').addClass('bg-primary text-white');
-                        } else {
-                            // If data-sub attribute is not present, you can add an else statement to handle that case
-                        }
-                    }
-                    if ($button.data('tag') === 'all') {
-                        console.log('all btns');
-                        filterObject = {}; // Reset the filterObject
-                        filterContent({},'dashboard');
-                        handleSubsidiaryFilter(filterObject);
-                    }
-                });
-    
-    
-                $(document).click(function () {
-                    $dropdown.addClass('hidden');
-                });
-            });
 
             $('nav a').click(function (e) {
                 e.preventDefault();
@@ -369,23 +293,59 @@ $(document).ready(function () {
                 // Initialize DataTable with the received data
                 initializeDataTable(userData);
             });
-            // $('#myTable tbody').on('click', 'tr', function () {
-            //     if ($(this).hasClass('bg-gray-100')) {
-            //         $(this).removeClass('bg-gray-100');
-            //     } else {
-            //         table.$('tr.bg-gray-100').removeClass('bg-gray-100');
-            //         $(this).addClass('bg-gray-100');
-            //     }
-            // });
+            
 
             $('#myTable tbody').on('click', 'tr', function () {
                 if (table.row(this).data()) {
                     $(this).toggleClass('selected');
                 }
             });
+            
+
+
         }
    
 });
+
+function moresingleToggle(email){
+    console.log(email)
+    $('.more').toggleClass('hidden');
+    animateMore()
+    getSingleUser(email,renderSingleUser);
+
+}
+
+function renderSingleUser(data) {
+    // Assuming data is an object with user information
+    // Replace the property names with the actual properties from your data object
+
+    // Full Name
+    $('#fullNameValue').text(data.UserFullName || "");
+
+    // Email
+    $('#emailValue').text(data.EmailAddress || "");
+
+    // Department
+    $('#departmentValue').text(data.DeptId || "");
+
+    // Role
+    $('#roleValue').text(data.RoleID || "");
+
+    // Last Log In
+    $('#lastLogInValue').text(data.LastLoginDate || "");
+
+    // 2FA
+    $('#2faValue').text(data.SomeProperty || ""); // Replace "SomeProperty" with the actual property you want to display
+
+    // Date Joined
+    $('#dateJoinedValue').text(data.Created || "");
+
+    // Invited By
+    $('#invitedByValue').text(data.Createdby || "");
+}
+
+
+
 
 // Function to get users asynchronously
 function getUsers(callback) {
@@ -398,6 +358,22 @@ function getUsers(callback) {
         console.log(response);
         if (callback && typeof callback === 'function') {
             callback(response.UserInfo);
+        }
+    }, function (xhr, status, error) {
+        console.error("Error getting users:", status, error);
+        // Handle error as needed
+    });
+}
+function getSingleUser(email, callback) {
+    const requestData = {
+        "UserName": email,
+        "IPAddress": "127.0.0.1:5500"
+    };
+
+    makeApiCall(API_ENDPOINTS.GET_SINGLE_USERS, "POST", requestData, function (response) {
+        console.log(response);
+        if (callback && typeof callback === 'function') {
+            callback(response.Result);
         }
     }, function (xhr, status, error) {
         console.error("Error getting users:", status, error);
@@ -426,7 +402,21 @@ function initializeDataTable(data) {
                 data: null,
                 title: '', // Empty title for the last column
                 render: function (data, type, row) {
-                    return '<button onclick="changeUserRoleToggle()" class=" py-2 px-5 rounded-md text-primary font-semibold bg-gray-200 ">Change role</button>';
+                    return `
+                        <div class="flex  gap-5">
+                            <button onclick="changeUserRoleToggle()" class=" py-2 px-5 rounded-md text-primary font-semibold bg-gray-200 ">Change role</button>
+                            <div class="flex dropdown items-center relative">
+                                <button onClick="moresingleToggle('${row.EmailAddress}')" class=" w-5 h-5 p-1 rounded hover:bg-gray-100 ">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                                    </svg>
+                                </button>
+                                <div data-dropdown class=" hidden absolute p-2.5 flex flex-col rounded border-solid border border-gray-100 w-[150px] min right-0 bg-white">
+                                    <button onclick="" class="  text-gray-600   ">User Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    `
                 }
             }
         ],
@@ -960,3 +950,89 @@ function animateMore(index) {
         duration: 0.3
     })
 }
+
+
+function initializeDynamicDropdown(containerSelector, options, callback) {
+    const $container = $(containerSelector);
+
+    const dropdownHTML = `
+        <div class="dropdown relative">
+            <button data-tag="${options.id}" class="text-[#606060] group text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
+                <span class="text max-w-[150px] truncate">${options.label}</span>
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div data-dropdown class="hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg">
+                <button data-sub="${options.id}" class="py-1 hover:bg-gray-50 rounded-sm">${options.label}</button>
+            </div>
+        </div>
+        <div class="border-solid border-l-2 py-5 border-gray-300"></div>
+    `;
+
+    $container.append(dropdownHTML);
+
+    // Initialize dropdown functionality
+    initializeDropdown(`${containerSelector} [data-tag="${options.id}"]`, `${containerSelector} [data-dropdown]`, options.id, options.values, callback);
+}
+
+
+function initializeDropdown(buttonSelector, dropdownSelector, tag, data) {
+    const $button = $(buttonSelector);
+    const $dropdown = $(dropdownSelector);
+
+    let filterObject = {};
+    let currentSelectedValue = "";
+
+    $button.click(function (e) {
+        e.stopPropagation();
+        $dropdown.toggleClass('hidden');
+    });
+
+    $dropdown.find('[data-sub]').click(function () {
+        const selectedName = $(this).data('sub');
+        let selectedValue = tag === 'ContentType' ? $(this).data('sub') : $(this).data('value');
+
+        if (filterObject[tag] === selectedValue) {
+            filterObject[tag] = "";
+            $button.find('.text').text(tag);
+            $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
+            filterContent({}, 'request');
+            handleSubsidiaryFilter(filterObject);
+        } else {
+            filterObject[tag] = selectedValue;
+            filterContent(filterObject, 'request');
+            handleSubsidiaryFilter(filterObject);
+
+            currentSelectedValue = selectedValue;
+            $button.find('.text').text(selectedName);
+            $dropdown.addClass('hidden');
+
+            $dropdown.find('[data-sub]').removeClass('bg-primary text-white');
+            $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
+            $(this).addClass('bg-primary text-white');
+
+            if ($(this).attr('data-sub')) {
+                $button.removeClass('text-[#606060] border border-solid border-[#606060]').addClass('bg-primary text-white');
+            }
+        }
+
+        if (tag === 'all') {
+            filterObject = {};
+            filterContent({}, 'request');
+            handleSubsidiaryFilter(filterObject);
+        }
+    });
+
+    $(document).click(function () {
+        $dropdown.addClass('hidden');
+    });
+}
+
+// Example usage:
+// initializeDropdown('[data-tag="all"]', '[data-dropdown]', 'all', {});
+// initializeDropdown('[data-tag="ContentType"]', '#type [data-dropdown]', 'ContentType', ContentTypes);
+// initializeDropdown('[data-tag="SubsidiaryId"]', '#subsidiary [data-dropdown]', 'SubsidiaryId', Subsidiaries);
+// initializeDropdown('[data-tag="DeptId"]', '#department [data-dropdown]', 'DeptId', Departments);
