@@ -53,16 +53,18 @@ $(document).ready(function () {
 
             loadSidebar();
             renderContent(contentData.Result);
-            
-             // Options for the first dropdown
-            const allDropdownOptions = { id: 'all', label: 'All', values: [] };
-            // Callback for the first dropdown
-            const allDropdownCallback = function (filterObject) {
-                // Custom logic for the first dropdown
-                console.log("Filter Object (All):", filterObject);
-            };
-            initializeDynamicDropdown('#dropdownContainer', allDropdownOptions, allDropdownCallback);
 
+            MyDropdownComponent.initializeDynamicDropdown('#dropdownContainer', [
+                { id: 'ContentType', label: 'Content Type', values: ContentTypes },
+                { id: 'SubsidiaryId', label: 'Subsidiary', values: Subsidiaries }
+                // Add more filters as needed
+            ], function (filters) {
+                console.log(filters);
+                filterContent(contentData.Result, filters, 'SubsidiaryId', '');
+                handleSubsidiaryFilter(filterObject);
+            });
+            
+            
 
             $('nav a').click(function (e) {
                 e.preventDefault();
@@ -242,7 +244,7 @@ $(document).ready(function () {
                         console.log('all btns');
                         filterObject = {}; // Reset the filterObject
                         filterContent({},'request');
-                        handleSubsidiaryFilter(filterObject);
+                        // handleSubsidiaryFilter(filterObject);
                     }
                 });
     
@@ -345,8 +347,6 @@ function renderSingleUser(data) {
 }
 
 
-
-
 // Function to get users asynchronously
 function getUsers(callback) {
     const requestData = {
@@ -364,6 +364,7 @@ function getUsers(callback) {
         // Handle error as needed
     });
 }
+
 function getSingleUser(email, callback) {
     const requestData = {
         "UserName": email,
@@ -403,10 +404,10 @@ function initializeDataTable(data) {
                 title: '', // Empty title for the last column
                 render: function (data, type, row) {
                     return `
-                        <div class="flex  gap-5">
-                            <button onclick="changeUserRoleToggle()" class=" py-2 px-5 rounded-md text-primary font-semibold bg-gray-200 ">Change role</button>
+                        <div class="flex gap-5">
+                            <button onclick="changeUserRoleToggle()" class=" py-1 px-1 w-[90px] rounded-md text-primary text-xs font-semibold bg-gray-200 ">Change role</button>
                             <div class="flex dropdown items-center relative">
-                                <button onClick="moresingleToggle('${row.EmailAddress}')" class=" w-5 h-5 p-1 rounded hover:bg-gray-100 ">
+                                <button onClick="moresingleToggle('${row.EmailAddress}')" class=" min-w-5 min-h-5 p-1 rounded hover:bg-gray-100 ">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
                                     </svg>
@@ -431,9 +432,6 @@ function initializeDataTable(data) {
 }
 
 
-
-
-
 function animateSlide(index) {
     gsap.timeline()
         .from( '.slide', {
@@ -449,6 +447,8 @@ function animateSlide(index) {
         )
         
 }
+
+// start: slider controls 
 
 function restartAutoPlay() {
     clearInterval(autoPlayInterval);
@@ -489,8 +489,10 @@ function startAutoPlay(currentSlide) {
     }, 3000); // Change 5000 to the desired interval in milliseconds (e.g., 5000 for 5 seconds)
 }
 
+// end: slider controls 
 
-// dashboard functions
+
+// start: dashboard functions
 function loadSidebar() {
     const $nav = $('#sidebar');
     console.log(menu);
@@ -518,7 +520,9 @@ function loadSidebar() {
         }
     });
 }
+// end: dashboard functions
 
+// tab 
 function showTab(containerId, tabName) {
     const $container = $(`#${containerId}`);
     const $tabContent = $container.find(`.tab-content.${tabName}-tab`);
@@ -526,6 +530,7 @@ function showTab(containerId, tabName) {
     $tabContent.show();
 }
 
+// toggle modal functions
 function moretoggle(){
     $('.more').toggleClass('hidden');
     animateMore()
@@ -540,6 +545,7 @@ function changeUserRoleToggle(){
     $('.role').toggleClass('hidden');
     animateMore()
 }
+
 
 function handleSubsidiaryFilter(filterObject) {
     if (filterObject && filterObject.SubsidiaryId) {
@@ -779,6 +785,7 @@ function getSubsidiary(selectedId) {
 
     return selectElement.prop('outerHTML'); // Return the outerHTML string
 }
+
 function getDepartment(selectedId) {
     const Department = Departments; // Assuming Subsidiaries is an array of subsidiary objects
     const selectElement = $('<select name="" id="" class=" p-2 rounded bg-"></select>');
@@ -796,17 +803,12 @@ function getDepartment(selectedId) {
     return selectElement.prop('outerHTML'); // Return the outerHTML string
 }     
 
-function filterContent(filters,location) {
-    let filteredContent = ''
-    console.log('just clicked')
-    if (location == 'request'){
-        console.log('request')
-        filteredContent=updaterequest.Result;
-    }else{
-        console.log('dashboard')
-        filteredContent=contentData.Result;
-    }
 
+
+function filterContent(originalData, filters, keyToFilter, location) {
+    let filteredContent = [...originalData]; // Copy the original data
+
+    console.log('just clicked');
 
     // Apply filters based on other criteria (SubsidiaryId, DeptId, ContentType)
     if (filters.SubsidiaryId && filters.SubsidiaryId !== 'all') {
@@ -827,12 +829,18 @@ function filterContent(filters,location) {
         });
     }
 
-    if (location == 'request'){
-        populateTable(filteredContent)
-    }else{
+
+    // Add more conditions for other filters as needed
+
+    if (location === 'request') {
+        populateTable(filteredContent);
+    } else {
         renderContent(filteredContent);
     }
 }
+
+
+
 
 function isEmptyObject(obj) {
 for (const key in obj) {
@@ -888,6 +896,7 @@ function displayContent(){
     displayDescription.innerHTML = '<p>This is <strong>bold</strong> and <em>italic</em> text.</p>';
     displayContent.innerHTML = '<p>This is <strong>bold</strong> and <em>italic</em> text.</p>';
 }
+
 
 function populateTable(data){
     const $requestContent = $('.requestTable');
@@ -952,87 +961,140 @@ function animateMore(index) {
 }
 
 
-function initializeDynamicDropdown(containerSelector, options, callback) {
-    const $container = $(containerSelector);
 
-    const dropdownHTML = `
-        <div class="dropdown relative">
-            <button data-tag="${options.id}" class="text-[#606060] group text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
-                <span class="text max-w-[150px] truncate">${options.label}</span>
-                <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </span>
+
+const filterObject = {};
+
+// Global namespace for your components
+const MyDropdownComponent = (function () {
+
+    function initializeDynamicDropdown(containerSelector, filters, callback) {
+        const $container = $(containerSelector);
+
+        filters.forEach(filter => {
+            const dropdownHTML = `
+                <div class="dropdown relative" id="${filter.id}">
+                    <button data-tag="${filter.id}" class="text-[#606060] group text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
+                        <span class="text max-w-[150px] truncate">${filter.label}</span>
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div data-dropdown class="hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg">
+                        ${filter.values.map(value => `<button data-sub="${value.name}" data-value="${value.id}" class="py-1 hover:bg-gray-50 rounded-sm">${value.name}</button>`).join('')}
+                    </div>
+                </div>
+                <div class="border-solid border-l-2 py-5 border-gray-300"></div>
+            `;
+
+            $container.append(dropdownHTML);
+
+            // Initialize dropdown functionality
+            initializeDropdown(`${containerSelector} [data-tag="${filter.id}"]`, `${containerSelector} [data-dropdown]`, filter.id, filter.values, callback);
+        });
+            // Add a "Clear" button
+            const clearButtonHTML = `
+            <button class="text-[#606060] group text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center clear-button">
+                <span class="text max-w-[150px] truncate">Clear All</span>
             </button>
-            <div data-dropdown class="hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg">
-                <button data-sub="${options.id}" class="py-1 hover:bg-gray-50 rounded-sm">${options.label}</button>
-            </div>
-        </div>
-        <div class="border-solid border-l-2 py-5 border-gray-300"></div>
-    `;
+        `;
+        $container.append(clearButtonHTML);
 
-    $container.append(dropdownHTML);
-
-    // Initialize dropdown functionality
-    initializeDropdown(`${containerSelector} [data-tag="${options.id}"]`, `${containerSelector} [data-dropdown]`, options.id, options.values, callback);
-}
-
-
-function initializeDropdown(buttonSelector, dropdownSelector, tag, data) {
-    const $button = $(buttonSelector);
-    const $dropdown = $(dropdownSelector);
-
-    let filterObject = {};
-    let currentSelectedValue = "";
-
-    $button.click(function (e) {
-        e.stopPropagation();
-        $dropdown.toggleClass('hidden');
-    });
-
-    $dropdown.find('[data-sub]').click(function () {
-        const selectedName = $(this).data('sub');
-        let selectedValue = tag === 'ContentType' ? $(this).data('sub') : $(this).data('value');
-
-        if (filterObject[tag] === selectedValue) {
-            filterObject[tag] = "";
-            $button.find('.text').text(tag);
-            $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
-            filterContent({}, 'request');
-            handleSubsidiaryFilter(filterObject);
-        } else {
-            filterObject[tag] = selectedValue;
-            filterContent(filterObject, 'request');
-            handleSubsidiaryFilter(filterObject);
-
-            currentSelectedValue = selectedValue;
-            $button.find('.text').text(selectedName);
-            $dropdown.addClass('hidden');
-
-            $dropdown.find('[data-sub]').removeClass('bg-primary text-white');
-            $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
-            $(this).addClass('bg-primary text-white');
-
-            if ($(this).attr('data-sub')) {
-                $button.removeClass('text-[#606060] border border-solid border-[#606060]').addClass('bg-primary text-white');
-            }
-        }
-
-        if (tag === 'all') {
+        // Handle click event for the "Clear" button
+        $('.clear-button').click(function () {
+            // Clear all filters
+            $('.dropdown [data-dropdown]').addClass('hidden');
             filterObject = {};
-            filterContent({}, 'request');
-            handleSubsidiaryFilter(filterObject);
-        }
-    });
+            if (callback && typeof callback === 'function') {
+                callback(filterObject);
+            }
+        });
+    }
 
-    $(document).click(function () {
-        $dropdown.addClass('hidden');
-    });
-}
+    function initializeDropdown(buttonSelector, dropdownSelector, tag, values, callback) {
+        const $button = $(buttonSelector);
+        const $dropdown = $button.siblings('[data-dropdown]'); // Use siblings to target the adjacent sibling with data-dropdown
+        const $dropdownId = $(this).attr('id');
+
+        let currentSelectedValue = "";
+
+        function closeOtherDropdowns() {
+            // Close all other dropdowns
+            $(`${buttonSelector}:not([data-tag="${tag}"])`).each(function () {
+                const otherDropdown = $(this).attr('data-tag');
+                $(`${containerSelector} [data-dropdown][data-sub="${otherDropdown}"]`).addClass('hidden');
+            });
+        }
+
+        $button.click(function (e) {
+            e.stopPropagation();
+            // Close other dropdowns before toggling the clicked one
+            closeOtherDropdowns();
+            $dropdown.toggleClass('hidden');
+        });
+        
+        $dropdown.find('[data-sub]').click(function () {
+            const selectedName = $(this).data('sub');
+            const selectedValue = tag === 'ContentType' ? $(this).data('sub') : $(this).data('value');
+
+            if (filterObject[tag] === selectedValue) {
+                filterObject[tag] = "";
+                $button.find('.text').text(tag);
+                $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
+                // filterContent({}, 'request');
+                // handleSubsidiaryFilter(filterObject);
+
+            } else {
+                filterObject[tag] = selectedValue;
+                // filterContent(filterObject, 'request');
+                // handleSubsidiaryFilter(filterObject);
+
+                currentSelectedValue = selectedValue;
+                $button.find('.text').text(selectedName);
+                $dropdown.addClass('hidden');
+
+                $dropdown.find('[data-sub]').removeClass('bg-primary text-white');
+                $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
+                $(this).addClass('bg-primary text-white');
+
+                if ($(this).attr('data-sub')) {
+                    $button.removeClass('text-[#606060] border border-solid border-[#606060]').addClass('bg-primary text-white');
+                }
+            }
+
+            if (tag === 'all') {
+                filterObject = {};
+                filterContent({}, 'request');
+                handleSubsidiaryFilter(filterObject);
+            }
+
+            // Call the callback function with the updated filterObject
+            if (callback && typeof callback === 'function') {
+                callback(filterObject);
+            }
+        });
+
+        $(document).click(function () {
+            // Close the dropdown when clicking outside
+            $dropdown.addClass('hidden');
+        });
+    }
+
+    // Expose functions or properties as needed
+    return {
+        initializeDynamicDropdown: initializeDynamicDropdown
+        // Add other functions or properties here if needed
+    };
+
+})();
+
+
 
 // Example usage:
-// initializeDropdown('[data-tag="all"]', '[data-dropdown]', 'all', {});
-// initializeDropdown('[data-tag="ContentType"]', '#type [data-dropdown]', 'ContentType', ContentTypes);
-// initializeDropdown('[data-tag="SubsidiaryId"]', '#subsidiary [data-dropdown]', 'SubsidiaryId', Subsidiaries);
-// initializeDropdown('[data-tag="DeptId"]', '#department [data-dropdown]', 'DeptId', Departments);
+
+
+
+// Example usage:
+

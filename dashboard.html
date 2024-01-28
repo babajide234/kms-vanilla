@@ -4,38 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
-  <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <link rel="stylesheet" href="style.css" type="text/css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
 
   <script src="https://unpkg.com/lucide@latest"></script>
   <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
   <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  <link rel="stylesheet" href="./dist/style.css">
 
-  <script>
-
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: "#991313",
-            bgsecond: "#f1efef",
-            text: "#3a3737",
-            textsub: "#9a9898",
-            border: "#c2bdbd",
-            hemp: "#8a7474",
-            accent1: "#c39494",
-            accent2: "#cdacac",
-            sirocco: "#6c7474",
-          }
-        }
-      }
-    }
-
-    lucide.createIcons();
-
-  </script>
 </head>
 <body>
     <div class="flex w-full h-screen overflow-y-hidden">
@@ -89,61 +65,7 @@
                 <div id="dropdownContainer" class="w-full md:w-fit mb-3 md:mb-0 px-1 py-1 flex items-center justify-between md:gap-3">
                     <!-- The container for dynamically added dropdowns -->
                 </div>
-                <!-- <div class=" w-full md:w-fit mb-3 md:mb-0 px-1 py-1 flex items-center justify-between md:gap-3">
-                  <div class="dropdown relative">
-                      <button data-tag="all" class=" text-[#606060] group   text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
-                        <span class="text max-w-[150px] truncate">All</span>
-                        <span class="  ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </span>
-                      </button>
-                      <div data-dropdown class=" hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg ">
-                            <button data-sub="all" class="py-1 hover:bg-gray-50 rounded-sm">All</button>
-                      </div>
-                  </div>
-                  <div class=" border-solid border-l-2 py-5 border-gray-300 "></div>
-                  <div class="dropdown relative" id="type">
-                        <button data-tag="ContentType" class=" text-[#606060] border border-solid border-[#606060] group  text-md md:text-md  rounded-full py-[10px] px-[20px] flex gap-3 items-center">
-                            <span class="text max-w-[150px] truncate capitalize">ContentType</span>
-                            <span class="  ">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                    <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                            </span>
-                        </button>
-                        <div data-dropdown class=" hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg ">
-                            
-                        </div>
-                  </div>
-                  <div class="dropdown relative" id="subsidiary">
-                      <button data-tag="SubsidiaryId" class=" text-[#606060] group text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
-                        <span class="text max-w-[150px] truncate capitalize">Subsidiary</span>
-                        <span class="  ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </span>
-                      </button>
-                      <div data-dropdown class=" hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg ">
-                            
-                      </div>
-                  </div>
-                  <div class="dropdown relative" id="department">
-                      <button data-tag="DeptId" class=" text-[#606060] group  text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
-                        <span class="text max-w-[150px] truncate capitalize">Department</span>
-                        <span class="  ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </span>
-                      </button>
-                      <div data-dropdown class=" hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg ">
-                            
-                      </div>
-                  </div>
-                </div> -->
+                
             </div>
             <div class=" dashboard-content grid grid-cols-1 md:grid-cols-3 py-10 gap-5">
             </div>
