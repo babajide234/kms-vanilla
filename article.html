@@ -285,6 +285,35 @@
     </div>
     <script src="./common.js"></script>
     <script src="./index.js"></script>
+    <script>
+        $(document).ready(function(){
+            const searchParams = new URLSearchParams(window.location.search);
+            const param = searchParams.get('refNo')
+            if (param != null) {
+                getSingleContent(param);
+            }
+        })
 
+        function getSingleContent(id){
+            var refNo = id.split("_");
+
+            const requestData = {
+                "UserName": email,
+                "ContentId": refNo[0],
+                "UserName": refNo[1].toLowerCase(),
+                "IPAddress": "127.0.0.1:5500"
+            };
+
+            makeApiCall(API_ENDPOINTS.GET_CONTENT_BY_ID, "POST", requestData, function (response) {
+                console.log(response);
+                if (callback && typeof callback === 'function') {
+                    callback(response.Result);
+                }
+            }, function (xhr, status, error) {
+                console.error("Error getting users:", status, error);
+                // Handle error as needed
+            });
+        }
+    </script>
 </body>
 </html>

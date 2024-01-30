@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./dist/style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
+</head>
+<body>
+    <main class="w-full grid grid-cols-2 h-screen relative">
+        <section class="h-screen bg-primary w-1/2 px-12 py-2.5 flex flex-col fixed top-0 bottom-0">
+                <div class="flex-col justify-center gap-0.5 flex items-center w-fit mb-5">
+                    <img src="./img/logo.png" alt="" class=" w-10 h-10 ">
+                    <h2 class=" text-lg font-semibold capitalize text-white"><span class="">c</span>ustodian</h2>
+                </div>
+                <div class=" knowledge flex flex-col items-start gap-5 mb-10">
+                    <h1 class="w-56 text-white text-5xl font-bold  ">Knowledge Management System</h1>
+                    <p class="w-96 text-neutral-200 text-sm font-normal  ">
+                        Unlock organizational potential with our Knowledge Management System, streamline information, foster collaboration, and drive innovation seamlessly.
+                    </p>
+                </div>
+                <div class="w-96 h-60 flex-col justify-start items-start gap-5 inline-flex">
+                    <div class=" w-96 h-16 justify-center items-center gap-5 inline-flex">
+                            <div class="self-stretch pb-1 flex-col justify-start items-center gap-1 inline-flex">
+                                <div class="w-12 h-12 relative">
+                                    <div class="w-12 h-12 left-[15.03px] top-[-13.39px] absolute origin-top-left rotate-[15deg] bg-white/50 rounded-lg"></div>
+                                    <div class="w-12 h-12 p-3 left-0 top-0 absolute bg-white bg-opacity-60 rounded-lg border border-white border-opacity-60 backdrop-blur-lg justify-center items-center inline-flex">
+                                        <div class="grow shrink basis-0 self-stretch px-1 py-0.5 justify-center items-center inline-flex text-primary">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                              </svg>                                              
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-0.5 h-6 bg-gray-200 rounded-sm"></div>
+                            </div>
+                            <div class="grow shrink basis-0 pt-1 pb-6 flex-col justify-start items-start inline-flex">
+                                <div class="self-stretch text-white text-md font-bold  leading-snug">Create account</div>
+                                <div class="self-stretch text-neutral-200 text-sm font-normal  leading-tight">Don't miss out on unlocking incredible perks, sign up now</div>
+                            </div>
+                    </div>
+                    <div class=" w-96 h-16 opacity-50 justify-center items-center gap-5 inline-flex">
+                            <div class="self-stretch pb-1 flex-col justify-start items-center gap-1 inline-flex">
+                                <div class="w-12 h-12 relative">
+                                    <div class="w-12 h-12 left-[15.03px] top-[-13.39px] absolute origin-top-left rotate-[15deg] bg-white/50 rounded-lg"></div>
+                                    <div class="w-12 h-12 p-3 left-0 top-0 absolute bg-white bg-opacity-60 rounded-lg border border-white border-opacity-60 backdrop-blur-lg justify-center items-center inline-flex">
+                                        <div class="grow shrink basis-0 self-stretch px-1 py-0.5 justify-center items-center inline-flex text-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                                              </svg>                                                                                          
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-0.5 h-6 bg-gray-200 rounded-sm"></div>
+                            </div>
+                            <div class="grow shrink basis-0 pt-1 pb-6 flex-col justify-start items-start inline-flex">
+                                <div class="self-stretch text-white text-md font-bold  leading-snug">Your details</div>
+                                <div class="self-stretch text-neutral-200 text-sm font-normal  leading-tight">Enhance your experience: Complete the form with your details.</div>
+                            </div>
+                    </div>
+                    <div class=" w-96 h-16 opacity-50 justify-center items-center gap-5 inline-flex">
+                            <div class="self-stretch pb-1 flex-col justify-start items-center gap-1 inline-flex">
+                                <div class="w-12 h-12 relative">
+                                    <div class="w-12 h-12 left-[15.03px] top-[-13.39px] absolute origin-top-left rotate-[15deg] bg-white/50 rounded-lg"></div>
+                                    <div class="w-12 h-12 p-3 left-0 top-0 absolute bg-white bg-opacity-60 rounded-lg border border-white border-opacity-60 backdrop-blur-lg justify-center items-center inline-flex">
+                                        <div class="grow shrink basis-0 self-stretch px-1 py-0.5 justify-center items-center inline-flex text-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+                                              </svg>
+                                                                                           
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="w-0.5 h-6 bg-gray-200 rounded-sm"></div> -->
+                            </div>
+                            <div class="grow shrink basis-0 pt-1 pb-6 flex-col justify-start items-start inline-flex">
+                                <div class="self-stretch text-white text-md font-bold  leading-snug">Learn more</div>
+                                <div class="self-stretch text-neutral-200 text-sm font-normal  leading-tight">Explore insights. Knowledge is a click away!</div>
+                            </div>
+                    </div>
+                </div>
+        </section>
+        <section class=" col-span-1"></section>
+        <section id="steps-container" class=" col-span-1  h-full flex flex-col  w-full justify-center items-center ">
+            <div data-step="create" class=" step  register-form w-full bg-white flex-col justify-center items-center flex">
+                    <div class="self-stretch flex-col justify-start items-center gap-10 inline-flex">
+                        <h2 class="w-96 text-black text-2xl font-semibold  leading-9">Create Account</h2>
+                        <div class="flex-col justify-start items-start gap-7 flex">
+                            <div class="w-full flex flex-col gap-3">
+                                <label class="text-slate-700 text-lg font-medium leading-normal">Email</label>
+                                <div class="w-full self-stretch px-3.5 py-3.5 bg-white rounded-lg shadow border border-gray-300 justify-start items-center gap-2 flex">
+                                    <span class="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                                          </svg>                                      
+                                    </span>
+                                    <input type="text" class="grow shrink basis-0 h-full outline-none border-none palceholder-text-stone-300 text-base font-normal  leading-snug" placeholder="jolaoluwa@custodian.com">
+                                </div>
+                            </div>
+                            <div class="w-full flex flex-col gap-3">
+                                <label class="text-slate-700 text-lg font-medium leading-normal">Set Password</label>
+                                <div class="w-full self-stretch px-3.5 py-3.5 bg-white rounded-lg shadow border border-gray-300 justify-start items-center gap-2 flex">
+                                    <span class="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                                          </svg>                                                                            
+                                    </span>
+                                    <input type="password" class="grow shrink basis-0 h-full outline-none border-none palceholder-text-stone-300 text-base font-normal  leading-snug" placeholder="******">
+                                </div>
+                            </div>
+                            <button class="w-96 px-7 py-4 bg-red-800 rounded-lg shadow border text-white text-lg font-medium  leading-normal border-violet-500 justify-center items-center gap-3 inline-flex">
+                                Create Account
+                            </button>
+                        </div>
+                        <div class="justify-center items-center gap-2.5 inline-flex">
+                            <div class="text-zinc-500 text-lg font-medium  leading-normal">Have an account?</div>
+                            <div class="text-red-800 text-lg font-semibold  leading-normal">Sign in</div>
+                        </div>
+                    </div>
+            </div>
+            <div data-step="verify" class=" step  verify w-full bg-white flex-col justify-center items-center flex">
+                    <div class="w-96 h-96 px-48 py-80 bg-white flex-col justify-center items-center inline-flex">
+                        <div class="self-stretch flex-col justify-start items-center gap-12 inline-flex">
+                            <div class="w-20 h-20 p-0.5 justify-center items-center  bg-primary rounded-full flex  text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                                      </svg>                                  
+                            </div>
+                            <div class="flex-col justify-start items-center gap-7 flex">
+                                <div class="flex-col justify-start items-center gap-2.5 flex">
+                                    <div class="text-center text-black text-3xl font-semibold  leading-9">Please check your email</div>
+                                    <div class="w-96 h-12 text-center text-zinc-600 text-base font-normal  leading-tight">We sent a verification link to the email address you registered your account with</div>
+                                </div>
+                                <div class="w-80 px-5 py-4 bg-neutral-100 rounded-md justify-center items-center gap-1 inline-flex">
+                                    <div>
+                                        <span class="text-neutral-700 text-lg font-normal ">Check </span>
+                                        <span class="text-neutral-700 text-lg font-medium ">jola•••••••custodian.com</span>
+                                    </div>
+                                </div>
+                                <div class="rounded-lg justify-start items-start gap-1 inline-flex">
+                                    <div>
+                                        <span class="text-neutral-700 text-base font-normal ">Didn’t receive email?</span>
+                                        <button class ="text-red-800 text-base font-medium ">Click to resend</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div data-step="success" class=" step  verify-success w-full bg-white flex-col justify-center items-center flex">
+                    <div class="w-full  flex-col justify-start items-center gap-12 inline-flex">
+                        <div class="w-20 h-20 p-0.5 justify-center items-center inline-flex rounded-full bg-green-500 text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                  </svg>                              
+                        </div>
+                        <div class="flex-col justify-start items-center gap-7 flex">
+                            <div class="flex-col justify-start items-center gap-2.5 flex">
+                                <div class="text-center text-black text-3xl font-semibold  leading-9">Email verified!</div>
+                                <div class="w-96 h-12 text-center text-zinc-600 text-base font-normal  leading-snug">You’ve successfully confirmed your       email. We’re now signing you in.</div>
+                            </div>
+                            <div class="rounded-lg justify-start items-start gap-1 inline-flex">
+                                <div class="text-red-800 text-base font-medium  leading-tight">Please wait, Signing you in</div>
+                                <div class="w-5 h-5 pl-0.5 pr-px py-0.5 justify-center items-center flex">
+                                    <div class="w-4 h-4 relative flex-col justify-start items-start flex"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+            <div data-step="info" class=" step w-[30rem]">
+                <div class=" personal-info w-full bg-white flex-col justify-center items-center flex">
+                    <div class="w-full flex-col justify-start items-center gap-10 inline-flex">
+                        <h2 class="w-96 text-black text-3xl font-semibold  leading-9">Personal Information </h2>
+                        <div class="flex-col justify-start items-start gap-7 flex">
+                            <div class="w-full flex flex-col gap-3">
+                                <label class="text-slate-700 text-lg font-medium leading-normal">Which of the organizations are you under?</label>
+                                <div class="w-full self-stretch px-3.5 py-3.5 bg-white rounded-lg shadow border border-gray-300 justify-start items-center gap-2 flex">
+                                    <span class="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+                                        </svg>
+                                                                            
+                                    </span>
+                                    <select type="text" class="grow shrink basis-0 h-full outline-none border-none palceholder-text-stone-300 text-base font-normal  leading-snug" >
+                                        <option value="" class=" text-gray-400" selected>Select one (or more if it applies to you)</option>
+                                    </select>
+                                    
+                                </div>
+                            </div>
+                            <div class="w-full flex flex-col gap-3">
+                                <label class="text-slate-700 text-lg font-medium leading-normal">What’s your department</label>
+                                <div class="w-full self-stretch px-3.5 py-3.5 bg-white rounded-lg shadow border border-gray-300 justify-start items-center gap-2 flex">
+                                    <span class="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                                        </svg>                                      
+                                                                            
+                                    </span>
+                                    <select type="text" class="grow shrink basis-0 h-full outline-none border-none palceholder-text-stone-300 text-base font-normal  leading-snug" >
+                                        <option value="" class=" text-gray-400" selected></option>
+                                    </select>
+                                    
+                                </div>
+                            </div>
+                            <div class="w-full flex flex-col gap-3">
+                                <label class="text-slate-700 text-lg font-medium leading-normal">What’s your role?</label>
+                                <div class="w-full self-stretch px-3.5 py-3.5 bg-white rounded-lg shadow border border-gray-300 justify-start items-center gap-2 flex">
+                                    <span class="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z" />
+                                        </svg>                                      
+                                                                            
+                                    </span>
+                                    <select type="text" class="grow shrink basis-0 h-full outline-none border-none palceholder-text-stone-300 text-base font-normal  leading-snug" >
+                                        <option value="" class=" text-gray-400" selected></option>
+                                    </select>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-96 px-7 py-4 bg-red-800 rounded-lg shadow border border-violet-500 justify-center items-center gap-3 inline-flex">
+                            <div class="text-white text-lg font-medium  leading-normal">Continue</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-step="learn" class=" step  w-full py-[50px] px-[100px]">
+                <div class=" learn w-full bg-white flex-col justify-center items-center flex">
+                    <div class="w-full py-3 flex-col justify-start items-start gap-10 inline-flex">
+                        <div class="w-full text-black text-3xl font-semibold  leading-9">Discover features, tips, and more!</div>
+                        <div class="flex-col justify-start items-end gap-5 flex">
+                            <div class="w-full p-5 rounded-2xl border border-neutral-200 justify-start items-center gap-5 inline-flex">
+                                <div class="justify-start items-start gap-2.5 flex">
+                                    <div class="w-14 h-14 bg-neutral-100 rounded-full"></div>
+                                    <div class="w-6 h-6 px-0.5 py-0.5 justify-center items-center flex"></div>
+                                </div>
+                                <div class="grow shrink basis-0 flex-col justify-start items-start gap-2.5 inline-flex">
+                                    <div class="self-stretch text-black text-md font-medium ">Effortless Information Access</div>
+                                    <div class="self-stretch text-zinc-500 text-sm font-normal  leading-tight">Simplify your journey to information access with user-friendly features for a seamless experience.</div>
+                                </div>
+                            </div>
+                            <div class="w-full p-5 rounded-2xl border border-neutral-200 justify-start items-center gap-5 inline-flex">
+                                <div class="justify-start items-start gap-2.5 flex">
+                                    <div class="w-14 h-14 bg-neutral-100 rounded-full"></div>
+                                    <div class="w-6 h-6 pl-1 pr-0.5 py-0.5 justify-center items-center flex"></div>
+                                </div>
+                                <div class="grow shrink basis-0 flex-col justify-start items-start gap-2.5 inline-flex">
+                                    <div class="self-stretch text-black text-md font-medium ">Intuitive Search Functionality</div>
+                                    <div class="self-stretch text-zinc-500 text-sm font-normal  leading-tight">Navigate effortlessly through our platform with a powerful search tool designed for quick and precise results.</div>
+                                </div>
+                            </div>
+                            <div class="w-full p-5 rounded-2xl border border-neutral-200 justify-start items-center gap-5 inline-flex">
+                                <div class="justify-start items-start gap-2.5 flex">
+                                    <div class="w-14 h-14 bg-neutral-100 rounded-full"></div>
+                                    <div class="w-6 h-6 p-0.5 justify-center items-center flex"></div>
+                                </div>
+                                <div class="grow shrink basis-0 flex-col justify-start items-start gap-2.5 inline-flex">
+                                    <div class="self-stretch text-black text-md font-medium ">Efficient Download and Share</div>
+                                    <div class="self-stretch text-zinc-500 text-sm font-normal  leading-tight">Enhance productivity by easily downloading content and sharing it with colleagues, ensuring smooth collaboration.</div>
+                                </div>
+                            </div>
+                            <div class="w-full p-5 rounded-2xl border border-neutral-200 justify-start items-center gap-5 inline-flex">
+                                <div class="justify-start items-start gap-2.5 flex">
+                                    <div class="w-14 h-14 bg-neutral-100 rounded-full"></div>
+                                    <div class="w-6 h-6 px-1 py-0.5 justify-center items-center flex"></div>
+                                </div>
+                                <div class="grow shrink basis-0 flex-col justify-start items-start gap-2.5 inline-flex">
+                                    <div class="self-stretch text-black text-md font-medium ">Smart Bookmarking Solutions</div>
+                                    <div class="self-stretch text-zinc-500 text-sm font-normal  leading-tight">Organize and revisit important content with our intelligent bookmarking feature, streamlining your workflow.</div>
+                                </div>
+                            </div>
+                            <button class="w-full px-7 py-4 bg-red-800 rounded-lg shadow border border-violet-500 justify-center items-center gap-3 inline-flex text-white text-lg font-medium leading-normal">
+                                Get started
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        $(document).ready(function(){
+            let currentStep = 0;
+            const totalSteps = $('#steps-container .step').length;
+
+            console.log(totalSteps);
+            showStep('create')
+            
+        })
+
+        function showStep(index) {
+            $('#steps-container .step').addClass('hidden');
+            $(`#steps-container [data-step="${index}"]`).removeClass('hidden');
+            
+            // Conditionally run changeStyle() for the 'create' step
+            if (index !== 'create') {
+                changeStyle();
+            }
+        }
+
+
+        function nextStep() {
+            if (currentStep < totalSteps - 1) {
+            currentStep++;
+            showStep(currentStep);
+
+            // Add specific logic for transitions between steps
+            if (currentStep === 1) {
+                // Logic to move from register form to verification screen
+                simulateVerification(); // Function to simulate email verification
+            } else if (currentStep === 2) {
+                // Logic to move from verify-success to info screen
+                setTimeout(() => nextStep(), 3000); // Wait for 3 seconds before moving to the next step
+            }
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 0) {
+            currentStep--;
+            showStep(currentStep);
+            }
+        }
+
+        function simulateVerification() {
+            // Simulate email verification logic
+            // You can customize this function based on your actual verification process
+            // For example, display a message, send an API request, etc.
+            console.log('Simulating email verification...');
+        }
+
+        // Initial show the first step
+        function changeStyle(){
+            let container = $('.knowledge')
+            container.find('h1').removeClass('text-5xl w-56').addClass('text-lg w-full')
+            container.find('p').addClass('hidden')
+
+            // $('.register-form').addClass('hidden')
+            // $('.verify').addClass('hidden')
+            // $('.verify-success').addClass('hidden')
+            // $('.personal-info').addClass('hidden')
+            // $('.learn').addClass('hidden')
+        }
+    </script>
+</body>
+</html>

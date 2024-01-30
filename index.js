@@ -841,7 +841,6 @@ function filterContent(originalData, filters, keyToFilter, location) {
 
 
 
-
 function isEmptyObject(obj) {
 for (const key in obj) {
     if (obj.hasOwnProperty(key)) {
