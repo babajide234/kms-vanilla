@@ -67,7 +67,7 @@
                             </svg>
                         </i>
                     </a>
-                    <h2 class=" text-[26px] font-bold">New employee guide</h2>
+                    <h2 class=" text-[26px] font-bold" id="txtTitle"></h2>
                 </div>
                 <div class="flex items-center gap-5">
                     <button onclick="sharetoggle()" class="py-[8px] px-[14px] bg-[#900000] capitalize text-sm rounded-lg text-white font-semibold ">Share</button>
@@ -99,7 +99,9 @@
                 <div class=" document-content flex-1 min-h-screen p-8 relative ">
                     <div class=" mb-3">
                         <h2 class=" mb-3 text-md font-semibold capitalize">Description</h2>
-                        <div class="" id="display-description"></div>
+                        <p class="text-[#808080] text-sm" id="txtDescription">
+
+                        </p>
                     </div>
                     <div class="">
                         <h2 class="mb-3 text-md font-semibold capitalize">content</h2>
@@ -142,44 +144,16 @@
                                     <span class="star hover:cursor-pointer text-gray-300">&#9733;</span>
                                     <span class="star hover:cursor-pointer text-gray-300">&#9733;</span>
                                 </div>
-                                <p class="result"><span id="rating-value">0</span></p>
+                                <p class="result"><span id="rating-value"></span></p>
                             </div>
                         </div>
                         <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
                             <div class=" w-full flex flex-col gap-4">
                                 <h3 class=" text-[12px] text-text font-semibold ">Documents</h3>
-                                <div class="flex flex-col gap-2">
-                                    <a href="" class=" text-xs text-gray-300 group py-2 px-2 border border-solid border-gray-300 rounded-md hover:border-primary flex justify-between items-center"> 
-                                       <span class=" group-hover:text-primary">
-                                           something_filename.pdf
-                                       </span> 
-                                       <span class="group-hover:text-primary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
-                                          </svg>                                                                                   
-                                       </span>
-                                    </a>
-                                    <a href="" class=" text-xs text-gray-300 group py-2 px-2 border border-solid border-gray-300 rounded-md hover:border-primary flex justify-between items-center"> 
-                                       <span class=" group-hover:text-primary">
-                                           something_filename.pdf
-                                       </span> 
-                                       <span class="group-hover:text-primary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
-                                          </svg>                                                                                   
-                                       </span>
-                                    </a>
-                                    <a href="" class=" text-xs text-gray-300 group py-2 px-2 border border-solid border-gray-300 rounded-md hover:border-primary flex justify-between items-center"> 
-                                       <span class=" group-hover:text-primary">
-                                           something_filename.pdf
-                                       </span> 
-                                       <span class="group-hover:text-primary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
-                                          </svg>                                                                                   
-                                       </span>
-                                    </a>
-                                </div>
+                                <ul class="w-full flex flex-col gap-2" id="ddlDocuments">
+                                   
+                                </ul>
+                                
                             </div>
                         </div>
                         
@@ -195,18 +169,12 @@
                             </div>
                         </div>
                         <div class=" py-3 px-[10px] border-b border-gray-300 border-solid flex items-center justify-between ">
-                            <div class="">
+                            <div class="w-full">
                                 <h3 class=" text-[12px] text-text font-semibold mb-3">Previous comments</h3>
-                                <div class="">
-                                    <div class=" flex flex-col gap-2">
-                                        <p class=" text-sm text-[#606060] text-justify text-xs">
-                                            Overall, I appreciate the creativity and effort put into the campaign, especially the eye-catching visuals
-                                        </p>
-                                        <div class=" flex items-center justify-between">
-                                            <span class=" text-primary capitalize text-xs">Author</span>
-                                            <span class=" text-text text-xs ">3 days ago</span>
-                                        </div>
-                                    </div>
+                                
+                                <div class=" flex flex-col gap-2 w-full" id="PreviousComments">
+            
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -287,33 +255,209 @@
     <script src="./index.js"></script>
     <script>
         $(document).ready(function(){
+            getTop()
             const searchParams = new URLSearchParams(window.location.search);
             const param = searchParams.get('refNo')
+            console.log(param);
             if (param != null) {
                 getSingleContent(param);
             }
         })
 
-        function getSingleContent(id){
-            var refNo = id.split("_");
+        function getSingleContent(id) 
+            {
+                const [ContentId, UserName] = id.split("_");
+
+                const requestData = {
+                    "ContentId":ContentId,
+                    "UserName": UserName.toLowerCase(),
+                    "IPAddress": "127.0.0.1:5500"
+                };
+
+                makeApiCall(
+                    API_ENDPOINTS.GET_CONTENT_BY_ID,
+                    "POST",
+                    requestData,
+                    handleSuccess,
+                    handleFailure
+                );
+
+                function handleSuccess(response) {
+                    console.log(response);
+
+                    if (response.ResponseCode === 100) {
+                        updatePageContent(response);
+                    }
+                }
+
+                function handleFailure(xhr, status, error) {
+                    console.error("Error getting content:", status, error);
+                    // Handle error as needed
+                }
+
+        }
+
+        function updatePageContent(content) {
+            var result = content.Result
+            $('#txtDescription').text(result.Description);
+            $('#txtTitle').text(result.Title);
+            // $('#editor').html(quill.clipboard.dangerouslyPasteHTML(0, content.ContentBody));
+            $('#PreviousComments').append(PreviousComment(content.Reviews));
+            $('#ddlDocuments').html(generateDocumentList(content.ContentDocuments));
+
+            const formattedValue = calculateAverageRating(content.Reviews).toFixed(1);
+
+            $('#rating-value').text(formattedValue);
+            const starElements = document.querySelectorAll('.rating span');
+
+            // Dynamically change the color of stars based on the score
+            $('.rating span').each((index, star) => {
+                $(star).toggleClass('text-yellow-400', index < formattedValue);
+            });
+
+            const contentContainer = document.getElementById('display-content');
+
+
+            if (isNonArticleContentType(result.ContentType)) {
+                // Display non-article content HTML
+                if (result.ContentType === 'Image') {
+                    const imageGallery = generateImageGallery(content.data);
+                    contentContainer.innerHTML = imageGallery;
+                } else if (result.ContentType === 'Video') {
+                    const videoGallery = generateVideoGallery(content.data);
+                    contentContainer.innerHTML = videoGallery;
+                } else if (result.ContentType === 'Document') {
+                    contentContainer.innerHTML = `${result.ContentBody}`;
+                }
+            } else {
+                // Display article HTML
+                contentContainer.innerHTML = `${result.ContentBody}`;
+            }
+        }
+        
+        function isNonArticleContentType(contentType) {
+            console.log("contentType: ",contentType)
+            return ["Image", "Document", "Video"].includes(contentType);
+        }
+
+        function PreviousComment(reviews) {
+            if (reviews.length === 0) {
+                return '<p>No reviews available.</p>';
+            }
+
+            const commentElements = reviews.map(review => createCommentElement(review));
+            const commentsHtml = commentElements.join('');
+            return commentsHtml;
+        }
+
+        function createCommentElement(review) {
+            return `
+                <div class="flex flex-col gap-2 w-full">
+                    <p class="text-sm text-[#606060] text-justify text-xs">
+                        ${review.Comment}
+                    </p>
+                    <div class=" w-full flex items-center justify-between">
+                        <span class=" inline-flex text-primary capitalize text-ellipsis overflow-hidden text-[10px] w-24 break-words">${review.Reviewer}</span>
+                        <span class=" inline-flex text-text text-xs">${formatDate(review.ReviewDate)}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function formatDate(timestamp) {
+            const date = new Date(timestamp);
+            return date.toLocaleDateString();
+        }
+
+        function generateDocumentList(contentDocuments) {
+            if (contentDocuments.length === 0) {
+                return '<p class=" text-md text-primary text-center capitalize">No documents.</p>';
+            }
+
+            return contentDocuments.map(document => createDocumentLink(document)).join('');
+        }
+
+        function createDocumentLink(document) {
+            return `
+                <a href="${document.url}" class="text-xs text-gray-300 group py-2 px-2 border border-solid border-gray-300 rounded-md hover:border-primary flex justify-between items-center">
+                    <span class="group-hover:text-primary">
+                        ${document.name}
+                    </span>
+                    <span class="group-hover:text-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                        </svg>
+                    </span>
+                </a>
+            `;
+        }
+  
+        function generateImageGallery(images) {
+            if (!images || images.length === 0) {
+
+                return '<p>No images available.</p>';
+            }
+
+            return `
+                <div class="grid grid-cols-5 gap-2">
+                    ${images.map(image => `
+                        <div class="gallery-item hover:cursor-pointer" data-image="${image}">
+                            <img src="${image}" alt="" class="">
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+
+        function generateVideoGallery(videos) {
+            return `
+                <div class="grid grid-cols-3 gap-2">
+                    ${videos.map((video, i) => `
+                        <div class="relative group w-full h-40">
+                            <video class="object-fit-cover w-full h-full rounded" controls><source src="${video.src}" type="${video.type}"></video>
+                            <button class="absolute top-3 right-3 bg-white text-gray-600 p-1 rounded-full opacity-0 group-hover:opacity-100" data-index="${i}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function calculateAverageRating(reviews) {
+            if (reviews.length === 0) {
+                return 0; // Return 0 for an empty array or handle it as needed
+            }
+
+            const totalRating = reviews.reduce((sum, review) => sum + review.Rating, 0);
+            const averageRating = totalRating / reviews.length;
+
+            return averageRating;
+        }
+        function getTop(){
+            
 
             const requestData = {
-                "UserName": email,
-                "ContentId": refNo[0],
-                "UserName": refNo[1].toLowerCase(),
-                "IPAddress": "127.0.0.1:5500"
+                "UserName": "dmsuser1@custodianinsurance.com",
+                "IPAddress": "127.0.0.1:5500",
+                "FullName":"User1"
             };
 
-            makeApiCall(API_ENDPOINTS.GET_CONTENT_BY_ID, "POST", requestData, function (response) {
+            makeApiCall(API_ENDPOINTS.TOP_15_CONTENT, "POST", requestData, function (response) {
                 console.log(response);
-                if (callback && typeof callback === 'function') {
-                    callback(response.Result);
-                }
+                
             }, function (xhr, status, error) {
                 console.error("Error getting users:", status, error);
                 // Handle error as needed
             });
         }
+    
+       
+    
     </script>
 </body>
 </html>

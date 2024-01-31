@@ -115,7 +115,7 @@ $(document).ready(function () {
             
             loadSidebar();
 
-            displayContent()
+            // displayContent()
 
             $('.dock-toggle').click(function(){
                 const $dock = $('.document-dock');

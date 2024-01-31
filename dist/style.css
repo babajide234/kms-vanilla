@@ -1178,6 +1178,14 @@ video {
   white-space: nowrap;
 }
 
+.text-ellipsis{
+  text-overflow: ellipsis;
+}
+
+.break-words{
+  overflow-wrap: break-word;
+}
+
 .rounded{
   border-radius: 0.25rem;
 }
@@ -1768,6 +1776,10 @@ video {
 .text-xs{
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-\[10px\]{
+  font-size: 10px;
 }
 
 .font-bold{
