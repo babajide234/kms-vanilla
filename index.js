@@ -1139,8 +1139,7 @@ const MyDropdownComponent = (function () {
 
 
 
-// Example usage:
-
+// single content functions and gallery start
 
 function getSingleContent(id) 
 {
@@ -1317,10 +1316,6 @@ function generateVideoGallery(videos) {
 }
 
 
-
-
-
-
 function calculateAverageRating(reviews) {
 if (reviews.length === 0) {
     return 0; // Return 0 for an empty array or handle it as needed
@@ -1364,13 +1359,11 @@ function createPoster(videoUrl) {
     });
 }
 
-// Example usage
-const videoUrl = 'your_video_url.mp4';
-createPoster(videoUrl).then((imageData) => {});
+// single content functions and gallery end
 
 
 
-// Example usage:
+// notification functions
 let NotificationCount = 0
 function getNotifications() 
 {
