@@ -51,9 +51,22 @@ $(document).ready(function () {
             animateSlide(currentSlide);
         }else if(location === '/dashboard.html'){
 
+            const notificationDropdown = $('#notification-dropdown');
+            const notificationBtn = $('#notification-btn');
+
             loadSidebar();
             renderContent(contentData.Result);
-
+            getNotifications()
+            
+            notificationBtn.on('click', function() {
+                $('#notification-dropdown').toggleClass('hidden');
+            });
+            
+            // $(document).on('click', function(e) {
+            //     if (!$(e.target).notificationBtn) {
+            //         $('#notification-dropdown').addClass('hidden');
+            //     }
+            // });
             MyDropdownComponent.initializeDynamicDropdown('#dropdownContainer', [
                 { id: 'ContentType', label: 'Content Type', values: ContentTypes },
                 { id: 'SubsidiaryId', label: 'Subsidiary', values: Subsidiaries }
@@ -64,8 +77,6 @@ $(document).ready(function () {
                 handleSubsidiaryFilter(filterObject);
             });
             
-            
-
             $('nav a').click(function (e) {
                 e.preventDefault();
                 const route = $(this).attr('href').substring(1);
@@ -111,11 +122,17 @@ $(document).ready(function () {
                 
                 
             });
+
         }else if(location === '/article.html'){
             
             loadSidebar();
 
-            // displayContent()
+            const searchParams = new URLSearchParams(window.location.search);
+            const param = searchParams.get('refNo')
+            console.log(param);
+            if (param != null) {
+                getSingleContent(param);
+            }
 
             $('.dock-toggle').click(function(){
                 const $dock = $('.document-dock');
@@ -161,7 +178,24 @@ $(document).ready(function () {
                 clickedStar.nextAll().removeClass('text-yellow-400');
             });
             
-            
+            // Use event delegation for dynamic content
+            $(document).on('click', '.gallery-item', function () {
+                var imageUrl = $(this).data('image');
+                $('#modalImage').attr('src', imageUrl);
+                $('#galleryModal').toggleClass('hidden');
+            });
+
+            $('.close').on('click', function () {
+                $('#galleryModal').toggleClass('hidden');
+            });
+
+            // Close modal on outside click
+            $(window).on('click', function (e) {
+                if (e.target.id === 'galleryModal') {
+                    $('#galleryModal').toggleClass('hidden');
+                }
+            });
+
         }else if(location === '/updaterequest.html' ){
             loadSidebar();
             populateTable(updaterequest.Result);
@@ -962,7 +996,7 @@ function animateMore(index) {
 
 
 
-const filterObject = {};
+let filterObject = {};
 
 // Global namespace for your components
 const MyDropdownComponent = (function () {
@@ -1004,8 +1038,22 @@ const MyDropdownComponent = (function () {
         // Handle click event for the "Clear" button
         $('.clear-button').click(function () {
             // Clear all filters
+            
+            console.log("clear btn");
+
+            // close all dropdowns
             $('.dropdown [data-dropdown]').addClass('hidden');
+            
             filterObject = {};
+
+            // Update UI for each dropdown
+            $('.dropdown [data-tag]').each(function () {
+                const tag = $(this).data('tag');
+                const $button = $(`${containerSelector} [data-tag="${tag}"]`);
+                $button.find('.text').text(tag);
+                $button.removeClass('bg-primary text-white').addClass('text-[#606060] border border-solid border-[#606060]');
+            });
+            
             if (callback && typeof callback === 'function') {
                 callback(filterObject);
             }
@@ -1094,6 +1142,347 @@ const MyDropdownComponent = (function () {
 // Example usage:
 
 
+function getSingleContent(id) 
+{
+    const [ContentId, UserName] = id.split("_");
+
+    const requestData = {
+        "ContentId":ContentId,
+        "UserName": UserName.toLowerCase(),
+        "IPAddress": "127.0.0.1:5500"
+    };
+
+    makeApiCall(
+        API_ENDPOINTS.GET_CONTENT_BY_ID,
+        "POST",
+        requestData,
+        handleSuccess,
+        handleFailure
+    );
+
+    function handleSuccess(response) {
+        console.log(response);
+
+        if (response.ResponseCode === 100) {
+            updatePageContent(response);
+        }
+    }
+
+    function handleFailure(xhr, status, error) {
+        console.error("Error getting content:", status, error);
+        // Handle error as needed
+    }
+
+}
+
+function updatePageContent(content) {
+var result = content.Result
+$('#txtDescription').text(result.Description);
+$('#txtTitle').text(result.Title);
+// $('#editor').html(quill.clipboard.dangerouslyPasteHTML(0, content.ContentBody));
+$('#PreviousComments').append(PreviousComment(content.Reviews));
+$('#ddlDocuments').html(generateDocumentList(content.ContentDocuments));
+
+const formattedValue = calculateAverageRating(content.Reviews).toFixed(1);
+
+$('#rating-value').text(formattedValue);
+const starElements = document.querySelectorAll('.rating span');
+
+// Dynamically change the color of stars based on the score
+$('.rating span').each((index, star) => {
+    $(star).toggleClass('text-yellow-400', index < formattedValue);
+});
+
+const contentContainer = document.getElementById('display-content');
+
+
+if (isNonArticleContentType(result.ContentType)) {
+    // Display non-article content HTML
+    if (result.ContentType === 'Image') {
+        const imageGallery = generateImageGallery(content.ContentDocuments);
+        contentContainer.innerHTML = imageGallery;
+    } else if (result.ContentType === 'Video') {
+        const videoGallery = generateVideoGallery(content.ContentDocuments);
+        contentContainer.innerHTML = videoGallery;
+    } else if (result.ContentType === 'Document') {
+        contentContainer.innerHTML = `${result.ContentBody}`;
+    }
+} else {
+    // Display article HTML
+    contentContainer.innerHTML = `${result.ContentBody}`;
+}
+}
+
+function isNonArticleContentType(contentType) {
+console.log("contentType: ",contentType)
+return ["Image", "Document", "Video"].includes(contentType);
+}
+
+function PreviousComment(reviews) {
+if (reviews.length === 0) {
+    return '<p>No reviews available.</p>';
+}
+
+const commentElements = reviews.map(review => createCommentElement(review));
+const commentsHtml = commentElements.join('');
+return commentsHtml;
+}
+
+function createCommentElement(review) {
+return `
+    <div class="flex flex-col gap-2 w-full">
+        <p class="text-sm text-[#606060] text-justify text-xs">
+            ${review.Comment}
+        </p>
+        <div class=" w-full flex items-center justify-between">
+            <span class=" inline-flex text-primary capitalize text-ellipsis overflow-hidden text-[10px] w-24 break-words">${review.Reviewer}</span>
+            <span class=" inline-flex text-text text-xs">${formatDate(review.ReviewDate)}</span>
+        </div>
+    </div>
+`;
+}
+
+function formatDate(timestamp) {
+const date = new Date(timestamp);
+return date.toLocaleDateString();
+}
+
+function generateDocumentList(contentDocuments) {
+if (contentDocuments.length === 0) {
+    return '<p class=" text-md text-primary text-center capitalize">No documents.</p>';
+}
+
+return contentDocuments.map(document => createDocumentLink(document)).join('');
+}
+
+function createDocumentLink(document) {
+return `
+    <a href="${document.FileName}" class="text-xs text-gray-300 group py-2 px-2 border border-solid border-gray-300 rounded-md hover:border-primary flex justify-between items-center">
+        <span class="group-hover:text-primary">
+            ${document.FileName}
+        </span>
+        <span class="group-hover:text-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+            </svg>
+        </span>
+    </a>
+`;
+}
+
+function generateImageGallery(images) {
+    if (!images || images.length === 0) {
+
+        return '<p>No images available.</p>';
+    }
+    console.log(images)
+    return `
+        <div class="spotlight-group grid grid-cols-5 gap-2">
+            ${images.map(image => `
+                <div class=" flex items-center gallery-item hover:cursor-pointer border border-gray-200 rounded-lg overflow-hidden p-2" data-image="${image.FileName}">
+                    <img src="${API_BASE_URL}Documents/SupportingDocs/${image.FileName}" alt="" class="spotlight object-cover">
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+
+function generateVideoGallery(videos) {
+    return `
+        <div class=" spotlight-group grid grid-cols-4 gap-2">
+            ${videos.map((video, i) => `
+                <div class="relative group w-full h-40">
+                    <a class="spotlight" data-media="video"
+                        data-src-mp4="${API_BASE_URL}Documents/SupportingDocs/${video.FileName}"
+                        data-autoplay="true"
+                        data-muted="true"
+                        data-preload="true"
+                        data-controls="true"
+                        data-inline="false">
+                        <div class="w-full h-full flex-col gap-5 hover:bg-gray-200 group cursor-pointer bg-gray-100 rounded-lg flex items-center justify-center p-5">
+                            <span class=" p-5 rounded-full bg-gray-200 group-hover:bg-gray-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                                </svg>                          
+                            </span>
+                            <span class=" text-[8px] w-full">${video.FileName}</span>
+                        
+                        </div>
+                    </a>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+
+
+
+
+
+function calculateAverageRating(reviews) {
+if (reviews.length === 0) {
+    return 0; // Return 0 for an empty array or handle it as needed
+}
+
+const totalRating = reviews.reduce((sum, review) => sum + review.Rating, 0);
+const averageRating = totalRating / reviews.length;
+
+return averageRating;
+}
+
+function createPoster(videoUrl) {
+    return new Promise((resolve) => {
+        var video = document.createElement("video");
+        video.src = videoUrl;
+
+        // Listen for the 'loadedmetadata' event
+        video.addEventListener('loadedmetadata', function() {
+            var canvas = document.createElement("canvas");
+            // Get dimensions of the parent container
+            canvas.width = 400;
+            canvas.height = 200;
+
+            var context = canvas.getContext("2d");
+
+            // Draw the video onto the canvas
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Clean up
+            video.remove();
+
+            // Return the canvas image as a data URL
+            var imageData = canvas.toDataURL("image/jpeg");
+
+            // Resolve the Promise with the image data
+            resolve(imageData);
+        });
+
+        // Append the video to the body to trigger loading
+        document.body.appendChild(video);
+    });
+}
+
+// Example usage
+const videoUrl = 'your_video_url.mp4';
+createPoster(videoUrl).then((imageData) => {});
+
+
 
 // Example usage:
+let NotificationCount = 0
+function getNotifications() 
+{
+
+    const requestData = {
+        "UserName": "dmsuser1@custodianinsurance.com",
+        "IPAddress": "127.0.0.1:5500"
+    };
+
+    makeApiCall(
+        API_ENDPOINTS.GET_ALL_NOTIFICATIONS,
+        "POST",
+        requestData,
+        handleSuccess,
+        handleFailure
+    );
+
+    function handleSuccess(response) {
+        if (response.ResponseCode === 100) {
+            console.log(response);
+            response.Result.forEach(function(e){
+                showToast('success', e.NotificationInfo)
+            })
+            console.log(response.Result.length)
+            updateNotificationDropdown(response.Result)
+            updateNotificationCount(response.Result.length)
+        }
+        
+    }
+
+    function handleFailure(xhr, status, error) {
+        console.error("Error getting content:", status, error);
+    }
+
+}
+
+
+function updateNotificationCount(count) {
+    const note = $('.notification-count'); // assuming 'notification-count' is an ID
+    if (count <= NotificationCount) {
+        note.addClass('hidden');
+    } else {
+        note.removeClass('hidden');
+        NotificationCount = count
+        note.text(String(NotificationCount));
+    }
+}
+
+
+function updateNotificationDropdown(notifications) {
+    const dropdown = $('#notification-dropdown');
+    dropdown.empty(); // Clear existing content
+
+    notifications.forEach((notification, index) => {
+      const notificationItem = $(`
+        <div class="notification-item flex flex-col text-xs bg-gray-50 p-2.5 rounded-lg cursor-pointer hover:bg-slate-100 transition-all ease-in-out">
+          <div class="flex items-center justify-between">
+            <span class="notification-title">${notification.NotificationInfo}</span>
+            <span class="text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+            </svg>
+            </span>
+          </div>
+          <div class="">
+            <span class="notification-timestamp">${notification.Created}</span>
+          </div>
+        </div>
+      `);
+
+      // Attach onclick event to each dropdown item
+      notificationItem.on('click', function() {
+        dropdown.toggleClass('hidden')
+        makeApiCallForNotification(notification.Id,notification.UserName); // Make API call or perform action
+      });
+
+      dropdown.append(notificationItem);
+    });
+
+    // Show the dropdown
+    // dropdown.removeClass('hidden');
+  }
+
+  // Mock function for making API call for a specific notification
+  function makeApiCallForNotification(id,user) {
+    // Replace this with your actual API call logic
+    console.log(`API call for notification at index ${id}`);
+
+    const requestData = {
+        "UserName": user,
+        "IPAddress": "127.0.0.1:5500"
+    };
+
+    makeApiCall(
+        API_ENDPOINTS.REMOVE_SINGLE_NOTIFICATION,
+        "POST",
+        requestData,
+        handleSuccess,
+        handleFailure
+    );
+
+    function handleSuccess(response) {
+        console.log(response);
+
+        if (response.ResponseCode === 100) {
+            getNotifications()
+        }
+    }
+
+    function handleFailure(xhr, status, error) {
+        console.error("Error getting content:", status, error);
+        // Handle error as needed
+    }
+  }
 
