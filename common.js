@@ -17,7 +17,10 @@ const API_ENDPOINTS = {
     GET_ALL_USERS: "_api/UserMgt/GetAllUserv2",
     GET_SINGLE_USERS: "_api/UserMgt/GetUserProfilebyUserName",
     GET_ALL_NOTIFICATIONS:"_api/Content/UserPushNotifications",
-    REMOVE_SINGLE_NOTIFICATION:"_api/Content/RemoveSingleNotification"
+    REMOVE_SINGLE_NOTIFICATION:"_api/Content/RemoveSingleNotification",
+    SUBSIDIARY_CONTENT:"_api/Content/SubsidiaryContent",
+    ACTIVE_USER:"_api/UserMgt/GetActiveUser",
+    SHARE_CONTENT:"_api/Content/CreateASharedContent ",
 
 };
 

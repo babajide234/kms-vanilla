@@ -51,13 +51,12 @@ $(document).ready(function () {
             animateSlide(currentSlide);
         }else if(location === '/dashboard.html'){
 
-            const notificationDropdown = $('#notification-dropdown');
             const notificationBtn = $('#notification-btn');
 
             loadSidebar();
             renderContent(contentData.Result);
             getNotifications()
-            
+            // getSubContents()
             notificationBtn.on('click', function() {
                 $('#notification-dropdown').toggleClass('hidden');
             });
@@ -67,13 +66,19 @@ $(document).ready(function () {
             //         $('#notification-dropdown').addClass('hidden');
             //     }
             // });
+            let content = [];
             MyDropdownComponent.initializeDynamicDropdown('#dropdownContainer', [
                 { id: 'ContentType', label: 'Content Type', values: ContentTypes },
                 { id: 'SubsidiaryId', label: 'Subsidiary', values: Subsidiaries }
                 // Add more filters as needed
             ], function (filters) {
                 console.log(filters);
-                filterContent(contentData.Result, filters, 'SubsidiaryId', '');
+                content = contentData.Result;
+
+                if(filters.SubsidiaryId){
+                    content = getSubContents(filters.SubsidiaryId)
+                }
+                filterContent(content, filters, 'SubsidiaryId', '');
                 handleSubsidiaryFilter(filterObject);
             });
             
@@ -130,6 +135,11 @@ $(document).ready(function () {
             const searchParams = new URLSearchParams(window.location.search);
             const param = searchParams.get('refNo')
             console.log(param);
+            const [ContentId, UserName] = param.split("_");
+
+            shareData.ContentId = ContentId;
+            shareData.UserName = UserName;
+
             if (param != null) {
                 getSingleContent(param);
             }
@@ -196,9 +206,59 @@ $(document).ready(function () {
                 }
             });
 
+            $('#dropdown-button').on('click', function() {
+                $('#dropdown-menu').toggleClass('hidden');
+            });
+
+            // Event handler for the search input
+            $("#search-input").on("input", function() {
+                const searchInput = $(this).val().trim().toLowerCase();
+    
+                // Clear existing content
+                $("#dropdown-content").empty();
+            
+                // Filter users based on search input using the stored response data
+                if (userData && userData.ResponseCode === 100) {
+                    const filteredUsers = userData.Result.filter(user => user.UserFullName.toLowerCase().includes(searchInput));
+            
+                    // Append filtered users to the dropdown
+                    filteredUsers.forEach(user => {
+                        $("#dropdown-content").append(`
+                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md" data-sharedfor="${user.EmailAddress}">${user.UserFullName}</a>
+                        `);
+                    });
+                }
+            });
+
+            $(document).on("click", "#dropdown-content a", function(event) {
+                event.preventDefault();
+                const selectedUserName = $(this).data('sharedfor');           
+                $('#dropdown-menu').toggleClass('hidden');
+                
+                // Assign an object to shareDate
+                shareData.user = selectedUserName;
+            
+
+                console.log("Selected user:", selectedUserName);
+            });
+
+            $("#sharepermision").on("change", function() {
+                const selectedOption = $(this).val();
+                shareData.viewOption = selectedOption;
+                console.log(shareData)
+            });
+            
+            // Event listener for the date input
+            $("#setdate").on("change", function() {
+                const selectedDate = $(this).val();
+                shareData.expirationDate = selectedDate;
+                console.log(shareData)
+            });
+
         }else if(location === '/updaterequest.html' ){
             loadSidebar();
             populateTable(updaterequest.Result);
+            initializeRequestDataTable(updaterequest.Result);
 
             populateDropdown(Subsidiaries, 'organization');
             populateDropdown(ContentTypes, 'type');
@@ -621,7 +681,7 @@ function renderContent(content) {
 
     content.forEach(item=>{
 
-        $dashboardContent.append(`
+    $dashboardContent.append(`
             <div class=" hover:border-primary transition-all ease-in-out duration-300 w-full flex flex-col justify-between gap-2 border border-border border-solid bg-bgsecond/20 overflow-hidden rounded-lg p-2 group">
                     <div class="flex items-center justify-between gap-3">
                         <div class=" flex items-center truncate overflow-hidden">
@@ -646,15 +706,68 @@ function renderContent(content) {
                             </svg>
                         </button>
                     </div>
-                    <p class=" text-textsub text-md">
+                    <p class=" text-textsub text-xs">
                         ${item.Description}
                     </p>
-                    <div class="flex  items-center">
-                        <div class=" px-[20px] py-[5px] bg-[#F9F5F5] rounded-full text-xs capitalize text-primary">${item.ContentType}</div>
+                    <div class="flex justify-between  items-center">
+                        <div class="  bg-[#F9F5F5] rounded-full text-xs capitalize text-primary">${item.ContentType}</div>
+                        <button class="bookmark-btn text-gray-300" onclick="bookMark(this,${item.ContentId},'${item.Title}')">
+                            <span class="sr-only">bookmark</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                                <path fill-rule="evenodd" d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
                     </div>
             </div>
-        `)
+    `)
     })
+}
+function renderBookmarkContent(content) {
+    const $dashboardContent = $('.dashboard-content');
+    $dashboardContent.empty();
+    content.forEach(item => {
+
+        var param = item.RefNo + "_" + $('#emailAddy').val();
+        var url = "article.aspx?refNo=" + param;
+        $dashboardContent.append(`
+                    <div class=" hover:border-primary transition-all ease-in-out duration-300 w-full flex flex-col justify-between gap-2 border border-border border-solid bg-bgsecond/20 overflow-hidden rounded-lg p-2 group">
+                            <div class="flex items-center justify-between gap-3">
+                                <div class=" flex items-center truncate overflow-hidden">
+                                    <div class=" bg-[#F4E6E6] rounded-md p-[10px] flex items-center justify-center mr-2  ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                            <path d="M11.6663 9.16675H6.66634M8.33301 12.5001H6.66634M13.333 5.83341H6.66634M16.6663 5.66675V14.3334C16.6663 15.7335 16.6663 16.4336 16.3939 16.9684C16.1542 17.4388 15.7717 17.8212 15.3013 18.0609C14.7665 18.3334 14.0665 18.3334 12.6663 18.3334H7.33301C5.93288 18.3334 5.23281 18.3334 4.69803 18.0609C4.22763 17.8212 3.84517 17.4388 3.60549 16.9684C3.33301 16.4336 3.33301 15.7335 3.33301 14.3334V5.66675C3.33301 4.26662 3.33301 3.56655 3.60549 3.03177C3.84517 2.56137 4.22763 2.17892 4.69803 1.93923C5.23281 1.66675 5.93288 1.66675 7.33301 1.66675H12.6663C14.0665 1.66675 14.7665 1.66675 15.3013 1.93923C15.7717 2.17892 16.1542 2.56137 16.3939 3.03177C16.6663 3.56655 16.6663 4.26662 16.6663 5.66675Z" stroke="url(#paint0_linear_592_305)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <defs>
+                                                <linearGradient id="paint0_linear_592_305" x1="9.99967" y1="1.66675" x2="9.99967" y2="18.3334" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#BF0000" stop-opacity="0.68"/>
+                                                <stop offset="1" stop-color="#900000"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                     <a href="${url}" class="capitalize font-semibold text-sm truncate hover:text-primary">${item.Title}</a>
+                                </div>
+                                <button onClick={modal(${"'" + item.RefNo + "'"})} class=" py-2 px-2 hover:bg-[#F5F5F5] rounded-full flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=" stroke-textsub">
+                                        <circle cx="12" cy="12" r="1"/>
+                                        <circle cx="19" cy="12" r="1"/>
+                                        <circle cx="5" cy="12" r="1"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <p class=" text-textsub text-md">
+                                ${item.Description}
+                            </p>
+                            <div class="flex  items-center">
+                                <div class=" px-[20px] py-[5px] bg-[#F9F5F5] rounded-full text-xs capitalize text-primary">${item.ContentType}</div>
+                                 <div class=" bg-[#F4E6E6] rounded-md p-[10px] flex items-center justify-center mr-2  ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                        <path d="M4.16699 6.5C4.16699 5.09987 4.16699 4.3998 4.43948 3.86502C4.67916 3.39462 5.06161 3.01217 5.53202 2.77248C6.0668 2.5 6.76686 2.5 8.16699 2.5H11.8337C13.2338 2.5 13.9339 2.5 14.4686 2.77248C14.939 3.01217 15.3215 3.39462 15.5612 3.86502C15.8337 4.3998 15.8337 5.09987 15.8337 6.5V17.5L10.0003 14.1667L4.16699 17.5V6.5Z" stroke="#606060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                      </svg>
+                                    </div>
+                            </div>
+                    </div>
+                `)
+    });
 }
 
 function renderMoreContent(id,type){
@@ -876,12 +989,12 @@ function filterContent(originalData, filters, keyToFilter, location) {
 
 
 function isEmptyObject(obj) {
-for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
-        return false;
+    for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            return false;
+        }
     }
-}
-return true;
+    return true;
 }
 
 function filterContentBySearch(searchText) {
@@ -918,10 +1031,14 @@ function modal(id){
 
 
 function sharetoggle(){
-$('.share').toggleClass('hidden');
+    console.log("openSHare")
+    getActiveUser()
+    $('.share').toggleClass('hidden');
 }
 
-
+function bookmarktoggle(){
+    $('.bookmark').toggleClass('hidden');
+}
 
 function displayContent(){
     var displayDescription = document.getElementById('display-description');
@@ -971,8 +1088,6 @@ function populateTable(data){
         )
     })
 }
-
-
 
 function animateMore(index) {
     gsap.timeline()
@@ -1175,41 +1290,44 @@ function getSingleContent(id)
 }
 
 function updatePageContent(content) {
-var result = content.Result
-$('#txtDescription').text(result.Description);
-$('#txtTitle').text(result.Title);
-// $('#editor').html(quill.clipboard.dangerouslyPasteHTML(0, content.ContentBody));
-$('#PreviousComments').append(PreviousComment(content.Reviews));
-$('#ddlDocuments').html(generateDocumentList(content.ContentDocuments));
+    var result = content.Result
+    $('#txtDescription').text(result.Description);
+    $('#txtTitle').text(result.Title);
+    // $('#editor').html(quill.clipboard.dangerouslyPasteHTML(0, content.ContentBody));
+    $('#PreviousComments').append(PreviousComment(content.Reviews));
+    $('#ddlDocuments').html(generateDocumentList(content.ContentDocuments));
 
-const formattedValue = calculateAverageRating(content.Reviews).toFixed(1);
+    const formattedValue = calculateAverageRating(content.Reviews).toFixed(1);
 
-$('#rating-value').text(formattedValue);
-const starElements = document.querySelectorAll('.rating span');
+    $('#rating-value').text(formattedValue);
+    const starElements = document.querySelectorAll('.rating span');
 
-// Dynamically change the color of stars based on the score
-$('.rating span').each((index, star) => {
-    $(star).toggleClass('text-yellow-400', index < formattedValue);
-});
+    // Dynamically change the color of stars based on the score
+    $('.rating span').each((index, star) => {
+        $(star).toggleClass('text-yellow-400', index < formattedValue);
+    });
 
-const contentContainer = document.getElementById('display-content');
+    const contentContainer = document.getElementById('display-content');
 
 
-if (isNonArticleContentType(result.ContentType)) {
-    // Display non-article content HTML
-    if (result.ContentType === 'Image') {
-        const imageGallery = generateImageGallery(content.ContentDocuments);
-        contentContainer.innerHTML = imageGallery;
-    } else if (result.ContentType === 'Video') {
-        const videoGallery = generateVideoGallery(content.ContentDocuments);
-        contentContainer.innerHTML = videoGallery;
-    } else if (result.ContentType === 'Document') {
+    if (isNonArticleContentType(result.ContentType)) {
+        // Display non-article content HTML
+        
+        shareData.ContentType = result.ContentType;
+
+        if (result.ContentType === 'Image') {
+            const imageGallery = generateImageGallery(content.ContentDocuments);
+            contentContainer.innerHTML = imageGallery;
+        } else if (result.ContentType === 'Video') {
+            const videoGallery = generateVideoGallery(content.ContentDocuments);
+            contentContainer.innerHTML = videoGallery;
+        } else if (result.ContentType === 'Document') {
+            contentContainer.innerHTML = `${result.ContentBody}`;
+        }
+    } else {
+        // Display article HTML
         contentContainer.innerHTML = `${result.ContentBody}`;
     }
-} else {
-    // Display article HTML
-    contentContainer.innerHTML = `${result.ContentBody}`;
-}
 }
 
 function isNonArticleContentType(contentType) {
@@ -1218,13 +1336,13 @@ return ["Image", "Document", "Video"].includes(contentType);
 }
 
 function PreviousComment(reviews) {
-if (reviews.length === 0) {
-    return '<p>No reviews available.</p>';
-}
+    if (reviews.length === 0) {
+        return '<p>No reviews available.</p>';
+    }
 
-const commentElements = reviews.map(review => createCommentElement(review));
-const commentsHtml = commentElements.join('');
-return commentsHtml;
+    const commentElements = reviews.map(review => createCommentElement(review));
+    const commentsHtml = commentElements.join('');
+    return commentsHtml;
 }
 
 function createCommentElement(review) {
@@ -1298,15 +1416,20 @@ function generateVideoGallery(videos) {
                         data-muted="true"
                         data-preload="true"
                         data-controls="true"
-                        data-inline="false">
-                        <div class="w-full h-full flex-col gap-5 hover:bg-gray-200 group cursor-pointer bg-gray-100 rounded-lg flex items-center justify-center p-5">
+                        data-inline="false"
+                    >
+                        <div class=" relative group w-full h-full flex-col gap-5 hover:bg-gray-200 group cursor-pointer bg-gray-100 rounded-lg flex items-center justify-center p-5">
                             <span class=" p-5 rounded-full bg-gray-200 group-hover:bg-gray-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
                                 </svg>                          
                             </span>
                             <span class=" text-[8px] w-full">${video.FileName}</span>
-                        
+                            <button onclick="removeitem(${video.FileName})" class=" bg-gray-800 p-2.5 absolute group-hover:flex text-white hover:bg-gray-700 hover:cursor-pointer right-2 bottom-2 rounded-full hidden items-center justify-center ">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                </svg>
+                            </button>
                         </div>
                     </a>
                 </div>
@@ -1445,7 +1568,7 @@ function updateNotificationDropdown(notifications) {
 
     // Show the dropdown
     // dropdown.removeClass('hidden');
-  }
+}
 
   // Mock function for making API call for a specific notification
   function makeApiCallForNotification(id,user) {
@@ -1479,3 +1602,195 @@ function updateNotificationDropdown(notifications) {
     }
   }
 
+
+  function bookMark(clickedBtn, id,title){
+    
+    bookmarktoggle()
+
+    console.log(id)
+    console.log(title)
+    const btn = $(clickedBtn);
+    const bookmarkModal = $('#bookmarkmodal'); // Ensure jQuery is included
+    bookmarkModal.empty()
+    // Append HTML with caution to avoid XSS vulnerabilities
+    const message = `<p class="text-gray-500 text-center">Are you sure you want to remove <span class=" font-bold"> ${title}</span> from your personal bookmarks?</p>`;
+    bookmarkModal.append(message);
+
+    if(btn.hasClass('text-gray-300')){
+
+        btn.removeClass('text-gray-300').addClass('text-primary')
+    }else{
+        btn.removeClass('text-primary').addClass('text-gray-300')
+    }
+  }
+
+
+
+  function getSubContents(id) {
+
+    const requestData = {
+        "SubsidiaryId":id,
+        "UserName": "dmsuser1@custodianinsurance.com",
+        "IPAddress": "127.0.0.1:5500"
+    };
+
+    makeApiCall(
+        API_ENDPOINTS.SUBSIDIARY_CONTENT,
+        "POST",
+        requestData,
+        handleSuccess,
+        handleFailure
+    );
+
+    function handleSuccess(response) {
+        if (response.ResponseCode === 100) {
+            console.log(response);
+            return response.Result;
+        }
+        
+    }
+
+    function handleFailure(xhr, status, error) {
+        console.error("Error getting content:", status, error);
+    }
+
+  }
+  let userData = null;
+
+  function getActiveUser() {
+
+        const requestData = {
+            "UserName": "dmsuser1@custodianinsurance.com",
+            "IPAddress": "127.0.0.1:5500"
+        };
+
+        makeApiCall(
+            API_ENDPOINTS.ACTIVE_USER,
+            "POST",
+            requestData,
+            handleSuccess,
+            handleFailure
+        );
+
+        function handleSuccess(response) {
+            if (response.ResponseCode === 100) {
+                // Clear existing content
+                $("#dropdown-content").empty();
+                userData = response;
+
+                // Append each active user to the dropdown
+                response.Result.forEach(user => {
+                    $("#dropdown-content").append(`
+                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md">${user.UserFullName}</a>
+                    `);
+                });
+
+            }
+            
+        }
+
+        function handleFailure(xhr, status, error) {
+            console.error("Error getting content:", status, error);
+        }
+
+  }
+
+let shareData = {}; 
+function shareContent() {
+    // Check if shareData is null
+    if (shareData !== null && Object.keys(shareData).length !== 0) {
+        // If shareData is not null, use it in the request
+        const requestData = {
+            "UserName": shareData.UserName,
+            "SharedWith": shareData.user,
+            "Sharedby": shareData.UserName,
+            "Permission": shareData.viewOption,
+            "ContentType": shareData.ContentType,
+            "ContentId": shareData.ContentId,
+            "IPAddress": "127.0.0.1:5500",
+        };
+
+        makeApiCall(
+            API_ENDPOINTS.SHARE_CONTENT,
+            "POST",
+            requestData,
+            handleSuccess,
+            handleFailure
+        );
+    } else {
+        // If shareData is null, use default requestData
+        
+    }
+
+    function handleSuccess(response) {
+        if (response.ResponseCode === 100) {
+            
+        }   
+    }
+
+    function handleFailure(xhr, status, error) {
+        console.error("Error getting content:", status, error);
+    }
+}
+
+
+
+
+function removeItem(videoFileName) {
+    // Get the element corresponding to the video file name
+    const videoElement = document.querySelector(`[data-src-mp4*="${videoFileName}"]`);
+    
+    // Check if the element exists
+    if (videoElement) {
+        // Remove the parent container of the video element
+        videoElement.parentElement.parentElement.remove(); // Assuming the parent of the video element is the parent container
+        console.log(`Removed video: ${videoFileName}`);
+    } else {
+        console.log(`Video element not found: ${videoFileName}`);
+    }
+}
+
+
+function initializeRequestDataTable(data) {
+    $('#myTable').DataTable({
+        single: false,
+        data: data,
+        columns: [
+            { data: 'Title', title: 'Name' },
+            { data: 'ContentType', title: 'Category' },
+            { data: 'Description', title: 'Description' },
+            { data: 'Description', title: 'Attachment', render:function (data,type,row){
+                return `
+                    <div class="w-full  p-2.5 bg-white rounded border border-solid border-red-800 justify-start items-center gap-2 inline-flex">
+                        <div class="text-center text-white text-[10px] font-bold bg-red-500 p-1 rounded">PDF</div>
+                        <div class=" flex-col justify-start items-start gap-2 flex">
+                            <div class="self-stretch h-7 flex-col justify-start items-start flex">
+                                <h2 class="self-stretch text-zinc-600 text-[10px] font-normal leading-none">Tech design requirements.pdf</h2>
+                                <p class="self-stretch text-zinc-500 text-[10px] font-normal leading-none">200 KB</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            } },
+            { 
+                data: 'Status',
+                title: 'Status',
+                render: function (data, type, row) {
+                    if(data === "Submitted"){
+                        // return '<span class=" py-2.5 px-5 bg-yellow-400/20 rounded-full text-yellow-500">Submitted</span>'
+                        return '<span class=" py-2.5 px-5 bg-green-400/20 rounded-full text-green-500">Updated</span>'
+                    }
+                    if(data === "Updated"){
+                    }
+                }
+            }
+        ],
+        dom: 'lBfrtip',
+        buttons: [
+            'copy', 'excel', 'pdf'
+        ],
+        initComplete: function () {
+            $('#myTable thead tr').addClass('bg-primary/20');
+        }
+    });
+}

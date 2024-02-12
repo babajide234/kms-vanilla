@@ -428,7 +428,7 @@ function uploadFileWithProgress(file, index) {
         }
     });
 
-    xhr.onload = function () {
+    xhr.onload = function () { 
         if (xhr.status === 200) {
             // Successful upload
             const response = JSON.parse(xhr.responseText);
