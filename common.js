@@ -26,29 +26,52 @@ const API_ENDPOINTS = {
 
 const API_TOKEN = "AxSWpRT1KOmNyJGHoE/PDAZZCustodianKMS123";
 
-function makeApiCall(endpoint, method, requestData, successCallback, errorCallback) {
-  var settings = {
-      "url": API_BASE_URL + endpoint,
-      "method": method,
-      "timeout": 0,
-      "headers": {
-          "Content-Type": "application/json",
-          "token": API_TOKEN
-      },
-      "data": JSON.stringify(requestData),
-  };
+// function makeApiCall(endpoint, method, requestData, successCallback, errorCallback) {
+//   var settings = {
+//       "url": API_BASE_URL + endpoint,
+//       "method": method,
+//       "timeout": 0,
+//       "headers": {
+//           "Content-Type": "application/json",
+//           "token": API_TOKEN
+//       },
+//       "data": JSON.stringify(requestData),
+//   };
 
-  $.ajax(settings)
-      .done(function (response) {
-          if (successCallback) {
-              successCallback(response);
-          }
-      })
-      .fail(function (xhr, status, error) {
-          if (errorCallback) {
-              errorCallback(xhr, status, error);
-          }
-      });
+//   $.ajax(settings)
+//       .done(function (response) {
+//           if (successCallback) {
+//               successCallback(response);
+//           }
+//       })
+//       .fail(function (xhr, status, error) {
+//           if (errorCallback) {
+//               errorCallback(xhr, status, error);
+//           }
+//       });
+// }
+
+function makeApiCall(endpoint, method, requestData) {
+    return new Promise(function(resolve, reject) {
+        var settings = {
+            "url": API_BASE_URL + endpoint,
+            "method": method,
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json",
+                "token": API_TOKEN
+            },
+            "data": JSON.stringify(requestData),
+        };
+
+        $.ajax(settings)
+            .done(function(response) {
+                resolve(response);
+            })
+            .fail(function(xhr, status, error) {
+                reject({ xhr: xhr, status: status, error: error });
+            });
+    });
 }
 
 
@@ -509,3 +532,420 @@ function formatTimeAgo(timestamp) {
     }
 }
 
+
+
+function loadSidebar() {
+    const $nav = $('#sidebar');
+    console.log(menu);
+
+    menu.forEach(item => {
+        if (item.header) {
+            $nav.append(`<h2 class="uppercase mb-5 text-sm font-semibold mx-5 text-gray-500">${item.header}</h2>`);
+        } else {
+            if (item.children) {
+                // Dropdown item
+                $nav.append(`<div class="flex flex-col">
+                                <div class=" dropdown-toggle flex justify-between items-center text-[#606060] text-md px-5 py-2 hover:bg-red-800 hover:text-white hover:cursor-pointer w-11/12 rounded-e-md mb-3 capitalize font-normal">
+                                    <span class="flex items-center "><i class=" mr-3 text-md">${item.icon}</i><span>${item.name}</span> </span>  <i class=""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg></i>
+                                </div>
+                                <div class="  dropdown-content px-5 flex flex-col h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                                    ${item.children.map(child => `<a href="${child.url}" class="px-5 py-2 hover:bg-red-800 hover:text-white w-11/12 rounded-e-md mb-3 capitalize font-normal">${child.name}</a>`).join('')}
+                                </div>
+                            </div>`);
+            } else {
+                // Regular item without dropdown
+                $nav.append(`<a href="${item.url}" class="flex items-center group text-[#606060] text-md px-5 py-2 hover:bg-red-800 hover:text-white hover:cursor-pointer w-11/12 rounded-e-md mb-3 capitalize font-normal">
+                                <i class=" mr-3 text-md">${item.icon}</i><span>${item.name}</span>
+                            </a>`);
+            }
+        }
+    });
+}
+
+
+
+let userData = null;
+let shareData = {}; 
+let NotificationCount = 0
+let filterObject = {};
+
+
+function getActiveUser() {
+
+      const requestData = {
+          "UserName": "dmsuser1@custodianinsurance.com",
+          "IPAddress": "127.0.0.1:5500"
+      };
+
+      makeApiCall(
+          API_ENDPOINTS.ACTIVE_USER,
+          "POST",
+          requestData,
+          handleSuccess,
+          handleFailure
+      );
+
+      function handleSuccess(response) {
+          if (response.ResponseCode === 100) {
+              // Clear existing content
+              $("#dropdown-content").empty();
+              userData = response;
+
+              // Append each active user to the dropdown
+              response.Result.forEach(user => {
+                  $("#dropdown-content").append(`
+                      <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md">${user.UserFullName}</a>
+                  `);
+              });
+
+          }
+          
+      }
+
+      function handleFailure(xhr, status, error) {
+          console.error("Error getting content:", status, error);
+      }
+
+}
+
+function shareContent() {
+  // Check if shareData is null
+  if (shareData !== null && Object.keys(shareData).length !== 0) {
+      // If shareData is not null, use it in the request
+      const requestData = {
+          "UserName": shareData.UserName,
+          "SharedWith": shareData.user,
+          "Sharedby": shareData.UserName,
+          "Permission": shareData.viewOption,
+          "ContentType": shareData.ContentType,
+          "ContentId": shareData.ContentId,
+          "IPAddress": "127.0.0.1:5500",
+      };
+
+      makeApiCall(
+          API_ENDPOINTS.SHARE_CONTENT,
+          "POST",
+          requestData,
+          handleSuccess,
+          handleFailure
+      );
+  } else {
+      // If shareData is null, use default requestData
+      
+  }
+
+  function handleSuccess(response) {
+      if (response.ResponseCode === 100) {
+          
+      }   
+  }
+
+  function handleFailure(xhr, status, error) {
+      console.error("Error getting content:", status, error);
+  }
+}
+
+function getNotifications() 
+{
+
+    const requestData = {
+        "UserName": "dmsuser1@custodianinsurance.com",
+        "IPAddress": "127.0.0.1:5500"
+    };
+
+    makeApiCall(
+        API_ENDPOINTS.GET_ALL_NOTIFICATIONS,
+        "POST",
+        requestData,
+        handleSuccess,
+        handleFailure
+    );
+
+    function handleSuccess(response) {
+        if (response.ResponseCode === 100) {
+            console.log(response);
+            response.Result.forEach(function(e){
+                showToast('success', e.NotificationInfo)
+            })
+            console.log(response.Result.length)
+            updateNotificationDropdown(response.Result)
+            updateNotificationCount(response.Result.length)
+        }
+        
+    }
+
+    function handleFailure(xhr, status, error) {
+        console.error("Error getting content:", status, error);
+    }
+
+}
+
+
+function updateNotificationCount(count) {
+    const note = $('.notification-count'); // assuming 'notification-count' is an ID
+    if (count <= NotificationCount) {
+        note.addClass('hidden');
+    } else {
+        note.removeClass('hidden');
+        NotificationCount = count
+        note.text(String(NotificationCount));
+    }
+}
+
+
+function updateNotificationDropdown(notifications) {
+    const dropdown = $('#notification-dropdown');
+    dropdown.empty(); // Clear existing content
+
+    notifications.forEach((notification, index) => {
+      const notificationItem = $(`
+        <div class="notification-item flex flex-col text-xs bg-gray-50 p-2.5 rounded-lg cursor-pointer hover:bg-slate-100 transition-all ease-in-out">
+          <div class="flex items-center justify-between">
+            <span class="notification-title">${notification.NotificationInfo}</span>
+            <span class="text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+            </svg>
+            </span>
+          </div>
+          <div class="">
+            <span class="notification-timestamp">${notification.Created}</span>
+          </div>
+        </div>
+      `);
+
+      // Attach onclick event to each dropdown item
+      notificationItem.on('click', function() {
+        dropdown.toggleClass('hidden')
+        makeApiCallForNotification(notification.Id,notification.UserName); // Make API call or perform action
+      });
+
+      dropdown.append(notificationItem);
+    });
+
+    // Show the dropdown
+    // dropdown.removeClass('hidden');
+}
+
+// Mock function for making API call for a specific notification
+function makeApiCallForNotification(id,user) {
+    // Replace this with your actual API call logic
+    console.log(`API call for notification at index ${id}`);
+
+    const requestData = {
+        "UserName": user,
+        "IPAddress": "127.0.0.1:5500"
+    };
+
+    makeApiCall(
+        API_ENDPOINTS.REMOVE_SINGLE_NOTIFICATION,
+        "POST",
+        requestData,
+        handleSuccess,
+        handleFailure
+    );
+
+    function handleSuccess(response) {
+        console.log(response);
+
+        if (response.ResponseCode === 100) {
+            getNotifications()
+        }
+    }
+
+    function handleFailure(xhr, status, error) {
+        console.error("Error getting content:", status, error);
+        // Handle error as needed
+    }
+}
+
+
+  // Global namespace for your components
+const MyDropdownComponent =  (function () {
+
+    async function initializeDynamicDropdown(containerSelector, filters, callback) {
+        const $container = $(containerSelector);
+
+        async function fetchFilterValues(filter) {
+            if (filter.source === 'static') {
+                return filter.values;
+            } else if (filter.source === 'dynamic') {
+                try {
+                    const data =  await filter.values;
+                    console.log("data from get",data);
+                    return data;
+                } catch (error) {
+                    console.error(`Failed to fetch values for filter ${filter.id}:`, error);
+                    return [];
+                }
+            } else {
+                console.error(`Invalid source "${filter.source}" specified for filter ${filter.id}`);
+                return [];
+            }
+        }
+
+        async function loadFilters() {
+            try {
+                await Promise.all(filters.map(async filter => {
+                    if (filter.source === 'dynamic') {
+                        filter.values = await fetchFilterValues(filter);
+                    }
+                }));
+                // await populateDropdowns();
+            } catch (error) {
+                console.error('Error loading filters:', error);
+                // Handle error as needed
+            }
+        }
+        await loadFilters()
+
+        filters.forEach(filter => {
+            const dropdownHTML = `
+                <div class="dropdown relative" id="${filter.id}">
+                    <button data-tag="${filter.id}" class="text-[#606060] group text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
+                        <span class="text max-w-[150px] truncate">${filter.label}</span>
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div data-dropdown class="hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg">
+                        ${filter.values.map(value => `<button data-sub="${value.name}" data-value="${value.id}" class="py-1 hover:bg-gray-50 rounded-sm">${value.name}</button>`).join('')}
+                    </div>
+                </div>
+                <div class="border-solid border-l-2 py-5 border-gray-300"></div>
+            `;
+
+            $container.append(dropdownHTML);
+
+            // Initialize dropdown functionality
+            initializeDropdown(`${containerSelector} [data-tag="${filter.id}"]`, `${containerSelector} [data-dropdown]`, filter.id, filter.values, callback);
+        });
+        
+
+        
+        // Add a "Clear" button
+        const clearButtonHTML = `
+            <button class="text-[#606060] group text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center clear-button">
+                <span class="text max-w-[150px] truncate">Clear All</span>
+            </button>
+        `;
+        $container.append(clearButtonHTML);
+
+        // Handle click event for the "Clear" button
+        $('.clear-button').click(function () {
+            // Clear all filters
+            
+            console.log("clear btn");
+
+            // close all dropdowns
+            $('.dropdown [data-dropdown]').addClass('hidden');
+
+            filterObject = {};
+
+            // Update UI for each dropdown
+            $('.dropdown [data-tag]').each(function () {
+                const tag = $(this).data('tag');
+                const $button = $(`${containerSelector} [data-tag="${tag}"]`);
+                $button.find('.text').text(tag);
+                $button.removeClass('bg-primary text-white').addClass('text-[#606060] border border-solid border-[#606060]');
+            });
+            
+            if (callback && typeof callback === 'function') {
+                callback(filterObject);
+            }
+        });
+    }
+
+    function initializeDropdown(buttonSelector, dropdownSelector, tag, values, callback) {
+        const $button = $(buttonSelector);
+        const $dropdown = $button.siblings('[data-dropdown]'); // Use siblings to target the adjacent sibling with data-dropdown
+        const $dropdownId = $(this).attr('id');
+
+        let currentSelectedValue = "";
+
+        function closeOtherDropdowns() {
+            // Close all other dropdowns
+            $(`${buttonSelector}:not([data-tag="${tag}"])`).each(function () {
+                const otherDropdown = $(this).attr('data-tag');
+                $(`${containerSelector} [data-dropdown][data-sub="${otherDropdown}"]`).addClass('hidden');
+            });
+        }
+
+        $button.click(function (e) {
+            e.stopPropagation();
+            // Close other dropdowns before toggling the clicked one
+            closeOtherDropdowns();
+            $dropdown.toggleClass('hidden');
+        });
+        
+        $dropdown.find('[data-sub]').click(function () {
+            const selectedName = $(this).data('sub');
+            const selectedValue = tag === 'ContentType' ? $(this).data('sub') : $(this).data('value');
+
+            if (filterObject[tag] === selectedValue) {
+                filterObject[tag] = "";
+                $button.find('.text').text(tag);
+                $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
+                // filterContent({}, 'request');
+                // handleSubsidiaryFilter(filterObject);
+
+            } else {
+                filterObject[tag] = selectedValue;
+                // filterContent(filterObject, 'request');
+                // handleSubsidiaryFilter(filterObject);
+
+                currentSelectedValue = selectedValue;
+                $button.find('.text').text(selectedName);
+                $dropdown.addClass('hidden');
+
+                $dropdown.find('[data-sub]').removeClass('bg-primary text-white');
+                $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
+                $(this).addClass('bg-primary text-white');
+
+                if ($(this).attr('data-sub')) {
+                    $button.removeClass('text-[#606060] border border-solid border-[#606060]').addClass('bg-primary text-white');
+                }
+            }
+
+            if (tag === 'all') {
+                filterObject = {};
+                filterContent({}, 'request');
+                handleSubsidiaryFilter(filterObject);
+            }
+
+            // Call the callback function with the updated filterObject
+            if (callback && typeof callback === 'function') {
+                callback(filterObject);
+            }
+        });
+
+        $(document).click(function () {
+            // Close the dropdown when clicking outside
+            $dropdown.addClass('hidden');
+        });
+    }
+
+    async function updateFilterValues(filterId, newValues) {
+        const $dropdown = $(`#${filterId}`);
+        let data = await newValues;
+        console.log(data)
+        // Clear existing options
+        $dropdown.find('[data-sub]').remove();
+
+        // Add new options
+        newValues.forEach(value => {
+            const optionHTML = `<button data-sub="${value.name}" data-value="${value.id}" class="py-1 hover:bg-gray-50 rounded-sm">${value.name}</button>`;
+            $dropdown.find('[data-dropdown]').append(optionHTML);
+        });
+    }
+    // Expose functions or properties as needed
+    return {
+        initializeDynamicDropdown: initializeDynamicDropdown,
+        updateFilterValues: updateFilterValues
+
+        // Add other functions or properties here if needed
+    };
+
+})();

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./dist/style.css">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+<body>
+    <div class="flex w-full h-screen overflow-y-hidden">
+        <div id="sidebar" class="w-[20%] h-full bg-bgsecond pt-24 hidden md:block">
+            <div class=" absolute top-5 left-5 flex gap-2 items-center text-white">
+                <div class="">
+                    <img src="./img/logo.png" alt="" class=" w-8  ">
+                </div>
+                <div class="">
+                    <h2 class=" font-bold text-sm text-primary">Custodian</h2>
+                    <p class=" text-textsub text-xs">Knowledge management System</p>
+                </div>
+            </div>
+            <div class=" py-5">
+                <div class="dropdown flex w-[80%] mx-auto rounded-lg flex-col  bg-white relative z-0">
+                    <button data-tag class="flex text-primary items-center px-2.5 py-[15px] rounded-lg gap-4 text-sm font-medium">
+                        <span class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                        </span>
+                        Create new content
+                    </button>
+                    <div data-dropdown class=" w-full absolute hidden z-50 bg-white top-0 left-0 flex flex-col gap-4 rounded-lg px-2.5 py-[15px]  ">
+                        <button data-tag class="px-2.5 py-[15px] border-b border-solid border-gray-100">
+                            <h2 class="">Select content type</h2>
+                        </button>
+                        <ul class="">
+                            <li class="">
+                                <a href="./newarticle.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Article
+                                <span class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                                </span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="./newimage.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Image
+                                <span class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                                </span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="./newvideo.html" class=" hover:bg-slate-50  text-gray-500 py-1 px-2 text-sm flex items-center justify-between">Video
+                                <span class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                                </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" flex-1 overflow-y-scroll flex flex-col">
+            <div class=" p-8 flex items-center justify-between border-solid border-gray-300">
+                <div class=" flex  items-center gap-[30px]">
+                    <h2 class=" text-[26px] font-bold">Settings</h2>
+                </div>
+                <div class="flex gap-5">
+                    <button class="">Generate report</button>
+                    <div class="relative">
+                        <button class=" px-4 py-2 capitalize text-sm text-primary rounded-lg bg-gray-200">Today</button>
+                        <div class=" absolute w-[10rem] text-left left-0 flex flex-col p-3 bg-white rounded shadow-md">
+                            <button class="">Today</button>
+                            <button class="">Last 7 days</button>
+                            <button class="">Last 30 days</button>
+                            <button class="">Last 90 days</button>
+                            <button class="">This year</button>
+                            <button class="">All time</button>
+                            <button class="">Custom period</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" flex flex-col p-8">
+                <div class="w-fit bg-neutral-100 rounded-full p-1 items-center gap-2.5 inline-flex">
+                    <button data-tab="account" class=" tab-btn px-3.5 py-2 rounded-full justify-center items-center gap-2.5 flex text-neutral-700 text-sm font-semibold ">
+                        <div class="">My account</div>
+                    </button>
+                    <button data-tab="notifications" class=" tab-btn px-3.5 py-2 rounded-full flex-col justify-center items-center gap-2.5 inline-flex text-neutral-700 text-base font-normal">
+                        <div class=" ">Notifications</div>
+                    </button>
+                </div>            
+                    
+                <div class=" notifications-tab tab-content w-full flex-col flex gap-5">
+                    <div class="flex-col justify-start items-start gap-5 flex w-full py-5 border-b border-solid border-zinc-300">
+                        <div class="text-black text-lg font-medium  leading-normal">Notifications</div>
+                    </div>
+                    <div class="w-full py-5  justify-between items-center inline-flex border-b border-solid border-zinc-300">
+                        <div class="grow shrink basis-0 flex-col justify-start items-start gap-2.5 inline-flex">
+                            <div class="text-zinc-600 text-base font-normal  leading-tight">Web notification</div>
+                            <div class="self-stretch text-neutral-700 text-base font-normal  leading-snug">Receive push notifications on mentions and comments from your browser</div>
+                        </div>
+                        
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" value="" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-red-600"></div>
+                        </label>
+  
+                    </div>
+                    <div class="w-full py-5  justify-between items-center inline-flex border-b border-solid border-zinc-300">
+                        <div class="grow shrink basis-0 flex-col justify-start items-start gap-2.5 inline-flex">
+                            <div class="text-zinc-600 text-base font-normal  leading-tight">Email notification</div>
+                            <div class="self-stretch text-neutral-700 text-base font-normal  leading-snug">Receive emails about activity in your workspace, even when you're active on the app</div>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" value="" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-red-600"></div>
+                        </label>
+                    </div>
+                    <div class="flex-col justify-start items-start gap-5 flex w-full py-5 border-b border-solid border-zinc-300">
+                        <div class="text-black text-lg font-medium  leading-normal">Permission </div>
+                    </div>
+                    <div class="w-full py-5  justify-between items-center inline-flex border-b border-solid border-zinc-300">
+                        <div class="grow shrink basis-0 flex-col justify-start items-start gap-2.5 inline-flex">
+                            <div class="text-zinc-600 text-base font-normal  leading-tight">Recent updates</div>
+                            <div class="self-stretch text-neutral-700 text-base font-normal  leading-snug">Receive push notifications when a file is updated</div>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" value="" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-red-600"></div>
+                        </label>
+                    </div>
+                    <div class="w-full py-5  justify-between items-center inline-flex border-b border-solid border-zinc-300">
+                        <div class="grow shrink basis-0 flex-col justify-start items-start gap-2.5 inline-flex">
+                            <div class="text-zinc-600 text-base font-normal  leading-tight">Shared content</div>
+                            <div class="self-stretch text-neutral-700 text-base font-normal  leading-snug">Receive push notifications when a file is shared with you</div>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" value="" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-red-600"></div>
+                        </label>
+                    </div>
+                    <div class="w-full py-5  justify-between items-center inline-flex border-b border-solid border-zinc-300">
+                        <div class="grow shrink basis-0 flex-col justify-start items-start gap-2.5 inline-flex">
+                            <div class="text-zinc-600 text-base font-normal  leading-tight">Update request</div>
+                            <div class="self-stretch text-neutral-700 text-base font-normal  leading-snug">Receive push notifications when a request is updated</div>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" value="" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-red-600"></div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class=" account-tab tab-content w-full flex-col flex gap-5">
+                        <div class="flex-col justify-start items-start gap-5 flex w-full py-5 border-b border-solid border-zinc-300">
+                            <div class="text-black text-lg font-medium  leading-normal">Profile</div>
+                        </div>
+
+                        <div class="justify-start items-center gap-5 inline-flex">
+                            <div class="flex-col justify-start items-center gap-1 inline-flex">
+                                <label for="profile-image" class=" hover:cursor-pointer w-24 h-24 bg-gradient-to-b from-red-700 to-red-800 rounded-full overflow-hidden">
+                                    <img src="./img/bg.png" alt="" class="w-24 h-24">
+                                    <input type="file" name="profile-image" id="profile-image" class="hidden" accept="image/*"/>
+                                </label>
+                                <p class="text-zinc-600 text-xs font-normal  leading-none">Add photo</p>
+                            </div>
+                            <div class="flex-col justify-start items-start gap-1 inline-flex">
+                                <label for="" class="text-zinc-600 text-md font-normal  leading-tight">Full name</label>
+                                <input type="text" name="" id="" class="w-96 px-3.5 py-2.5 bg-white rounded-lg shadow border border-gray-300 outline-none  " placeholder=""/>                                    
+                            </div>
+                        </div>
+                        <div class="flex-col justify-start items-start gap-5 flex w-full border-b border-solid border-zinc-300">
+                            <div class="text-black text-lg font-medium  leading-normal">Account security</div>
+                            <div class=""></div>
+                        </div>
+                        <div class="flex-col w-full py-5 justify-start items-start gap-2.5 inline-flex border-b border-solid border-zinc-300">
+                            <div class="text-zinc-600 text-base font-normal  leading-tight">Role</div>
+                            <div class="w-96 text-neutral-700 text-base font-normal  leading-snug">Knowledge seeker</div>
+                        </div>
+                        <div class="w-full py-5 justify-between items-center inline-flex border-b border-solid border-zinc-300">
+                            <div class="flex-col justify-start items-start gap-2.5 inline-flex">
+                                <div class="text-zinc-600 text-base font-normal  leading-tight">Email</div>
+                                <div class="w-96 text-neutral-700 text-base font-normal  leading-snug">ademolaadeleke@custodian.com</div>
+                            </div>
+                            <div class="h-10 px-3.5 py-2.5 bg-neutral-100 rounded shadow justify-center items-center gap-2 flex">
+                                <div class="text-red-800 text-sm font-semibold  leading-tight">Change email</div>
+                            </div>
+                        </div>
+                        <div class="w-full py-5 justify-between items-center inline-flex border-b border-solid border-zinc-300">
+                            <div class="grow shrink basis-0 flex-col justify-start items-start gap-2.5 inline-flex">
+                                <div class="text-zinc-600 text-base font-normal  leading-tight">Password</div>
+                                <div class="self-stretch text-neutral-700 text-base font-normal  leading-snug">Set a permanent password to login to your account.</div>
+                            </div>
+                            <div class="h-10 px-3.5 py-2.5 bg-neutral-100 rounded shadow justify-center items-center gap-2 flex">
+                                <div class="text-red-800 text-sm font-semibold  leading-tight">Change password</div>
+                            </div>
+                        </div>
+                        <div class="w-full py-5  justify-between items-center inline-flex border-b border-solid border-zinc-300">
+                            <div class="grow shrink basis-0 flex-col justify-start items-start gap-2.5 inline-flex">
+                                <div class="text-zinc-600 text-base font-normal  leading-tight">2FA</div>
+                                <div class="self-stretch text-neutral-700 text-base font-normal  leading-snug">Add an additional layer of security to your account during login.</div>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" value="" class="sr-only peer">
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-red-600"></div>
+                            </label>
+                        </div>
+                </div>
+                <div class="w-full py-10 flex justify-center">
+                    <button class="w-96 h-14 px-7 py-4 bg-red-600 rounded-lg shadow border border-red-600 justify-center items-center gap-3 inline-flex text-white text-lg font-medium leading-normal">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./common.js"></script>
+
+    <script >
+        $(document).ready(function () {
+            loadSidebar();
+
+
+        })
+    </script>
+</body>
+</html>

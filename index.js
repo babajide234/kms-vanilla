@@ -55,7 +55,7 @@ $(document).ready(function () {
 
             loadSidebar();
             renderContent(contentData.Result);
-            getNotifications()
+            
             // getSubContents()
             notificationBtn.on('click', function() {
                 $('#notification-dropdown').toggleClass('hidden');
@@ -66,20 +66,41 @@ $(document).ready(function () {
             //         $('#notification-dropdown').addClass('hidden');
             //     }
             // });
+
             let content = [];
+            // const subsidiaries = getSubsidiaries();
+            // console.log("Subsidiary",subsidiaries)
             MyDropdownComponent.initializeDynamicDropdown('#dropdownContainer', [
-                { id: 'ContentType', label: 'Content Type', values: ContentTypes },
-                { id: 'SubsidiaryId', label: 'Subsidiary', values: Subsidiaries }
-                // Add more filters as needed
+                { id: 'ContentType', label: 'Content Type', values: ContentTypes, source: 'static' },
+                { id: 'SubsidiaryId', label: 'Subsidiary', values: getSubsidiaries(), source: 'dynamic' },
+                { id: 'DepartmentId', label: 'Department', values: [], source: 'dynamic' } // Department filter
+            
             ], function (filters) {
                 console.log(filters);
+
                 content = contentData.Result;
 
-                if(filters.SubsidiaryId){
-                    content = getSubContents(filters.SubsidiaryId)
+                if (filters.SubsidiaryId) {
+                    console.log(filters.SubsidiaryId);
+                    // Fetch departments for the selected subsidiary
+                    getDepartments(filters.SubsidiaryId)
+                        .then(function (departments) {
+                            console.log("departments",departments)
+                            // Update the DepartmentId filter with the fetched departments
+                            MyDropdownComponent.updateFilterValues('DepartmentId', departments);
+            
+                            // Filter content based on the selected filters
+                            filterContent(content, filters, 'DepartmentId', '');
+                            handleSubsidiaryFilter(filterObject);
+                        })
+                        .catch(function (error) {
+                            console.error('Error fetching departments:', error);
+                        });
+                } else {
+                    // Filter content based on the selected filters without departments
+                    filterContent(content, filters, 'DepartmentId', '');
+                    handleSubsidiaryFilter(filterObject);
                 }
-                filterContent(content, filters, 'SubsidiaryId', '');
-                handleSubsidiaryFilter(filterObject);
             });
             
             $('nav a').click(function (e) {
@@ -1111,146 +1132,8 @@ function animateMore(index) {
 
 
 
-let filterObject = {};
 
-// Global namespace for your components
-const MyDropdownComponent = (function () {
 
-    function initializeDynamicDropdown(containerSelector, filters, callback) {
-        const $container = $(containerSelector);
-
-        filters.forEach(filter => {
-            const dropdownHTML = `
-                <div class="dropdown relative" id="${filter.id}">
-                    <button data-tag="${filter.id}" class="text-[#606060] group text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
-                        <span class="text max-w-[150px] truncate">${filter.label}</span>
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M5 7.5L10 12.5L15 7.5" stroke="#606060" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </span>
-                    </button>
-                    <div data-dropdown class="hidden w-[271px] px-5 py-[15px] bg-white flex flex-col text-sm text-[#3F3F3F] gap-[10px] shadow-md absolute top-[3rem] left-0 z-[100] rounded-lg">
-                        ${filter.values.map(value => `<button data-sub="${value.name}" data-value="${value.id}" class="py-1 hover:bg-gray-50 rounded-sm">${value.name}</button>`).join('')}
-                    </div>
-                </div>
-                <div class="border-solid border-l-2 py-5 border-gray-300"></div>
-            `;
-
-            $container.append(dropdownHTML);
-
-            // Initialize dropdown functionality
-            initializeDropdown(`${containerSelector} [data-tag="${filter.id}"]`, `${containerSelector} [data-dropdown]`, filter.id, filter.values, callback);
-        });
-            // Add a "Clear" button
-            const clearButtonHTML = `
-            <button class="text-[#606060] group text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center clear-button">
-                <span class="text max-w-[150px] truncate">Clear All</span>
-            </button>
-        `;
-        $container.append(clearButtonHTML);
-
-        // Handle click event for the "Clear" button
-        $('.clear-button').click(function () {
-            // Clear all filters
-            
-            console.log("clear btn");
-
-            // close all dropdowns
-            $('.dropdown [data-dropdown]').addClass('hidden');
-            
-            filterObject = {};
-
-            // Update UI for each dropdown
-            $('.dropdown [data-tag]').each(function () {
-                const tag = $(this).data('tag');
-                const $button = $(`${containerSelector} [data-tag="${tag}"]`);
-                $button.find('.text').text(tag);
-                $button.removeClass('bg-primary text-white').addClass('text-[#606060] border border-solid border-[#606060]');
-            });
-            
-            if (callback && typeof callback === 'function') {
-                callback(filterObject);
-            }
-        });
-    }
-
-    function initializeDropdown(buttonSelector, dropdownSelector, tag, values, callback) {
-        const $button = $(buttonSelector);
-        const $dropdown = $button.siblings('[data-dropdown]'); // Use siblings to target the adjacent sibling with data-dropdown
-        const $dropdownId = $(this).attr('id');
-
-        let currentSelectedValue = "";
-
-        function closeOtherDropdowns() {
-            // Close all other dropdowns
-            $(`${buttonSelector}:not([data-tag="${tag}"])`).each(function () {
-                const otherDropdown = $(this).attr('data-tag');
-                $(`${containerSelector} [data-dropdown][data-sub="${otherDropdown}"]`).addClass('hidden');
-            });
-        }
-
-        $button.click(function (e) {
-            e.stopPropagation();
-            // Close other dropdowns before toggling the clicked one
-            closeOtherDropdowns();
-            $dropdown.toggleClass('hidden');
-        });
-        
-        $dropdown.find('[data-sub]').click(function () {
-            const selectedName = $(this).data('sub');
-            const selectedValue = tag === 'ContentType' ? $(this).data('sub') : $(this).data('value');
-
-            if (filterObject[tag] === selectedValue) {
-                filterObject[tag] = "";
-                $button.find('.text').text(tag);
-                $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
-                // filterContent({}, 'request');
-                // handleSubsidiaryFilter(filterObject);
-
-            } else {
-                filterObject[tag] = selectedValue;
-                // filterContent(filterObject, 'request');
-                // handleSubsidiaryFilter(filterObject);
-
-                currentSelectedValue = selectedValue;
-                $button.find('.text').text(selectedName);
-                $dropdown.addClass('hidden');
-
-                $dropdown.find('[data-sub]').removeClass('bg-primary text-white');
-                $button.addClass('text-[#606060] border border-solid border-[#606060]').removeClass('bg-primary text-white');
-                $(this).addClass('bg-primary text-white');
-
-                if ($(this).attr('data-sub')) {
-                    $button.removeClass('text-[#606060] border border-solid border-[#606060]').addClass('bg-primary text-white');
-                }
-            }
-
-            if (tag === 'all') {
-                filterObject = {};
-                filterContent({}, 'request');
-                handleSubsidiaryFilter(filterObject);
-            }
-
-            // Call the callback function with the updated filterObject
-            if (callback && typeof callback === 'function') {
-                callback(filterObject);
-            }
-        });
-
-        $(document).click(function () {
-            // Close the dropdown when clicking outside
-            $dropdown.addClass('hidden');
-        });
-    }
-
-    // Expose functions or properties as needed
-    return {
-        initializeDynamicDropdown: initializeDynamicDropdown
-        // Add other functions or properties here if needed
-    };
-
-})();
 
 
 
@@ -1655,6 +1538,8 @@ function updateNotificationDropdown(notifications) {
     }
 
   }
+
+
   let userData = null;
 
   function getActiveUser() {
@@ -1794,3 +1679,88 @@ function initializeRequestDataTable(data) {
         }
     });
 }
+
+
+
+async function getSubsidiaries() {
+    const requestData = {
+        "UserName": "dmsuser1@custodianinsurance.com",
+        "IPAddress": "127.0.0.1:5500"
+    };
+
+    try {
+        const response = await makeApiCall(
+            API_ENDPOINTS.GET_ALL_SUBSIDIARIES,
+            "POST",
+            requestData
+        );
+        
+        if (response.ResponseCode === 100) {
+            const data = response.Result.map(e => {
+                return { name: e.SubsidiaryName, id: e.SubsidiaryId };
+            });
+            console.log("data from func()", data);
+            return data;
+        } else {
+            console.error("API request failed:", response);
+            return []; // Return empty array if API request fails
+        }
+    } catch (error) {
+        console.error("Error making API call:", error);
+        return []; // Return empty array if an error occurs
+    }
+}
+
+async function getDepartments(subsidiaryId) {
+    try {
+        const requestData = {
+            "UserName": "dmsuser1@custodianinsurance.com",
+            "IPAddress": "127.0.0.1:5500",
+            "SubsidiaryId": subsidiaryId 
+        };
+
+        const response = await makeApiCall(
+            API_ENDPOINTS.GET_DEPARTMENTS, 
+            'POST', 
+            requestData
+        );
+        if (response.ResponseCode === 100) {
+
+            const data = response.Result.map(e => {
+                return { name: e.DeptName, id: e.DeptId };
+            });
+            // Assuming the response is an array of departments, you may need to adjust accordingly
+            return data;
+        }
+    } catch (error) {
+        throw new Error('Failed to fetch departments');
+    }
+}
+// function getDepartments(id) {
+
+//     const requestData = {
+//         "UserName": "dmsuser1@custodianinsurance.com",
+//         "IPAddress": "127.0.0.1:5500"
+//     };
+
+//     makeApiCall(
+//         API_ENDPOINTS.GET_DEPARTMENTS,
+//         "POST",
+//         requestData,
+//         handleSuccess,
+//         handleFailure
+//     );
+
+//     function handleSuccess(response) {
+//         if (response.ResponseCode === 100) {
+           
+
+//         }
+        
+//     }
+
+//     function handleFailure(xhr, status, error) {
+//         console.error("Error getting content:", status, error);
+//     }
+
+// }
