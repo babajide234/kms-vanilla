@@ -1,4 +1,5 @@
-const API_BASE_URL = "http://20.50.141.134:8011/";
+// const API_BASE_URL = "http://20.50.141.134:8011/";
+const API_BASE_URL = "https://kmsdev.custodianplc.com.ng/";
 const API_ENDPOINTS = {
     NEW_CONTENT_REQUEST: "_api/CaseMgt/NewContentRequest",
     NEW_CONTENT_REVIEW: "_api/CaseMgt/NewContentReview",
@@ -801,8 +802,8 @@ const MyDropdownComponent =  (function () {
 
         filters.forEach(filter => {
             const dropdownHTML = `
-                <div class="dropdown relative" id="${filter.id}">
-                    <button data-tag="${filter.id}" class="text-[#606060] group text-md md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
+                <div class="dropdown relative mb-3" id="${filter.id}">
+                    <button data-tag="${filter.id}" class="text-[#606060] group text-sm md:text-md border border-solid border-[#606060] rounded-full py-[10px] px-[20px] flex gap-3 items-center">
                         <span class="text max-w-[150px] truncate">${filter.label}</span>
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">

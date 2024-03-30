@@ -24,6 +24,7 @@ $(document).ready(function () {
 
         ['clean']                                         // remove formatting button
     ];
+
     quill = new Quill('#editor', {
         modules: {
             toolbar: toolbarOptions
@@ -37,6 +38,7 @@ $(document).ready(function () {
 
     $("#contentType").change(function () {
         var selectedValue = $(this).val();
+        console.log(selectedValue);
         $("#article, #image, #video,#document").addClass('hidden');
         $("#" + selectedValue).removeClass('hidden');
     });
@@ -118,27 +120,27 @@ $(document).ready(function () {
     filterContent('all');
     markActiveTag('all');
 
-    $('.media-upload-container').on('dragover', function (e) {
-        e.preventDefault();
-        $(this).removeClass('border-gray-200').addClass('border-primary');
-    });
+    // $('.media-upload-container').on('dragover', function (e) {
+    //     e.preventDefault();
+    //     $(this).removeClass('border-gray-200').addClass('border-primary');
+    // });
 
-    $('.media-upload-container').on('dragleave', function () {
-        $(this).removeClass('border-primary').addClass('border-gray-200');
-    });
+    // $('.media-upload-container').on('dragleave', function () {
+    //     $(this).removeClass('border-primary').addClass('border-gray-200');
+    // });
 
-    $('.media-upload-container').on('drop', function (e) {
-        e.preventDefault();
-        $(this).removeClass('border-primary').addClass('border-gray-200');
+    // $('.media-upload-container').on('drop', function (e) {
+    //     e.preventDefault();
+    //     $(this).removeClass('border-primary').addClass('border-gray-200');
 
-        var files = e.originalEvent.dataTransfer.files;
-        handleFiles(files, $(this));
+    //     var files = e.originalEvent.dataTransfer.files;
+    //     handleFiles(files, $(this));
         
-    });
+    // });
 
-    $('.media-upload-container').on('click', function () {
-        $(this).find('input[type=file]').click();
-    });
+    // $('.media-upload-container').on('click', function () {
+    //     $(this).find('input[type=file]').click();
+    // });
 
     $('input[type=file]').on('change', function () {
         var files = this.files;
@@ -304,11 +306,7 @@ function redirectToWithDelay(url, delayMillis) {
     }, delayMillis);
 }
 
-// Example usage:
-// Redirect to "https://example.com" after a delay of 2000 milliseconds (2 seconds)
 
-
-// Example usage:
 
 function getNewContentId() {
     return localStorage.getItem('newContentId');
@@ -317,37 +315,50 @@ function getNewContentId() {
 function handleFiles(files, container) {
     var dataType = container.data('type');
     var stack = $('#' + dataType + 'Stack');
-
+    console.log(dataType);
+  
+    var allowedDocTypes = [
+      'application/pdf',
+      'application/msword', // DOC
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // DOCX
+      'application/vnd.ms-excel', // XLS
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // XLSX
+      'application/vnd.ms-powerpoint', // PPT
+      'application/vnd.openxmlformats-officedocument.presentationml.presentation', // PPTX
+    ];
+  
     // Append each file to the respective stack
     for (var i = 0; i < files.length; i++) {
-        (function (file, index) { // Use a closure to capture the correct file
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                var mediaItem;
-
-                if (file.type.startsWith('image/')) {
-                    mediaItem = createImageItem(file, e.target.result, index);
-                } else if (file.type.startsWith('video/')) {
-                    mediaItem = createVideoItem(file, e.target.result, index);
-                } else if (file.type.startsWith('application/pdf')) {
-                    mediaItem = createPdfItem(e.target.result, file.name);
-                } else {
-                    mediaItem = createUnsupportedItem(file.type, file.name);
-                }
-                stack.prepend(mediaItem);
-
-                // Upload the file after creating the media item
-                uploadFileWithProgress(file, index);
-            };
-
-            reader.readAsDataURL(file);
-        })(files[i], i);
+      (function (file, index) { // Use a closure to capture the correct file
+        var reader = new FileReader();
+  
+        reader.onload = function (e) {
+          var mediaItem;
+  
+          if (file.type.startsWith('image/')) {
+            mediaItem = createImageItem(file, e.target.result, index);
+          } else if (file.type.startsWith('video/')) {
+            mediaItem = createVideoItem(file, e.target.result, index);
+          } else if (allowedDocTypes.includes(file.type)) {
+            mediaItem = createDocumentItem(file.type, file.name, index); // Use appropriate file type for display
+          } else {
+            mediaItem = createUnsupportedItem(file.type, file.name);
+          }
+          stack.prepend(mediaItem);
+  
+          // Upload the file after creating the media item
+          uploadFileWithProgress(file, index);
+        };
+  
+        reader.readAsDataURL(file);
+      })(files[i], i);
     }
+  
     stack.on('click', '.delete-icon', function () {
-        $(this).closest('.media-item').remove();
+      $(this).closest('.media-item').remove();
     });
-}
+  }
+  
 
 function createImageItem(file, imageUrl, index) {
     return $(`
@@ -387,19 +398,41 @@ function createVideoItem(file, videoUrl, index) {
     `);
 }
 
-function createPdfItem(file, pdfUrl) {
+function createDocumentItem(fileType, fileName, index) {
+    var iconClass;
+  
+    // Set icon class based on file type (optional)
+    switch (fileType) {
+      case 'application/pdf':
+        iconClass = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWZpbGUiPjxwYXRoIGQ9Ik0xNSAySDZhMiAyIDAgMCAwLTIgMnYxNmEyIDIgMCAwIDAgMiAyaDEyYTIgMiAwIDAgMCAyLTJWN1oiLz48cGF0aCBkPSJNMTQgMnY0YTIgMiAwIDAgMCAyIDJoNCIvPjwvc3ZnPg==';
+        break;
+      case 'application/msword': // DOC
+      case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': // DOCX
+        iconClass = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWZpbGUtdGV4dCI+PHBhdGggZD0iTTE1IDJINmEyIDIgMCAwIDAtMiAydjE2YTIgMiAwIDAgMCAyIDJoMTJhMiAyIDAgMCAwIDItMlY3WiIvPjxwYXRoIGQ9Ik0xNCAydjRhMiAyIDAgMCAwIDIgMmg0Ii8+PHBhdGggZD0iTTEwIDlIOCIvPjxwYXRoIGQ9Ik0xNiAxM0g4Ii8+PHBhdGggZD0iTTE2IDE3SDgiLz48L3N2Zz4=';
+        break;
+      // Add cases for other document types with appropriate icons
+      default:
+        iconClass = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWZpbGUiPjxwYXRoIGQ9Ik0xNSAySDZhMiAyIDAgMCAwLTIgMnYxNmEyIDIgMCAwIDAgMiAyaDEyYTIgMiAwIDAgMCAyLTJWN1oiLz48cGF0aCBkPSJNMTQgMnY0YTIgMiAwIDAgMCAyIDJoNCIvPjwvc3ZnPg==';
+    }
+  
     return $(`
-        <div class="media-item relative group w-full h-40">
-            <iframe src="${pdfUrl}" width="100%" height="100%"></iframe>
-            <p>${file.name}</p>
-            <div class="screen absolute w-full h-full bg-black/20 flex justify-center items-center p-10 top-0 left-0">                                    
-                <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                    <div class="progress-bar bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
-                </div>
-            </div>
-        </div>
+    <div class="media-item relative group w-full h-40 flex items-center justify-center">
+    <svg class="w-12 h-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+        <title>Document Icon</title> <path d="${iconClass}" />
+    </svg>
+  
+
+        <p class="text-center text-sm mt-2 truncate">${fileName}</p>
+        <button class="delete-icon absolute top-3 right-3 bg-white text-gray-600 p-1 rounded-full opacity-0 group-hover:opacity-100" data-index="${index}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+        </button>
+    </div>
     `);
-}
+  }
+  
 
 function createUnsupportedItem(file) {
     return $(`
@@ -412,42 +445,48 @@ function createUnsupportedItem(file) {
 
 function uploadFileWithProgress(file, index) {
     const uploadEndpoint = API_BASE_URL + API_ENDPOINTS.UPLOAD_DOCUMENTS;
-
+  
     const formData = new FormData();
     formData.append('files', file);
     formData.append('fileName', getNewContentId() + "_" + file.name);
-
+  
     const xhr = new XMLHttpRequest();
     xhr.open('POST', uploadEndpoint, true);
-
+  
+    // Show progress bar after a short delay, even if progress isn't immediate
+    setTimeout(() => {
+      const progressBar = $('.media-item:eq(' + index + ') .progress-bar');
+      progressBar.css('width', '0%'); // Start with 0% initially
+      progressBar.removeClass('hidden'); // Make the progress bar visible
+    }, 250); // Adjust delay as needed (e.g., 250 milliseconds)
+  
     xhr.upload.addEventListener('progress', function (e) {
-        if (e.lengthComputable) {
-            const percentComplete = (e.loaded / e.total) * 100;
-            // Update the progress bar based on the percentComplete value
-            updateProgressBar(index, percentComplete);
-        }
+      if (e.lengthComputable) {
+        const percentComplete = (e.loaded / e.total) * 100;
+        updateProgressBar(index, percentComplete);
+      }
     });
-
-    xhr.onload = function () { 
-        if (xhr.status === 200) {
-            // Successful upload
-            const response = JSON.parse(xhr.responseText);
-            // Handle the response as needed
-        } else {
-            // Error during upload
-            console.error('Upload failed with status:', xhr.status);
-            // Handle the error as needed
-        }
-    };
-
-    xhr.onerror = function () {
-        console.error('Error during upload');
+  
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        // Successful upload
+        const response = JSON.parse(xhr.responseText);
+        // Handle the response as needed
+      } else {
+        // Error during upload
+        console.error('Upload failed with status:', xhr.status);
         // Handle the error as needed
+      }
     };
-
+  
+    xhr.onerror = function () {
+      console.error('Error during upload');
+      // Handle the error as needed
+    };
+  
     xhr.send(formData);
-}
-
+  }
+  
 // Update the progress bar based on the upload progress
 function updateProgressBar(index, percentComplete) {
     const progressBar = $('.media-item:eq(' + index + ') .progress-bar');
@@ -551,7 +590,6 @@ function getDepartment() {
     });
 }     
 
-
 function filterContent(filters) {
     let filteredContent = contentData.Result;
 
@@ -577,6 +615,7 @@ function filterContent(filters) {
 
     renderContent(filteredContent);
 }
+
 function isEmptyObject(obj) {
     for (const key in obj) {
         if (obj.hasOwnProperty(key)) {
@@ -585,6 +624,7 @@ function isEmptyObject(obj) {
     }
     return true;
 }
+
 function filterContentBySearch(searchText) {
     const filteredContent = contentData.Result.filter(item => {
         return item.Title.toLowerCase().includes(searchText) || item.Description.toLowerCase().includes(searchText);
@@ -592,10 +632,12 @@ function filterContentBySearch(searchText) {
 
     renderContent(filteredContent);
 }
+
 function markActiveTag(activeTag) {
     $('button[data-tag]').removeClass('bg-primary text-white');
     $(`button[data-tag="${activeTag}"]`).addClass('bg-primary text-white');
 }
+
 function loadContent(route) {
 // Load content based on the selected route
     switch (route) {
@@ -609,6 +651,7 @@ function loadContent(route) {
             $('#content').html('<h2>Page Not Found</h2>');
     }
 }
+
 function modal(id){
     console.log(id)
     moretoggle()
@@ -618,6 +661,7 @@ function moretoggle(){
     $('.more').toggleClass('hidden');
     animateMore()
 }
+
 function loadSidebar() {
     const $nav = $('#sidebar');
     console.log(menu);

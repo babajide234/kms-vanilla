@@ -58,13 +58,13 @@
                 </div>
                 <div class="flex items-center gap-5">
                     <button id="submit" class="py-[8px] px-[14px] bg-[#900000] capitalize text-sm rounded-lg text-white font-semibold " onclick="SubmitContent()">Submit for review</button>
-                    <button class="py-2 px-2  rounded-lg hover:bg-gray-50">
+                    <button title="btn" class="py-2 px-2  rounded-lg hover:bg-gray-50">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round-plus"><path d="M2 21a8 8 0 0 1 13.292-6"/><circle cx="10" cy="8" r="5"/><path d="M19 16v6"/><path d="M22 19h-6"/></svg>
                     </button>
-                    <button class="py-2 px-2  rounded-lg hover:bg-gray-50">
+                    <button title="btn" class="py-2 px-2  rounded-lg hover:bg-gray-50">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
                     </button>
-                    <button class="py-2 px-2  rounded-lg hover:bg-gray-50">
+                    <button title="btn" class="py-2 px-2  rounded-lg hover:bg-gray-50">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#3F3F3F" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z" stroke="#3F3F3F" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
@@ -81,7 +81,7 @@
                     </div>
                     <div class="mb-3">
                         <h2 class="mb-3 text-md font-semibold capitalize">Content Type</h2>
-                        <select name="contentType" id="contentType" class=" px-2 py-1 outline-none rounded-md border border-gray-300 border-solid">
+                        <select title="contentType" name="contentType" id="contentType" class=" px-2 py-1 outline-none rounded-md border border-gray-300 border-solid">
                             <option value="article" class="">Article</option>
                             <option value="document" class="">Document</option>
                             <option value="video" class="">Video</option>
@@ -131,7 +131,7 @@
                         <h2 class="mb-3 text-md font-semibold capitalize">content</h2>
                         <div id="documentStack" class=" grid grid-cols-3 gap-2">
                                                       
-                            <label for="mediaUpload"  data-type="document" class="media-upload-container w-full h-40 px-2.5 py-3.5 bg-white hover:cursor-pointer hover:border-primary rounded border border-gray-200 border-dashed flex-col justify-center items-center gap-5 inline-flex">
+                            <label for="docUpload"  data-type="document" class="media-upload-container w-full h-40 px-2.5 py-3.5 bg-white hover:cursor-pointer hover:border-primary rounded border border-gray-200 border-dashed flex-col justify-center items-center gap-5 inline-flex">
                                 <div class="w-6 h-6 relative">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-plus">
                                         <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7" />
@@ -142,7 +142,7 @@
                                     </svg>
                                 </div>
                                 <div class="self-stretch h-10 text-center text-zinc-600 text-sm font-normal  leading-tight">Choose media or drag and drop it here</div>
-                                <input type="file" class="hidden" id="mediaUpload" multiple accept=".pdf, application/pdf, .doc, .docx, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                                <input type="file" class="hidden" id="docUpload" multiple accept=".pdf,.doc,.docx" />
                             </label>
                         </div>
                     </div>
